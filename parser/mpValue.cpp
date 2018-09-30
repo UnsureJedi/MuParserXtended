@@ -258,34 +258,10 @@ Value::Value(const IValue &a_Val)
         break;
 
 	case 'A': 
-		if (!Array_Size)
-		{
-			Array_Size = a_Val.Get_Array_Size();
-			Variable* Array_Value_Temp = a_Val.Get_Array();
-			Array_Value = new Variable[Array_Size];
-			Array_Value_Deleted = new bool[Array_Size];
-			for (int i = 0; i < Array_Size; i++)
-			{
-				Array_Value[i].~Variable();
-				Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'v')))).Get()));
-				*Array_Value[i].m_pVal = *Array_Value_Temp[i].m_pVal;//->Clone();
-				Array_Value[i].Set_Index_In_Array(i);
-				Array_Value_Deleted[i] = 0; // Redem note: change that to a_Val's values
-			}
-		}
-		else
-		{
-			delete[] Array_Value;
-			Array_Size = a_Val.Get_Array_Size();
-			Variable* Array_Value_Temp = a_Val.Get_Array();
-			Array_Value = new Variable[Array_Size];
-			for (int i = 0; i < Array_Size; i++)
-			{
-				Array_Value[i].~Variable();
-				Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'v')))).Get()));
-				*Array_Value[i].m_pVal = *Array_Value_Temp[i].m_pVal;//->Clone();
-			}
-		}
+		Array_Size = a_Val.Get_Array_Size();
+		Array_Value = a_Val.Get_Array();
+		Array_Value_Deleted = a_Val.Get_Array_Value_Deleted_Status();
+
 		break;
 
     case 'v': break;
@@ -347,24 +323,6 @@ Value::~Value()
 {
     delete m_psVal;
     delete m_pvVal;
-
-	if (Index_In_Array >= 0 && Array_Start_Ptr)
-	{
-		Array_Start_Ptr->Mark_Array_Element_As_Deleted(Index_In_Array);
-	}
-	bool Delete_Array = 0;
-	for (int i = 0; i < Array_Size; i++)
-	{
-		if (!Array_Value_Deleted[i])
-			Array_Value[i].Delete_Value();
-		Delete_Array = 1;
-	}
-	if (Delete_Array)
-	{
-		Array_Size = 0;
-		delete[] Array_Value;
-	}
-	Array_Value = nullptr;
 }
 
 //---------------------------------------------------------------------------
@@ -393,17 +351,9 @@ void Value::Assign(const Value &ref)
 	if (ref.GetType() == 'A')
 	{
 		Array_Size = ref.Get_Array_Size();
-		Variable* Array_Value_Temp = ref.Get_Array();
-		Array_Value = new Variable[Array_Size];
-		Array_Value_Deleted = new bool[Array_Size];
-		for (int i = 0; i < Array_Size; i++)
-		{
-			Array_Value[i].~Variable();
-			Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'v')))).Get()));
-			*Array_Value[i].m_pVal = *Array_Value_Temp[i].m_pVal;//->Clone();
-			Array_Value[i].Set_Index_In_Array(i);
-			Array_Value_Deleted[i] = 0; // Redem note: change that to a_Val's values
-		}
+		Array_Value = ref.Get_Array();
+		Array_Value_Deleted = ref.Get_Array_Value_Deleted_Status();
+
 		return;
 	}
 
@@ -447,8 +397,8 @@ void Value::Assign(const Value &ref)
 IValue& Value::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
 {
 	Array_Size = Size;
-	Array_Value = new Variable[Size];	// Allocating array of values
-	Array_Value_Deleted = new bool[Array_Size];
+	Array_Value = std::shared_ptr<Variable[]>(new Variable[Size]);	// Allocating array of values
+	Array_Value_Deleted = std::shared_ptr<bool[]>(new bool[Size]);
 	//ptr_val_type * val_ptr_buf;	// this pointer will be deleted at every loop iteration, unlike the data it points to, so that data will persist after loop
 	for (int i = 0; i < Size; i++)
 	{
@@ -485,45 +435,10 @@ IValue& Value::operator=(Value* val)
 {
 	if (val->GetType() == 'A')
 	{
-		if (!Array_Size)
-		{
-			Array_Size = val->Get_Array_Size();
-			Variable* Array_Value_Temp = val->Get_Array();
-			Array_Value = new Variable[Array_Size];
-			Array_Value_Deleted = new bool[Array_Size];
-			for (int i = 0; i < Array_Size; i++)
-			{
-				Array_Value[i].~Variable();
-				Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'v')))).Get()));
-				*Array_Value[i].m_pVal = *Array_Value_Temp[i].m_pVal;//->Clone();
-				Array_Value[i].Set_Array_Start_m_pVal(this);	// Connect element of the Array to Start Variable
-				Array_Value[i].Set_Index_In_Array(i);
-				Array_Value_Deleted[i] = 0; // Redem note: change that to a_Val's values
-			}
-		}
-		else
-		{
-			// If this Value already has an array, delete it first
-			for (int i = 0; i < Array_Size; i++)
-			{
-				Array_Value[i].Delete_Value();
-			}
-			delete[] Array_Value;
-			delete[] Array_Value_Deleted;
-			Array_Size = val->Get_Array_Size();
-			Variable* Array_Value_Temp = val->Get_Array();
-			Array_Value = new Variable[Array_Size];
-			Array_Value_Deleted = new bool[Array_Size];
-			for (int i = 0; i < Array_Size; i++)
-			{
-				Array_Value[i].~Variable();
-				Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'v')))).Get()));
-				*Array_Value[i].m_pVal = *Array_Value_Temp[i].m_pVal;//->Clone();
-				Array_Value[i].Set_Array_Start_m_pVal(this);	// Connect element of the Array to Start Variable
-				Array_Value[i].Set_Index_In_Array(i);
-				Array_Value_Deleted[i] = 0; // Redem note: change that to a_Val's values
-			}
-		}
+		Array_Size = val->Get_Array_Size();
+		Array_Value = val->Get_Array();
+		Array_Value_Deleted = val->Get_Array_Value_Deleted_Status();
+
 		m_cType = 'A';
 		m_iFlags = flNONE;
 		return *this;
@@ -938,21 +853,26 @@ void Value::Delete_Array()
 	bool Delete_Array = 0;
 	for (int i = 0; i < Array_Size; i++)
 	{
-		if (!Array_Value_Deleted[i])
-			Array_Value[i].Delete_Value();
+		/*if (!Array_Value_Deleted[i])
+			Array_Value[i].Delete_Value();*/
 		Delete_Array = 1;
 	}
 	if (Delete_Array)
 	{
 		Array_Size = 0;
-		delete[] Array_Value;
+		//delete[] Array_Value;
 	}
 }
 
 //---------------------------------------------------------------------------
-Variable* Value::Get_Array() const
+std::shared_ptr<Variable[]> Value::Get_Array() const
 {
 	return Array_Value;
+}
+
+std::shared_ptr<bool[]> Value::Get_Array_Value_Deleted_Status() const
+{
+	return Array_Value_Deleted;
 }
 
 //---------------------------------------------------------------------------
@@ -1107,17 +1027,18 @@ void Value::Release()
 	// Maybe later I'll do a cache release for arrays.
 	if (Array_Value && Array_Size)
 	{
+		
 		for (int i = 0; i < Array_Size; i++)
 		{
 			// Delete array members if they haven't been
 			if (!Array_Value_Deleted[i])
 			{
 				Array_Value[i].Delete_Value();
-				Array_Value[i].~Variable();
+				//Array_Value[i].~Variable();
 				Array_Value_Deleted[i] = 1;
 			}
 		}
-		Array_Value = nullptr;
+		Array_Value.~shared_ptr();
 		Array_Size = 0;
 		delete this;
 	}

@@ -74,7 +74,7 @@ MUP_NAMESPACE_START
 
 			//IValue& buf = ret->Index_Array(index, dimension, ret);
 			//buf.Set_Array_TokenPtr(ret);
-			ret->Index_Array(index, dimension, ret);
+			ret->Index_Array(index, dimension, ret);	// Continue here. ret gets its Array_Value deleted somewhere prior. Find where and fix it.
 		}
 		else // It is a matrix
         try

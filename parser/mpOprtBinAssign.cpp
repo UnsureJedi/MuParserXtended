@@ -85,7 +85,7 @@ MUP_NAMESPACE_START
 		*pVar = a_pArg[1]->GetString();
 	else if (a_pArg[1]->GetType() == 'A')
 	{
-		const ptr_val_type* debug = &a_pArg[1];
+		//const ptr_val_type* debug = &a_pArg[1];
 		*pVar = *a_pArg[1];
 		if (a_pArg[1]->AsValue())				// Redem: delete the Array_Value without deleting the containing Value, since it will be referenced later. Ugly, but for now I don't care as long as it works..
 		{

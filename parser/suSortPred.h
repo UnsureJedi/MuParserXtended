@@ -44,19 +44,19 @@ namespace su
     */
     template<class TString>
 	  struct SortByLength
-      :public std::binary_function<TString, TString, bool>
+      //:public std::binary_function<TString, TString, bool>
 	  {	
-	    bool operator()(const TString& a_sLeft, const TString& a_sRight) const
-      {	
-        if (a_sLeft.length() == a_sRight.length())
-        {
-          return a_sLeft < a_sRight;
-        }
-        else
-        {
-          return a_sLeft.length() < a_sRight.length();
-        }
-      }
+	      bool operator()(const TString& a_sLeft, const TString& a_sRight) const
+		  {	
+			if (a_sLeft.length() == a_sRight.length())
+			{
+			  return a_sLeft < a_sRight;
+			}
+			else
+			{
+			  return a_sLeft.length() < a_sRight.length();
+			}
+		  }
 	  };
   } // namespace pred
 } // end of namespace

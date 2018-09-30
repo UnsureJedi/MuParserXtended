@@ -316,17 +316,14 @@ Variable::Variable()
     }
 
 	//-----------------------------------------------------------------------------------------------
-	Variable* Variable::Get_Array() const
+	std::shared_ptr<Variable[]> Variable::Get_Array() const
 	{
-		try
-		{
-			return m_pVal->Get_Array();
-		}
-		catch (ParserError &exc)
-		{
-			exc.GetContext().Ident = GetIdent();
-			throw;
-		}
+		return m_pVal->Get_Array();
+	}
+
+	std::shared_ptr<bool[]> Variable::Get_Array_Value_Deleted_Status() const
+	{
+		return m_pVal->Get_Array_Value_Deleted_Status();
 	}
 
 	void Variable::Delete_Array()

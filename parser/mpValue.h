@@ -100,7 +100,8 @@ MUP_NAMESPACE_START
     virtual const string_type& GetString() const override;
     virtual const matrix_type& GetArray() const override;
 	virtual void Delete_Array() override;
-	virtual Variable* Get_Array() const override;	// Redem note: function for getting the 1D array of Values (not vector- or map-based).
+	virtual std::shared_ptr<Variable[]> Get_Array() const override;	// Redem note: function for getting the 1D array of Values (not vector- or map-based).
+	virtual std::shared_ptr<bool[]> Get_Array_Value_Deleted_Status() const override;
 	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const override;	// Get the array Variable at specified index or indices
 	virtual Variable& Get_Variable_At_Array_Index(int index) const override;
 	virtual void Set_Array_Start_m_pVal(IValue* p);
@@ -136,8 +137,8 @@ MUP_NAMESPACE_START
     cmplx_type   m_val;    ///< Member variable for storing the value of complex, float, int and boolean values
     string_type *m_psVal;  ///< Variable for storing a string value
     matrix_type *m_pvVal;  ///< A Vector for storing array variable content
-	Variable* Array_Value;	// A pointer for array of Values
-	bool* Array_Value_Deleted;	// An array that keeps track of which elements of Array_Value have been already deleted, so they are not accessed again, when Array destructor is called. 
+	std::shared_ptr<Variable[]> Array_Value;	// A pointer for array of Values
+	std::shared_ptr<bool[]> Array_Value_Deleted;	// An array that keeps track of which elements of Array_Value have been already deleted, so they are not accessed again, when Array destructor is called. 
 	int Array_Size = 0;
 	IValue* Array_Start_Ptr = 0;
 	int Index_In_Array;	// if this Value is an Array element, this variable is an index of this element in Array_Value, containing it. -1 means that this Value is not an Array member
