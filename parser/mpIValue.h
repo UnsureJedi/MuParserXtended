@@ -74,10 +74,11 @@ MUP_NAMESPACE_START
     virtual IValue& operator=(float_type val) = 0;
     virtual IValue& operator=(string_type val) = 0;
     virtual IValue& operator=(bool_type val) = 0;
+	virtual IValue& operator=(Value* val) = 0;
     virtual IValue& operator=(const cmplx_type &val) = 0;
     virtual IValue& operator=(const matrix_type &val) = 0;
             IValue& operator=(const IValue &ref);
-
+	
     virtual IValue& operator+=(const IValue &ref) = 0;
     virtual IValue& operator-=(const IValue &ref) = 0;
     virtual IValue& operator*=(const IValue &ref) = 0;
@@ -92,6 +93,21 @@ MUP_NAMESPACE_START
     virtual const cmplx_type& GetComplex() const = 0;
     virtual const string_type&  GetString() const = 0;
     virtual const matrix_type& GetArray() const = 0;
+	virtual Variable* Get_Array() const = 0;
+	virtual void Delete_Array() = 0;
+	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const = 0;
+	virtual Variable& Get_Variable_At_Array_Index(int index) const = 0;
+	virtual IValue* Get_Array_Start_m_pVal() = 0;
+	virtual void Set_Array_Start_m_pVal(IValue* p) = 0;
+	virtual void Mark_Array_Element_As_Deleted(int index) = 0;
+	virtual void Set_Index_In_Array(int index) = 0;
+
+	virtual void Set_m_pVal(IValue* p) = 0;
+	virtual IValue* Get_m_pVal() = 0;
+	virtual int Get_Array_Size() const = 0;	// Redem: honk
+	virtual Value* Get_Value() const = 0;	// Get the pointer to Value object
+	virtual void Delete_Value() = 0;
+	virtual IValue& Initialize_Array(ptr_val_type Array_Start_Ptr, int Size) = 0;	// Redem: honk
     virtual char_type GetType() const = 0;
     virtual int GetRows() const = 0;
     virtual int GetCols() const = 0;
@@ -174,8 +190,12 @@ MUP_NAMESPACE_START
       return GetType() == 's';  
     }
 
+	//void Increase_Reference_Number() { Reference_Number++; };
+	//int Decrease_Reference_Number() { return --Reference_Number; };
+	//int Reference_Number;
   protected:
     virtual ~IValue();
+
   }; // class IValue
 
   //---------------------------------------------------------------------------------------------

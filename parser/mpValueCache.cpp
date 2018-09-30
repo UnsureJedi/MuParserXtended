@@ -56,11 +56,18 @@ MUP_NAMESPACE_START
   {
     for (std::size_t i=0; i<m_vCache.size(); ++i)
     {
+		
+
       delete m_vCache[i];
       m_vCache[i] = nullptr;
     }
 
     m_nIdx = -1;
+  }
+
+  std::vector<Value*>* ValueCache::Get_m_vCache()
+  {
+	  return &m_vCache;
   }
 
   //------------------------------------------------------------------------------

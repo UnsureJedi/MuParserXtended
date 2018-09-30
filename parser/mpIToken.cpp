@@ -86,7 +86,7 @@ MUP_NAMESPACE_START
 
     console() << "\n";     
     console() << "Memory leakage report:\n\n";     
-    if (IToken::s_Tokens.size())
+    if (IToken::s_Tokens.size())	// Continue here. Now that tokens are no longer leaking I need to remove leaks beside tokens, as memory usage shows. Delete temporary variables, Array_Value_Deleted, etc. Use memory profiler.
     {
       list<IToken*>::const_iterator item = IToken::s_Tokens.begin();
       std::vector<int> stat(cmCOUNT, 0);

@@ -39,8 +39,15 @@
 
 
 MUP_NAMESPACE_START
-
-  //-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+// Default variable constructor, for use with "new" array allocation  
+Variable::Variable()
+	:IValue(cmVAL)
+	, m_pVal(nullptr)
+{
+	AddFlags(IToken::flVOLATILE);
+}
+//-----------------------------------------------------------------------------------------------
   /** \brief Create a variable and bind a value to it.
       \param pVal Pointer of the value to bind to this variable.
 
@@ -110,6 +117,13 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------------------------------
+  IValue& Variable::operator=(Value* val)
+  {
+	  assert(m_pVal);
+	  return m_pVal->operator=(val);
+  }
+
+  //-----------------------------------------------------------------------------------------------
   IValue& Variable::operator=(const matrix_type &val)
   {
     assert(m_pVal);
@@ -168,7 +182,14 @@ MUP_NAMESPACE_START
   //-----------------------------------------------------------------------------------------------
   Variable::~Variable()
   {}
-
+  /*
+  void Variable::Release()
+  {
+	  if (m_pVal)
+		m_pVal->Delete_Value();
+	  delete this;
+  }
+  */
   //-----------------------------------------------------------------------------------------------
   void Variable::Assign(const Variable &ref)
   {
@@ -293,6 +314,131 @@ MUP_NAMESPACE_START
             throw;
         }
     }
+
+	//-----------------------------------------------------------------------------------------------
+	Variable* Variable::Get_Array() const
+	{
+		try
+		{
+			return m_pVal->Get_Array();
+		}
+		catch (ParserError &exc)
+		{
+			exc.GetContext().Ident = GetIdent();
+			throw;
+		}
+	}
+
+	void Variable::Delete_Array()
+	{
+		m_pVal->Delete_Array();
+	}
+
+	//-----------------------------------------------------------------------------------------------
+	void Variable::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
+	{
+		try
+		{
+			return m_pVal->Index_Array(index, dimension, ptr);
+		}
+		catch (ParserError &exc)
+		{
+			exc.GetContext().Ident = GetIdent();
+			throw;
+		}
+	}
+
+	Variable& Variable::Get_Variable_At_Array_Index(int index) const
+	{
+		try
+		{
+			return m_pVal->Get_Variable_At_Array_Index(index);
+		}
+		catch (ParserError &exc)
+		{
+			exc.GetContext().Ident = GetIdent();
+			throw;
+		}
+	}
+
+	//-----------------------------------------------------------------------------------------------
+	IValue * Variable::Get_Array_Start_m_pVal()
+	{
+		return m_pVal->Get_Array_Start_m_pVal();
+	}
+
+	//-----------------------------------------------------------------------------------------------
+	void Variable::Set_Array_Start_m_pVal(IValue* p)
+	{
+		m_pVal->Set_Array_Start_m_pVal(p);
+	}
+
+	void Variable::Mark_Array_Element_As_Deleted(int index)
+	{
+		m_pVal->Mark_Array_Element_As_Deleted(index);
+	}
+
+	void Variable::Set_Index_In_Array(int index)
+	{
+		m_pVal->Set_Index_In_Array(index);
+	}
+
+	//-----------------------------------------------------------------------------------------------
+	void Variable::Set_m_pVal(IValue* p)
+	{
+		m_pVal = p;
+	}
+
+	IValue* Variable::Get_m_pVal()
+	{
+		return m_pVal;
+	}
+
+	//-----------------------------------------------------------------------------------------------
+	Value* Variable::Get_Value() const
+	{
+		try
+		{
+			return m_pVal->Get_Value();
+		}
+		catch (ParserError &exc)
+		{
+			exc.GetContext().Ident = GetIdent();
+			throw;
+		}
+	}
+
+	//-----------------------------------------------------------------------------------------------
+	void Variable::Delete_Value()
+	{
+//		if (m_pVal->Decrease_Reference_Number() == 0)	// Check that no other Variable references this array
+			m_pVal->Delete_Value();
+		/*else if (Reference_Number < 0)
+			throw;*/
+	}
+
+	//-----------------------------------------------------------------------------------------------
+	int Variable::Get_Array_Size() const
+	{
+		try
+		{
+			return m_pVal->Get_Array_Size();
+		}
+		catch (ParserError &exc)
+		{
+			exc.GetContext().Ident = GetIdent();
+			throw;
+		}
+	}
+
+
+
+	//-----------------------------------------------------------------------------------------------
+	IValue& Variable::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
+	{
+		m_pVal -> Initialize_Array(Array_Start_Ptr, Size);
+		return *this;
+	}
 
     //-----------------------------------------------------------------------------------------------
     int Variable::GetRows() const

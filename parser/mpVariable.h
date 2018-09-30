@@ -52,6 +52,7 @@ MUP_NAMESPACE_START
   {
   public:
 
+	Variable();
     Variable(IValue *pVal);
 
     Variable(const Variable &a_Var);
@@ -67,11 +68,19 @@ MUP_NAMESPACE_START
     virtual IValue& operator=(float_type val);
     virtual IValue& operator=(string_type val);
     virtual IValue& operator=(bool_type val);
+	virtual IValue& operator=(Value* val);
     virtual IValue& operator+=(const IValue &ref);
     virtual IValue& operator-=(const IValue &ref);
     virtual IValue& operator*=(const IValue &val);
 
+	virtual IValue* Get_Array_Start_m_pVal();
+	virtual void Set_Array_Start_m_pVal(IValue* p);
+	virtual void Mark_Array_Element_As_Deleted(int index);
+	virtual void Set_Index_In_Array(int index);
+	virtual void Variable::Set_m_pVal(IValue* p);
+	virtual IValue* Get_m_pVal();
     virtual ~Variable();
+	//virtual void Release();	// Redem: Added this because damn thing crashes it when running "val = buf;" and val is a variable.
 
     virtual char_type GetType() const;
     
@@ -82,6 +91,14 @@ MUP_NAMESPACE_START
     virtual const cmplx_type& GetComplex() const;
     virtual const string_type& GetString() const;
     virtual const matrix_type& GetArray() const;
+	virtual Variable* Get_Array() const;
+	virtual void Delete_Array();
+	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const;
+	virtual Variable& Get_Variable_At_Array_Index(int index) const;
+	virtual Value* Get_Value() const;
+	virtual void Delete_Value();
+	virtual int Get_Array_Size() const;
+	virtual IValue & Initialize_Array(ptr_val_type Array_Start_Ptr, int Size = 0);	// Redem note: Normally, this function should be called from Value class. It's purpose here is to fill the overrider for Variable class
     virtual int GetRows() const;
     virtual int GetCols() const;
 
@@ -98,10 +115,14 @@ MUP_NAMESPACE_START
     IValue* GetPtr() const;
     string_type AsciiDump() const;
 
+	IValue *m_pVal; // Redem note: public for debug only!! If I forgot to put it in private, do it.   ///< Pointer to the value object bound to this variable
   private:
 
-    IValue *m_pVal;    ///< Pointer to the value object bound to this variable
-
+    
+	/*
+	void Increase_Reference_Number() { Reference_Number++; };
+	int Decrease_Reference_Number() { return --Reference_Number; };
+	*/
     void Assign(const Variable &a_Var);
     void CheckType(char_type a_cType) const;
   }; // class Variable

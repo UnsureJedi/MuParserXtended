@@ -226,6 +226,17 @@ MUP_NAMESPACE_START
         return *this;
       }
 
+	  // Simply copy the m_pTok, without changing reference numbers
+	  TokenPtr& Copy_m_pTok(const TokenPtr &p)
+	  {
+		  if (p.m_pTok)
+			  p.m_pTok->IncRef();
+
+		  m_pTok = p.m_pTok;
+
+		  return *this;
+	  }
+
   private:
       IToken *m_pTok;
   };

@@ -92,6 +92,7 @@ Value operator*(const IValue& lhs, const IValue& rhs)
 //---------------------------------------------------------------------------
 IValue::IValue(ECmdCode a_iCode)
     :IToken(a_iCode)
+	//, Reference_Number(1)
 {
     assert(a_iCode == cmVAL);
 }
@@ -99,6 +100,7 @@ IValue::IValue(ECmdCode a_iCode)
 //---------------------------------------------------------------------------
 IValue::IValue(ECmdCode a_iCode, const string_type &a_sIdent)
     :IToken(a_iCode, a_sIdent)
+	//, Reference_Number(1)
 {
     assert(a_iCode == cmVAL);
 }
@@ -183,6 +185,7 @@ string_type IValue::ToString() const
     case 's':  ss << _T("\"") << GetString() << _T("\""); break;
     case 'b':  ss << ((GetBool() == true) ? _T("true") : _T("false")); break;
     case 'v':  ss << _T("void"); break;
+	case 'A':  ss << _T("Array"); break;
     default:   ss << _T("internal error: unknown value type."); break;
     }
 
@@ -428,7 +431,7 @@ IValue& IValue::operator=(const IValue &ref)
 {
     if (this == &ref)
         return *this;
-
+	
     switch (ref.GetType())
     {
     case 'i':
@@ -437,6 +440,8 @@ IValue& IValue::operator=(const IValue &ref)
     case 's': return *this = ref.GetString();
     case 'm': return *this = ref.GetArray();
     case 'b': return *this = ref.GetBool();
+	case 'A': 
+		return *this = ref.Get_Value();
     case 'v':
         throw ParserError(_T("Assignment from void type is not possible"));
 

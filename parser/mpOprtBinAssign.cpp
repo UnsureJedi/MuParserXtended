@@ -64,7 +64,7 @@ MUP_NAMESPACE_START
   void OprtAssign::Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int)
   {
     Variable *pVar = dynamic_cast<Variable*>(a_pArg[0].Get());
-
+	//ptr_val_type lol = a_pArg[1];
     // assigment to non variable type
     if (!pVar)
     {
@@ -74,13 +74,28 @@ MUP_NAMESPACE_START
       err.Errc  = ecASSIGNEMENT_TO_VALUE;
       throw ParserError(err);
     }
+
+	ret->Set_Array_Start_m_pVal(pVar->Get_Array_Start_m_pVal());
+
 	if (a_pArg[1]->GetType() == 'f')
 		*pVar = a_pArg[1]->GetFloat();
 	else if (a_pArg[1]->GetType() == 'i')
 		*pVar = a_pArg[1]->GetInteger();
-	else
+	else if (a_pArg[1]->GetType() == 's')
+		*pVar = a_pArg[1]->GetString();
+	else if (a_pArg[1]->GetType() == 'A')
+	{
+		const ptr_val_type* debug = &a_pArg[1];
+		*pVar = *a_pArg[1];
+		if (a_pArg[1]->AsValue())				// Redem: delete the Array_Value without deleting the containing Value, since it will be referenced later. Ugly, but for now I don't care as long as it works..
+		{
+			a_pArg[1]->Delete_Array();
+		}
+	}
+	else // This last case takes much more time to assign because entire IValue object gets copied
 		*pVar = *a_pArg[1]; //pVar->SetFloat(a_pArg[1]->GetFloat());
-    *ret = *pVar; 
+    *ret = *pVar;
+	//pVar->Set_Array_TokenPtr(nullptr);
   }
 
   //---------------------------------------------------------------------

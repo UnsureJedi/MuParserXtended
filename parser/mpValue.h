@@ -55,8 +55,8 @@ MUP_NAMESPACE_START
   class Value : public IValue
   {
   public:
-
-    explicit Value(char_type cType = 'v');
+	Value();
+    explicit Value(char_type cType);
 
     Value(int_type val);
     Value(bool_type val);
@@ -76,19 +76,20 @@ MUP_NAMESPACE_START
 
     virtual ~Value();
  
-    virtual IValue& At(int nRow, int nCol = 0) override;
-    virtual IValue& At(const IValue &row, const IValue &col) override;
+    virtual IValue& At(int nRow, int nCol = 0);
+    virtual IValue& At(const IValue &row, const IValue &col);
 
-    virtual IValue& operator=(int_type a_iVal) override;
-    virtual IValue& operator=(float_type a_fVal) override;
-    virtual IValue& operator=(string_type a_sVal) override;
-    virtual IValue& operator=(bool val) override;
-    virtual IValue& operator=(const matrix_type &a_vVal) override;
-    virtual IValue& operator=(const cmplx_type &val) override;
+    virtual IValue& operator=(int_type a_iVal);
+    virtual IValue& operator=(float_type a_fVal);
+    virtual IValue& operator=(string_type a_sVal);
+    virtual IValue& operator=(bool val);
+	virtual IValue& operator=(Value* val);
+    virtual IValue& operator=(const matrix_type &a_vVal);
+    virtual IValue& operator=(const cmplx_type &val);
     virtual IValue& operator=(const char_type *a_szVal);
-    virtual IValue& operator+=(const IValue &val) override;
-    virtual IValue& operator-=(const IValue &val) override;
-    virtual IValue& operator*=(const IValue &val) override;
+    virtual IValue& operator+=(const IValue &val);
+    virtual IValue& operator-=(const IValue &val);
+    virtual IValue& operator*=(const IValue &val);
 
     virtual char_type GetType() const override;
     virtual int_type GetInteger() const override;
@@ -98,15 +99,28 @@ MUP_NAMESPACE_START
     virtual const cmplx_type& GetComplex() const override;
     virtual const string_type& GetString() const override;
     virtual const matrix_type& GetArray() const override;
+	virtual void Delete_Array() override;
+	virtual Variable* Get_Array() const override;	// Redem note: function for getting the 1D array of Values (not vector- or map-based).
+	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const override;	// Get the array Variable at specified index or indices
+	virtual Variable& Get_Variable_At_Array_Index(int index) const override;
+	virtual void Set_Array_Start_m_pVal(IValue* p);
+	virtual IValue* Get_Array_Start_m_pVal() override;
+	virtual void Mark_Array_Element_As_Deleted(int index);
+	virtual void Set_Index_In_Array(int index);
+	virtual void Set_m_pVal(IValue* p);
+	virtual IValue* Get_m_pVal();
+	virtual int Get_Array_Size() const;	// Redem: honk
+	virtual Value* Get_Value() const;
+	virtual void Delete_Value();
     virtual int GetRows() const override;
     virtual int GetCols() const override;
 
-    virtual bool IsVariable() const override;
+    virtual bool IsVariable() const;
 
-    virtual IToken* Clone() const override;
+    virtual IToken* Clone() const;
     virtual Value* AsValue() override;
 
-    virtual string_type AsciiDump() const override;
+    virtual string_type AsciiDump() const;
     void BindToCache(ValueCache *pCache);
 	
     // Conversion operators
@@ -116,20 +130,27 @@ MUP_NAMESPACE_START
     operator float_type();
     operator bool();
 
+	
   private:
 
     cmplx_type   m_val;    ///< Member variable for storing the value of complex, float, int and boolean values
     string_type *m_psVal;  ///< Variable for storing a string value
     matrix_type *m_pvVal;  ///< A Vector for storing array variable content
-    char_type    m_cType;  ///< A byte indicating the type os the represented value
+	Variable* Array_Value;	// A pointer for array of Values
+	bool* Array_Value_Deleted;	// An array that keeps track of which elements of Array_Value have been already deleted, so they are not accessed again, when Array destructor is called. 
+	int Array_Size = 0;
+	IValue* Array_Start_Ptr = 0;
+	int Index_In_Array;	// if this Value is an Array element, this variable is an index of this element in Array_Value, containing it. -1 means that this Value is not an Array member
+    char_type    m_cType;  ///< A byte indicating the type of the represented value
     EFlags       m_iFlags; ///< Additional flags
     ValueCache  *m_pCache; ///< Pointer to the Value Cache
 
     void CheckType(char_type a_cType) const;
     void Assign(const Value &a_Val);
+	virtual IValue & Initialize_Array(ptr_val_type Array_Start_Ptr, int Size);
     void Reset();
 
-    virtual void Release() override;
+    virtual void Release();
   }; // class Value
 
 

@@ -57,6 +57,7 @@ MUP_NAMESPACE_START
    ~ValueCache();
 
     void ReleaseAll();
+	std::vector<Value*>* Get_m_vCache();
     void ReleaseToCache(Value *pValue);
     Value* CreateFromCache();
 

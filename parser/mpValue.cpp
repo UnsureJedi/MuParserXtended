@@ -31,11 +31,27 @@ POSSIBILITY OF SUCH DAMAGE.
 </pre>
 */
 #include "mpValue.h"
+#include "mpVariable.h"
 #include "mpError.h"
 #include "mpValueCache.h"
 
 
 MUP_NAMESPACE_START
+
+//------------------------------------------------------------------------------
+// Default constructor
+Value::Value()
+	:IValue(cmVAL)
+	, m_val(0, 0)
+	, m_psVal(nullptr)
+	, m_pvVal(nullptr)
+	, Array_Value(nullptr)
+	, Array_Size(0)
+	, m_cType('v')
+	, m_iFlags(flNONE)
+	, m_pCache(nullptr)
+	, Index_In_Array(-1)
+{}
 
 //------------------------------------------------------------------------------
 /** \brief Construct an empty value object of a given type.
@@ -46,9 +62,12 @@ MUP_NAMESPACE_START
     , m_val(0, 0)
     , m_psVal(nullptr)
     , m_pvVal(nullptr)
+	, Array_Value(nullptr)
+	, Array_Size(0)
     , m_cType(cType)
     , m_iFlags(flNONE)
     , m_pCache(nullptr)
+	, Index_In_Array(-1)
 {
     // strings and arrays must allocate their memory
     switch (cType)
@@ -64,9 +83,12 @@ Value::Value(int_type a_iVal)
   ,m_val((float_type)a_iVal, 0)
   ,m_psVal(nullptr)
   ,m_pvVal(nullptr)
+  ,Array_Value(nullptr)
+  ,Array_Size(0)
   ,m_cType('i')
   ,m_iFlags(flNONE)
   ,m_pCache(nullptr)
+  ,Index_In_Array(-1)
 {}
 
 //---------------------------------------------------------------------------
@@ -75,6 +97,8 @@ Value::Value(bool_type a_bVal)
     , m_val((float_type)a_bVal, 0)
     , m_psVal(nullptr)
     , m_pvVal(nullptr)
+	, Array_Value(nullptr)
+	, Array_Size(0)
     , m_cType('b')
     , m_iFlags(flNONE)
     , m_pCache(nullptr)
@@ -86,9 +110,12 @@ Value::Value(string_type a_sVal)
     , m_val()
     , m_psVal(new string_type(a_sVal))
     , m_pvVal(nullptr)
+	, Array_Value(nullptr)
+	, Array_Size(0)
     , m_cType('s')
     , m_iFlags(flNONE)
     , m_pCache(nullptr)
+	, Index_In_Array(-1)
 {}
 
 //---------------------------------------------------------------------------
@@ -97,9 +124,12 @@ Value::Value(int_type array_size, float_type v)
     , m_val()
     , m_psVal(nullptr)
     , m_pvVal(new matrix_type(array_size, Value(v)))
+	, Array_Value(nullptr)
+	, Array_Size(0)
     , m_cType('m')
     , m_iFlags(flNONE)
     , m_pCache(nullptr)
+	, Index_In_Array(-1)
 {}
 
 //---------------------------------------------------------------------------
@@ -110,9 +140,12 @@ Value::Value(int_type m, int_type n, float_type v)
     , m_val()
     , m_psVal(nullptr)
     , m_pvVal(new matrix_type(m, n, Value(v)))
+	, Array_Value(nullptr)
+	, Array_Size(0)
     , m_cType('m')
     , m_iFlags(flNONE)
     , m_pCache(nullptr)
+	, Index_In_Array(-1)
 {}
 
 //---------------------------------------------------------------------------
@@ -121,9 +154,12 @@ Value::Value(const char_type *a_szVal)
     , m_val()
     , m_psVal(new string_type(a_szVal))
     , m_pvVal(nullptr)
+	, Array_Value(nullptr)
+	, Array_Size(0)
     , m_cType('s')
     , m_iFlags(flNONE)
     , m_pCache(nullptr)
+	, Index_In_Array(-1)
 {}
 
 //---------------------------------------------------------------------------
@@ -132,9 +168,12 @@ Value::Value(const cmplx_type &v)
     , m_val(v)
     , m_psVal(nullptr)
     , m_pvVal(nullptr)
+	, Array_Value(nullptr)
+	, Array_Size(0)
     , m_cType('c')
     , m_iFlags(flNONE)
     , m_pCache(nullptr)
+	, Index_In_Array(-1)
 {
     if ((m_val.real() == (int_type)m_val.real()) && (m_val.imag() == 0))
         m_cType = 'i';
@@ -148,9 +187,12 @@ Value::Value(float_type val)
     , m_val(val, 0)
     , m_psVal(nullptr)
     , m_pvVal(nullptr)
+	, Array_Value(nullptr)
+	, Array_Size(0)
     , m_cType((val == (int_type)val) ? 'i' : 'f')
     , m_iFlags(flNONE)
     , m_pCache(nullptr)
+	, Index_In_Array(-1)
 {}
 
 //---------------------------------------------------------------------------
@@ -159,9 +201,12 @@ Value::Value(const matrix_type &val)
     , m_val()
     , m_psVal(nullptr)
     , m_pvVal(new matrix_type(val))
+	, Array_Value(nullptr)
+	, Array_Size(0)
     , m_cType('m')
     , m_iFlags(flNONE)
     , m_pCache(nullptr)
+	, Index_In_Array(-1)
 {}
 
 //---------------------------------------------------------------------------
@@ -169,7 +214,10 @@ Value::Value(const Value &a_Val)
     :IValue(cmVAL)
     , m_psVal(nullptr)
     , m_pvVal(nullptr)
+	, Array_Value(nullptr)
+	, Array_Size(0)
     , m_pCache(nullptr)
+	, Index_In_Array(-1)
 {
     Assign(a_Val);
 }
@@ -179,7 +227,10 @@ Value::Value(const IValue &a_Val)
     :IValue(cmVAL)
     , m_psVal(nullptr)
     , m_pvVal(nullptr)
+	, Array_Value(nullptr)
+	, Array_Size(0)
     , m_pCache(nullptr)
+	, Index_In_Array(-1)
 {
     Reset();
 
@@ -205,6 +256,37 @@ Value::Value(const IValue &a_Val)
               else
                   *m_pvVal = a_Val.GetArray();
         break;
+
+	case 'A': 
+		if (!Array_Size)
+		{
+			Array_Size = a_Val.Get_Array_Size();
+			Variable* Array_Value_Temp = a_Val.Get_Array();
+			Array_Value = new Variable[Array_Size];
+			Array_Value_Deleted = new bool[Array_Size];
+			for (int i = 0; i < Array_Size; i++)
+			{
+				Array_Value[i].~Variable();
+				Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'v')))).Get()));
+				*Array_Value[i].m_pVal = *Array_Value_Temp[i].m_pVal;//->Clone();
+				Array_Value[i].Set_Index_In_Array(i);
+				Array_Value_Deleted[i] = 0; // Redem note: change that to a_Val's values
+			}
+		}
+		else
+		{
+			delete[] Array_Value;
+			Array_Size = a_Val.Get_Array_Size();
+			Variable* Array_Value_Temp = a_Val.Get_Array();
+			Array_Value = new Variable[Array_Size];
+			for (int i = 0; i < Array_Size; i++)
+			{
+				Array_Value[i].~Variable();
+				Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'v')))).Get()));
+				*Array_Value[i].m_pVal = *Array_Value_Temp[i].m_pVal;//->Clone();
+			}
+		}
+		break;
 
     case 'v': break;
     default:  MUP_FAIL(INVALID_TYPE_CODE);
@@ -265,6 +347,24 @@ Value::~Value()
 {
     delete m_psVal;
     delete m_pvVal;
+
+	if (Index_In_Array >= 0 && Array_Start_Ptr)
+	{
+		Array_Start_Ptr->Mark_Array_Element_As_Deleted(Index_In_Array);
+	}
+	bool Delete_Array = 0;
+	for (int i = 0; i < Array_Size; i++)
+	{
+		if (!Array_Value_Deleted[i])
+			Array_Value[i].Delete_Value();
+		Delete_Array = 1;
+	}
+	if (Delete_Array)
+	{
+		Array_Size = 0;
+		delete[] Array_Value;
+	}
+	Array_Value = nullptr;
 }
 
 //---------------------------------------------------------------------------
@@ -289,6 +389,23 @@ void Value::Assign(const Value &ref)
     m_val = ref.m_val;
     m_cType = ref.m_cType;
     m_iFlags = ref.m_iFlags;
+
+	if (ref.GetType() == 'A')
+	{
+		Array_Size = ref.Get_Array_Size();
+		Variable* Array_Value_Temp = ref.Get_Array();
+		Array_Value = new Variable[Array_Size];
+		Array_Value_Deleted = new bool[Array_Size];
+		for (int i = 0; i < Array_Size; i++)
+		{
+			Array_Value[i].~Variable();
+			Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'v')))).Get()));
+			*Array_Value[i].m_pVal = *Array_Value_Temp[i].m_pVal;//->Clone();
+			Array_Value[i].Set_Index_In_Array(i);
+			Array_Value_Deleted[i] = 0; // Redem note: change that to a_Val's values
+		}
+		return;
+	}
 
     // allocate room for a string
     if (ref.m_psVal)
@@ -327,6 +444,27 @@ void Value::Assign(const Value &ref)
     // moment you delete m_pvVal!
 }
 
+IValue& Value::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
+{
+	Array_Size = Size;
+	Array_Value = new Variable[Size];	// Allocating array of values
+	Array_Value_Deleted = new bool[Array_Size];
+	//ptr_val_type * val_ptr_buf;	// this pointer will be deleted at every loop iteration, unlike the data it points to, so that data will persist after loop
+	for (int i = 0; i < Size; i++)
+	{
+		//val_ptr_buf = new ptr_val_type(new Value((char_type)'A'));  // Create new value token for variable in array, use 'A' type as default
+		Array_Value[i].~Variable();
+		Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'A')))).Get()));	// Manually calling the constructor because "new" does not support them	
+		Array_Value[i].Set_Array_Start_m_pVal(this);	// Connect element of the Array to Start Variable
+		Array_Value[i].Set_Index_In_Array(i);
+		Array_Value_Deleted[i] = 0;
+	}
+	m_cType = 'A';
+	m_iFlags = flNONE;
+
+	return *this;
+}
+
 //---------------------------------------------------------------------------
 void Value::Reset()
 {
@@ -343,6 +481,93 @@ void Value::Reset()
 }
 
 //---------------------------------------------------------------------------
+IValue& Value::operator=(Value* val)
+{
+	if (val->GetType() == 'A')
+	{
+		if (!Array_Size)
+		{
+			Array_Size = val->Get_Array_Size();
+			Variable* Array_Value_Temp = val->Get_Array();
+			Array_Value = new Variable[Array_Size];
+			Array_Value_Deleted = new bool[Array_Size];
+			for (int i = 0; i < Array_Size; i++)
+			{
+				Array_Value[i].~Variable();
+				Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'v')))).Get()));
+				*Array_Value[i].m_pVal = *Array_Value_Temp[i].m_pVal;//->Clone();
+				Array_Value[i].Set_Array_Start_m_pVal(this);	// Connect element of the Array to Start Variable
+				Array_Value[i].Set_Index_In_Array(i);
+				Array_Value_Deleted[i] = 0; // Redem note: change that to a_Val's values
+			}
+		}
+		else
+		{
+			// If this Value already has an array, delete it first
+			for (int i = 0; i < Array_Size; i++)
+			{
+				Array_Value[i].Delete_Value();
+			}
+			delete[] Array_Value;
+			delete[] Array_Value_Deleted;
+			Array_Size = val->Get_Array_Size();
+			Variable* Array_Value_Temp = val->Get_Array();
+			Array_Value = new Variable[Array_Size];
+			Array_Value_Deleted = new bool[Array_Size];
+			for (int i = 0; i < Array_Size; i++)
+			{
+				Array_Value[i].~Variable();
+				Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'v')))).Get()));
+				*Array_Value[i].m_pVal = *Array_Value_Temp[i].m_pVal;//->Clone();
+				Array_Value[i].Set_Array_Start_m_pVal(this);	// Connect element of the Array to Start Variable
+				Array_Value[i].Set_Index_In_Array(i);
+				Array_Value_Deleted[i] = 0; // Redem note: change that to a_Val's values
+			}
+		}
+		m_cType = 'A';
+		m_iFlags = flNONE;
+		return *this;
+	}
+	
+	m_val = val->m_val;
+
+	// allocate room for a string
+	if (val->m_psVal)
+	{
+		if (!m_psVal)
+			m_psVal = new string_type(*val->m_psVal);
+		else
+			*m_psVal = *val->m_psVal;
+	}
+	else
+	{
+		delete m_psVal;
+		m_psVal = nullptr;
+	}
+
+	// allocate room for a vector
+	if (val->m_pvVal)
+	{
+		if (m_pvVal == nullptr)
+			m_pvVal = new matrix_type(*val->m_pvVal);
+		else
+			*m_pvVal = *val->m_pvVal;
+	}
+	else
+	{
+		delete m_pvVal;
+		m_pvVal = nullptr;
+	}
+
+	Array_Value = nullptr;
+	Array_Size = 0;
+
+	m_cType = val->GetType();
+	m_iFlags = flNONE;
+	return *this;
+}
+
+//---------------------------------------------------------------------------
 IValue& Value::operator=(bool val)
 {
     m_val = cmplx_type((float_type)val, 0);
@@ -352,6 +577,9 @@ IValue& Value::operator=(bool val)
 
     delete m_pvVal;
     m_pvVal = nullptr;
+
+	Array_Value = nullptr;
+	Array_Size = 0;
 
     m_cType = 'b';
     m_iFlags = flNONE;
@@ -369,6 +597,9 @@ IValue& Value::operator=(int_type a_iVal)
   delete m_pvVal;
   m_pvVal = nullptr;
 
+  Array_Value = nullptr;
+  Array_Size = 0;
+
   m_cType = 'i';
   m_iFlags = flNONE;
   return *this;
@@ -384,6 +615,9 @@ IValue& Value::operator=(float_type val)
 
     delete m_pvVal;
     m_pvVal = nullptr;
+
+	Array_Value = nullptr;
+	Array_Size = 0;
 
     m_cType = (val == (int_type)val) ? 'i' : 'f';
     m_iFlags = flNONE;
@@ -403,6 +637,9 @@ IValue& Value::operator=(string_type a_sVal)
     delete m_pvVal;
     m_pvVal = nullptr;
 
+	Array_Value = nullptr;
+	Array_Size = 0;
+
     m_cType = 's';
     m_iFlags = flNONE;
     return *this;
@@ -420,6 +657,9 @@ IValue& Value::operator=(const char_type *a_szVal)
 
     delete m_pvVal;
     m_pvVal = nullptr;
+
+	Array_Value = nullptr;
+	Array_Size = 0;
 
     m_cType = 's';
     m_iFlags = flNONE;
@@ -439,6 +679,9 @@ IValue& Value::operator=(const matrix_type &a_vVal)
     else
         *m_pvVal = a_vVal;
 
+	Array_Value = nullptr;
+	Array_Size = 0;
+
     m_cType = 'm';
     m_iFlags = flNONE;
 
@@ -455,6 +698,9 @@ IValue& Value::operator=(const cmplx_type &val)
 
     delete m_pvVal;
     m_pvVal = nullptr;
+
+	Array_Value = nullptr;
+	Array_Size = 0;
 
     m_cType = (m_val.imag() == 0) ? ((m_val.real() == (int)m_val.real()) ? 'i' : 'f') : 'c';
     m_iFlags = flNONE;
@@ -687,6 +933,101 @@ const matrix_type& Value::GetArray() const
     return *m_pvVal;
 }
 
+void Value::Delete_Array()
+{
+	bool Delete_Array = 0;
+	for (int i = 0; i < Array_Size; i++)
+	{
+		if (!Array_Value_Deleted[i])
+			Array_Value[i].Delete_Value();
+		Delete_Array = 1;
+	}
+	if (Delete_Array)
+	{
+		Array_Size = 0;
+		delete[] Array_Value;
+	}
+}
+
+//---------------------------------------------------------------------------
+Variable* Value::Get_Array() const
+{
+	return Array_Value;
+}
+
+//---------------------------------------------------------------------------
+void Value::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
+{
+	int i;
+	
+	Variable * temp;
+	temp = &Array_Value[index[0]];
+	// Because every element in an array is a Variable, we can use temp pointer to
+	// descend to target dimension, one index at a time
+	for (i = 1; i < dimension; i++)
+	{
+		temp = &temp->Get_Variable_At_Array_Index(index[i]);
+	}
+	// Setting the Array_Start_Ptr to address of Variable being indexed (that is, its m_pVal pointer)
+	temp->Set_Array_Start_m_pVal(ptr.Get()->Get_m_pVal());
+	//Array_Start_Ptr.operator=(ptr);
+	ptr = temp;
+}
+
+//---------------------------------------------------------------------------
+Variable& Value::Get_Variable_At_Array_Index(int index) const
+{
+	return Array_Value[index];
+}
+
+//---------------------------------------------------------------------------
+void Value::Set_Array_Start_m_pVal(IValue* ptr)
+{
+	Array_Start_Ptr = ptr;
+}
+
+//---------------------------------------------------------------------------
+IValue* Value::Get_Array_Start_m_pVal()
+{
+	return Array_Start_Ptr;
+}
+
+void Value::Mark_Array_Element_As_Deleted(int index)
+{
+	Array_Value_Deleted[index] = 1;
+}
+
+void Value::Set_Index_In_Array(int index)
+{
+	Index_In_Array = index;
+}
+
+//---------------------------------------------------------------------------
+void Value::Set_m_pVal(IValue * p)
+{}
+
+IValue* Value::Get_m_pVal()
+{
+	return nullptr;
+}
+
+//---------------------------------------------------------------------------
+Value* Value::Get_Value() const
+{
+	return (Value*)this;
+}
+
+void Value::Delete_Value()
+{
+	delete this;
+}
+
+//---------------------------------------------------------------------------
+int Value::Get_Array_Size() const
+{
+	return Array_Size;
+}
+
 //---------------------------------------------------------------------------
 int Value::GetRows() const
 {
@@ -760,7 +1101,27 @@ string_type Value::AsciiDump() const
 //-----------------------------------------------------------------------------------------------
 void Value::Release()
 {
-    if (m_pCache)
+	// Redem note: "&&" here is for safety, either of these should mean this Value is an Array
+	// The reason for deletion is that Array members can no longer consider this Value as array start, once it is in the cache
+	// For now, just delete the array. For some reason, the ans in the Calc() requires those array members even though they are not used and crashes if they are deleted. 
+	// Maybe later I'll do a cache release for arrays.
+	if (Array_Value && Array_Size)
+	{
+		for (int i = 0; i < Array_Size; i++)
+		{
+			// Delete array members if they haven't been
+			if (!Array_Value_Deleted[i])
+			{
+				Array_Value[i].Delete_Value();
+				Array_Value[i].~Variable();
+				Array_Value_Deleted[i] = 1;
+			}
+		}
+		Array_Value = nullptr;
+		Array_Size = 0;
+		delete this;
+	}
+	else if (m_pCache)
         m_pCache->ReleaseToCache(this);
     else
         delete this;

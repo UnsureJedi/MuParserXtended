@@ -890,6 +890,12 @@ void Calc()
 	  if (sLine == _T("test"))
 	  {
 		  sLine = _T(
+
+			  "Test_Array = Array(2)\n"
+			  "Test_Array[0] = 1\n"
+			  "Test_Array[1] = 2\n"
+			  "lol = Test_Array[1]"
+			  /*
 			  "limit = (2+2)*2+1\n"
 			  "test1 = 0\n"
 			  "test2 = 0\n"
@@ -913,7 +919,8 @@ void Calc()
 					"test2 -=1"
 				  "}\n"
 				 "j+=1\n"
-	          "}\n"			  
+	          "}\n"	
+			  */
 		  );
 	  }
       parser.SetExpr(sLine);

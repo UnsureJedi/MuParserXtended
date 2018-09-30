@@ -52,6 +52,31 @@ MUP_NAMESPACE_START
     */
     void OprtIndex::Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc)
     {
+		// If this array was indexed previously, then ret does not point to it's top Variable,
+		// the one that holds the whole Array, therefore, check if ret is an Array member
+		/*
+		IValue* Array_Start_Ptr = ret.Get()->Get_Array_Start_m_pVal();
+		if (Array_Start_Ptr)
+		{
+			ret = Array_Start_Ptr;
+		}	// Ok, now this array can be indexed, because ret is pointing to the actual array start, not its element from past indexing
+		*/
+		// Check if it is pure array first
+		if (ret.Get()->GetType() == 'A')
+		{
+			int &dimension = a_iArgc;
+			int* index = new int[dimension];
+			int i;
+			for (i=0;i<dimension;i++)
+				index[i] = a_pArg[i]->GetInteger();
+
+			//ret->Set_Array_TokenPtr();
+
+			//IValue& buf = ret->Index_Array(index, dimension, ret);
+			//buf.Set_Array_TokenPtr(ret);
+			ret->Index_Array(index, dimension, ret);
+		}
+		else // It is a matrix
         try
         {
             int rows = a_pArg[-1]->GetRows();

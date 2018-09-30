@@ -33,6 +33,7 @@
 #include "mpParserBase.h"
 #include "mpFuncNonCmplx.h"
 #include "mpFuncCommon.h"
+#include "mpFuncArray.h"
 #include "mpOprtBinCommon.h"
 #include "mpOprtBinAssign.h"
 #include "mpOprtPostfixCommon.h"
@@ -79,6 +80,9 @@ void PackageCommon::AddToParser(ParserXBase *pParser)
 
   // Vector
   pParser->DefineFun(new FunSizeOf());
+
+  // Array
+  pParser->DefineFun(new FunArray());
 
   // Generic functions
   pParser->DefineFun(new FunMax());

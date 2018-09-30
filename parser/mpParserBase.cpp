@@ -1304,7 +1304,7 @@ void ParserXBase::Preconnect_Curlies_and_Keywords_RPN() const
 //---------------------------------------------------------------------------
 const IValue& ParserXBase::ParseFromRPN() const
 {
-	ptr_val_type *pStack = &(m_vStackBuffer[0]);
+	ptr_val_type *pStack = &(m_vStackBuffer[0]);	// Redem note for myself: pStack gets filled with IValues here, in ParseFromRPN() when values and variables are encountered
 	if (m_rpn.GetSize() == 0)
 	{
 		// Passiert bei leeren strings oder solchen, die nur Leerzeichen enthalten
@@ -1325,7 +1325,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 	{
 		IToken *pTok = m_rpn.GetData()[i].Get();
 		eCode = pTok->GetCode();
-		
+
 		switch (eCode)
 		{
 		case cmSCRIPT_NEWLINE:
@@ -1353,30 +1353,30 @@ const IValue& ParserXBase::ParseFromRPN() const
 		}
 		continue;
 		/*
-	  // Deal with:
-	  //   - Index operator:             [,,,]
-	  //   - Array constrution operator: {,,,}
-	  case  cmCBC:
-	  {
-	  ICallback *pFun = static_cast<ICallback*>(pTok);
-	  int nArgs = pFun->GetArgsPresent();
-	  sidx -= nArgs - 1;
-	  MUP_VERIFY(sidx >= 0);
+		// Deal with:
+		//   - Index operator:             [,,,]
+		//   - Array constrution operator: {,,,}
+		case  cmCBC:
+		{
+		ICallback *pFun = static_cast<ICallback*>(pTok);
+		int nArgs = pFun->GetArgsPresent();
+		sidx -= nArgs - 1;
+		MUP_VERIFY(sidx >= 0);
 
-	  ptr_val_type &val = pStack[sidx];   // Pointer to the variable or value beeing indexed
-	  if (val->IsVariable())
-	  {
-	  ptr_val_type buf(m_cache.CreateFromCache());
-	  pFun->Eval(buf, &val, nArgs);
-	  val = buf;
-	  }
-	  else
-	  {
-	  pFun->Eval(val, &val, nArgs);
-	  }
-	  }
-	  continue;
-	  */
+		ptr_val_type &val = pStack[sidx];   // Pointer to the variable or value beeing indexed
+		if (val->IsVariable())
+		{
+		ptr_val_type buf(m_cache.CreateFromCache());
+		pFun->Eval(buf, &val, nArgs);
+		val = buf;
+		}
+		else
+		{
+		pFun->Eval(val, &val, nArgs);
+		}
+		}
+		continue;
+		*/
 		case  cmIC:
 		{
 			ICallback *pIdxOprt = static_cast<ICallback*>(pTok);
@@ -1414,7 +1414,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 				i = Closing_Curly[i] + 1; // "{" for Else body after considering "++i" increment
 				break;
 			}
-			
+
 		case cmCBO:
 			continue;
 		case cmCBC:
@@ -1422,7 +1422,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 			if (Loop_Curly[i])
 			{
 				i = Opening_Curly[i];	// jump to start of this Loop body
-				break;		
+				break;
 			}
 			// Check if this curly bracket closes If or Else body
 			else if (IfElse_Curly[i])
@@ -1430,7 +1430,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 				// Skip the Else body, if present
 				if (IfElse_Curly[i + 2])	// Redem note: again, can be a bug source if there are newlines between If body "}" and Else body "{"
 				{
-					i = Closing_Curly[i+2];
+					i = Closing_Curly[i + 2];
 				}
 				break;
 			}
@@ -1451,7 +1451,21 @@ const IValue& ParserXBase::ParseFromRPN() const
 				{
 					ptr_val_type buf(m_cache.CreateFromCache());
 					pFun->Eval(buf, &val, nArgs);
-					val = buf;
+
+					if (pTok->GetIdent() == _T("=") && m_rpn.GetData()[i - 1].Get()->GetIdent() == _T("Array"))
+					{
+						// Erase the array element from the m_vStackBuffer so that it doesn't crash it after being deleted
+						//m_vStackBuffer.erase(m_vStackBuffer.begin() + sidx + 1);
+						//m_vStackBuffer.push_back(buf.Get()->Get_Array());
+						buf->Delete_Array();	// Redem note: watch for bugs from here
+												//val = buf;				// and here
+					}
+					else if (val.Get()->Get_Array_Start_m_pVal())
+					{
+						val.Copy_m_pTok(buf);
+					}
+					else
+						val = buf;
 				}
 				else
 				{
@@ -1459,6 +1473,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 				}
 				if (Parse_If_Condition)
 					If_Condition = val.Get()->GetBool();
+
 			}
 			catch (ParserError &exc)
 			{
