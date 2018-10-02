@@ -148,8 +148,8 @@ MUP_NAMESPACE_START
   { 
     assert(num==2);
 
-    const IValue *argMin = a_pArg[0].Get();
-    const IValue *argMax = a_pArg[1].Get();
+    const IValue *argMin = a_pArg[0].get();
+    const IValue *argMax = a_pArg[1].get();
   
     if (!argMin->IsNonComplexScalar())
       throw ParserError( ErrorContext(ecTYPE_CONFLICT_FUN, -1, GetIdent(), argMin->GetType(), 'i', 1)); 

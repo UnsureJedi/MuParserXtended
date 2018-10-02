@@ -190,14 +190,14 @@ MUP_NAMESPACE_START
       }
 
       //---------------------------------------------------------------------------
-      token_type Get() const
+      token_type get() const
       {
         return static_cast<token_type>(m_pTok);
       }
 
       //---------------------------------------------------------------------------
       /** \brief Release the managed pointer and assign a new pointer. */
-      void Reset(token_type tok)
+      void reset(token_type tok)
       {
         if (m_pTok && m_pTok->DecRef()==0) 
         {

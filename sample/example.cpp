@@ -114,7 +114,7 @@ public:
 
   virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int /*a_iArgc*/)
   {
-    console() << a_pArg[0].Get()->ToString() << _T("\n");
+    console() << a_pArg[0].get()->ToString() << _T("\n");
     *ret = (float_type)0.0;
   }
 
@@ -405,7 +405,7 @@ public:
       val_maptype::iterator item = fmap.begin();
       for (; item!=fmap.end(); ++item)
       {
-        ICallback *pFun = (ICallback*)item->second.Get();
+        ICallback *pFun = (ICallback*)item->second.get();
         console() << pFun->GetDesc() << _T("\n");
       }
     }

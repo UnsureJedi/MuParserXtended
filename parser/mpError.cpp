@@ -50,7 +50,7 @@ const ParserMessageProviderBase& ParserErrorMsg::Instance()
 }
 
 //------------------------------------------------------------------------------
-void ParserErrorMsg::Reset(ParserMessageProviderBase *pProvider)
+void ParserErrorMsg::reset(ParserMessageProviderBase *pProvider)
 {
     if (pProvider != nullptr)
     {
@@ -208,7 +208,7 @@ void ParserError::ReplaceSubString(string_type &sSource,
 }
 
 //------------------------------------------------------------------------------
-void ParserError::Reset()
+void ParserError::reset()
 {
     m_sMsg = _T("");
     m_Err = ErrorContext();

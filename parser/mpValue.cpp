@@ -232,7 +232,7 @@ Value::Value(const IValue &a_Val)
     , m_pCache(nullptr)
 	, Index_In_Array(-1)
 {
-    Reset();
+    reset();
 
     switch (a_Val.GetType())
     {
@@ -401,7 +401,7 @@ IValue& Value::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
 	{
 		//val_ptr_buf = new ptr_val_type(new Value((char_type)'A'));  // Create new value token for variable in array, use 'A' type as default
 		Array_Value[i].~Variable();
-		Array_Value[i].Variable::Variable((*(new ptr_val_type(new Value((char_type)'A')))).Get());	// Manually calling the constructor because "new" does not support them	
+		Array_Value[i].Variable::Variable((*(new ptr_val_type(new Value((char_type)'A')))).get());	// Manually calling the constructor because "new" does not support them	
 		Array_Value[i].Set_Array_Start_m_pVal(this);	// Connect element of the Array to Start Variable
 		Array_Value[i].Set_Index_In_Array(i);
 	}
@@ -412,7 +412,7 @@ IValue& Value::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
 }
 
 //---------------------------------------------------------------------------
-void Value::Reset()
+void Value::reset()
 {
     m_val = cmplx_type(0, 0);
 
@@ -879,7 +879,7 @@ void Value::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
 		temp = &temp->Get_Variable_At_Array_Index(index[i]);
 	}
 	// Setting the Array_Start_Ptr to address of Variable being indexed (that is, its m_pVal pointer)
-	temp->Set_Array_Start_m_pVal(ptr.Get()->Get_m_pVal());
+	temp->Set_Array_Start_m_pVal(ptr.get()->Get_m_pVal());
 	//Array_Start_Ptr.operator=(ptr);
 	ptr = temp;
 }

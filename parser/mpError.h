@@ -51,7 +51,7 @@ MUP_NAMESPACE_START
     ~ParserErrorMsg();
 
       static const ParserMessageProviderBase& Instance();
-      static void Reset(ParserMessageProviderBase *pProvider);
+      static void reset(ParserMessageProviderBase *pProvider);
 
       string_type GetErrorMsg(EErrorCodes eError) const;
 
@@ -115,7 +115,7 @@ MUP_NAMESPACE_START
       void ReplaceSubString(string_type &sSource,
                             const string_type &sFind,
                             char_type cReplaceWith) const;
-      void Reset();
+      void reset();
 
   public:
       ParserError();

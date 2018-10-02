@@ -365,7 +365,7 @@ void ParserXBase::ReInit() const
 {
 	m_pParserEngine = &ParserXBase::ParseFromString;
 	m_pTokenReader->ReInit();
-	m_rpn.Reset();
+	m_rpn.reset();
 	m_vStackBuffer.clear();
 	m_nPos = 0;
 	Curly_Number = 0;
@@ -442,7 +442,7 @@ void ParserXBase::SetVar(const string_type &ident, const Variable &var)
 }
 Value ParserXBase::GetVar(const string_type &ident)
 {
-	return m_valDef[ident].Get();
+	return m_valDef[ident].get();
 }
 
 void ParserXBase::CheckForEntityExistence(const string_type &ident, EErrorCodes error_code)
@@ -482,7 +482,7 @@ void ParserXBase::SetConst(const string_type &ident, const Value &val)
 
 Value ParserXBase::GetConst(const string_type &ident)
 {
-	return m_valDef[ident].Get();
+	return m_valDef[ident].get();
 }
 
 //---------------------------------------------------------------------------
@@ -875,7 +875,7 @@ void ParserXBase::CreateRPN() const
 			// by default an opening bracket sets parameter count to 1
 			// in preparation of arguments to come. If the last token
 			// was an opening bracket we know better...
-			if (pTokPrev.Get() != nullptr && pTokPrev->GetCode() == eStarter)
+			if (pTokPrev.get() != nullptr && pTokPrev->GetCode() == eStarter)
 				--stArgCount.top();
 
 			ApplyRemainingOprt(stOpt);
@@ -935,7 +935,7 @@ void ParserXBase::CreateRPN() const
 			// by default an opening bracket sets parameter count to 1
 			// in preparation of arguments to come. If the last token
 			// was an opening bracket we know better...
-			if (pTokPrev.Get() != nullptr && pTokPrev->GetCode() == cmBO)
+			if (pTokPrev.get() != nullptr && pTokPrev->GetCode() == cmBO)
 				--stArgCount.top();
 
 			ApplyRemainingOprt(stOpt);
@@ -1045,8 +1045,8 @@ void ParserXBase::CreateRPN() const
 				stOpt.top()->GetCode() != cmELSE &&
 				stOpt.top()->GetCode() != cmIF)
 			{
-				IToken *pOprt1 = stOpt.top().Get();
-				IToken *pOprt2 = pTok.Get();
+				IToken *pOprt1 = stOpt.top().get();
+				IToken *pOprt2 = pTok.get();
 				MUP_VERIFY(pOprt1 != nullptr && pOprt2 != nullptr);
 				MUP_VERIFY(pOprt1->AsIPrecedence() && pOprt2->AsIPrecedence());
 
@@ -1178,7 +1178,7 @@ const IValue& ParserXBase::ParseFromString() const
 	{
 		Value *pValue = new Value;
 		pValue->BindToCache(&m_cache);
-		m_vStackBuffer[i].Reset(pValue);
+		m_vStackBuffer[i].reset(pValue);
 	}
 	Preconnect_Curlies_and_Keywords_RPN();
 	m_pParserEngine = &ParserXBase::ParseFromRPN;
@@ -1211,7 +1211,7 @@ void ParserXBase::Preconnect_Curlies_and_Keywords_RPN() const
 
 	for (std::size_t i = 0; i < lenRPN; ++i)
 	{
-		IToken *pTok = m_rpn.GetData()[i].Get();
+		IToken *pTok = m_rpn.GetData()[i].get();
 		eCode = pTok->GetCode();
 
 		switch (eCode)
@@ -1221,16 +1221,16 @@ void ParserXBase::Preconnect_Curlies_and_Keywords_RPN() const
 			// We should go backwards from current position because all preceding curly brackets have been connected, unlike the following ones
 			for (; j > 0; j--)
 			{
-				if ((m_rpn.GetData()[j].Get())->GetCode() == cmCBC)
+				if ((m_rpn.GetData()[j].get())->GetCode() == cmCBC)
 				{
 					// If this is closing bracket for another loop, then skip its body
-					if ((m_rpn.GetData()[Opening_Curly[j] - 1].Get())->GetCode() == cmSCRIPT_LOOP)
+					if ((m_rpn.GetData()[Opening_Curly[j] - 1].get())->GetCode() == cmSCRIPT_LOOP)
 						j = Opening_Curly[j] - 2;
 				}
-				else if ((m_rpn.GetData()[j].Get())->GetCode() == cmCBO)
+				else if ((m_rpn.GetData()[j].get())->GetCode() == cmCBO)
 				{
 					// If this opening curly is Loop one, then it's the one we are looking for, because other loops have been skipped by keeping track of closing curlies.
-					if ((m_rpn.GetData()[j - 1].Get())->GetCode() == cmSCRIPT_LOOP)
+					if ((m_rpn.GetData()[j - 1].get())->GetCode() == cmSCRIPT_LOOP)
 					{
 						Break_Closing_Curly[i] = Closing_Curly[j];
 						break;
@@ -1249,9 +1249,9 @@ void ParserXBase::Preconnect_Curlies_and_Keywords_RPN() const
 			j = i + 1;
 			for (; j < lenRPN; j++)
 			{
-				if ((m_rpn.GetData()[j].Get())->GetCode() == cmCBO)
+				if ((m_rpn.GetData()[j].get())->GetCode() == cmCBO)
 					Curly_Number++;
-				if ((m_rpn.GetData()[j].Get())->GetCode() == cmCBC)
+				if ((m_rpn.GetData()[j].get())->GetCode() == cmCBC)
 				{
 					Curly_Number--;
 					if (!Curly_Number)
@@ -1259,11 +1259,11 @@ void ParserXBase::Preconnect_Curlies_and_Keywords_RPN() const
 						// Now let's tie these curlies together
 						Opening_Curly[j] = Curly_Open_Pos;
 						Closing_Curly[Curly_Open_Pos] = j;
-						if (Opening_Curly[j] && (m_rpn.GetData()[Opening_Curly[j] - 1].Get())->GetCode() == cmSCRIPT_LOOP)	// Redem note: might be a bug source, if Loop and "{" are separated by newline
+						if (Opening_Curly[j] && (m_rpn.GetData()[Opening_Curly[j] - 1].get())->GetCode() == cmSCRIPT_LOOP)	// Redem note: might be a bug source, if Loop and "{" are separated by newline
 						{
 							Loop_Curly[j] = Loop_Curly[Opening_Curly[j]] = 1;
 						}
-						else if (Opening_Curly[j] && ((m_rpn.GetData()[Opening_Curly[j] - 1].Get())->GetCode() == cmSCRIPT_ELSE || (m_rpn.GetData()[Opening_Curly[j] - 1].Get())->GetCode() == cmBC))
+						else if (Opening_Curly[j] && ((m_rpn.GetData()[Opening_Curly[j] - 1].get())->GetCode() == cmSCRIPT_ELSE || (m_rpn.GetData()[Opening_Curly[j] - 1].get())->GetCode() == cmBC))
 						{
 							IfElse_Curly[j] = IfElse_Curly[Opening_Curly[j]] = 1;
 						}
@@ -1323,7 +1323,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 	std::size_t lenRPN = m_rpn.GetSize();
 	for (std::size_t i = 0; i < lenRPN; ++i)
 	{
-		IToken *pTok = m_rpn.GetData()[i].Get();
+		IToken *pTok = m_rpn.GetData()[i].get();
 		eCode = pTok->GetCode();
 
 		switch (eCode)
@@ -1340,13 +1340,13 @@ const IValue& ParserXBase::ParseFromRPN() const
 			MUP_VERIFY(sidx < (int)m_vStackBuffer.size());
 			if (pVal->IsVariable())
 			{
-				pStack[sidx].Reset(pVal);
+				pStack[sidx].reset(pVal);
 			}
 			else
 			{
 				ptr_val_type &val = pStack[sidx];
 				if (val->IsVariable())
-					val.Reset(m_cache.CreateFromCache());
+					val.reset(m_cache.CreateFromCache());
 
 				*val = *(static_cast<IValue*>(pTok));
 			}
@@ -1452,7 +1452,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 					ptr_val_type buf(m_cache.CreateFromCache());
 					pFun->Eval(buf, &val, nArgs);
 
-					if (pTok->GetIdent() == _T("=") && m_rpn.GetData()[i - 1].Get()->GetIdent() == _T("Array"))
+					if (pTok->GetIdent() == _T("=") && m_rpn.GetData()[i - 1].get()->GetIdent() == _T("Array"))
 					{
 						// Erase the array element from the m_vStackBuffer so that it doesn't crash it after being deleted
 						//m_vStackBuffer.erase(m_vStackBuffer.begin() + sidx + 1);
@@ -1460,7 +1460,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 						buf->Delete_Array();	// Redem note: watch for bugs from here
 												//val = buf;				// and here
 					}
-					else if (val.Get()->Get_Array_Start_m_pVal())
+					else if (val.get()->Get_Array_Start_m_pVal())
 					{
 						val.Copy_m_pTok(buf);
 					}
@@ -1472,7 +1472,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 					pFun->Eval(val, &val, nArgs);
 				}
 				if (Parse_If_Condition)
-					If_Condition = val.Get()->GetBool();
+					If_Condition = val.get()->GetBool();
 
 			}
 			catch (ParserError &exc)

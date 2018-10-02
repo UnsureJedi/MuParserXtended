@@ -63,7 +63,7 @@ MUP_NAMESPACE_START
   //---------------------------------------------------------------------
   void OprtAssign::Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int)
   {
-    Variable *pVar = dynamic_cast<Variable*>(a_pArg[0].Get());
+    Variable *pVar = dynamic_cast<Variable*>(a_pArg[0].get());
 	//ptr_val_type lol = a_pArg[1];
     // assigment to non variable type
     if (!pVar)
@@ -111,7 +111,7 @@ MUP_NAMESPACE_START
   //---------------------------------------------------------------------
   void OprtAssignAdd::Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int)   
   {
-    Variable *pVar = dynamic_cast<Variable*>(a_pArg[0].Get());
+    Variable *pVar = dynamic_cast<Variable*>(a_pArg[0].get());
 
     // assigment to non variable type
     if (!pVar)
@@ -153,7 +153,7 @@ MUP_NAMESPACE_START
   //---------------------------------------------------------------------
   void OprtAssignSub::Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int)   
   {
-    Variable *pVar = dynamic_cast<Variable*>(a_pArg[0].Get());
+    Variable *pVar = dynamic_cast<Variable*>(a_pArg[0].get());
     if (!pVar)
     {
       ErrorContext err;
@@ -193,7 +193,7 @@ MUP_NAMESPACE_START
   //---------------------------------------------------------------------
   void OprtAssignMul::Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int)
   {
-    Variable *pVar = dynamic_cast<Variable*>(a_pArg[0].Get());
+    Variable *pVar = dynamic_cast<Variable*>(a_pArg[0].get());
     if (!pVar)
     {
       ErrorContext err;
@@ -235,7 +235,7 @@ MUP_NAMESPACE_START
   //------------------------------------------------------------------------------
   void OprtAssignDiv::Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int)
   {
-    Variable *pVar = dynamic_cast<Variable*>(a_pArg[0].Get());
+    Variable *pVar = dynamic_cast<Variable*>(a_pArg[0].get());
     if (!pVar)
     {
       ErrorContext err;

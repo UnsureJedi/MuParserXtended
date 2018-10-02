@@ -91,7 +91,7 @@ MUP_NAMESPACE_START
   //---------------------------------------------------------------------------
   void RPN::AddNewline(ptr_tok_type tok, int n)
   {
-    static_cast<TokenNewline*>(tok.Get())->SetStackOffset(n);
+    static_cast<TokenNewline*>(tok.get())->SetStackOffset(n);
     m_vRPN.push_back(tok);
     m_nStackPos -= n;
     m_nLine++;
@@ -115,7 +115,7 @@ MUP_NAMESPACE_START
   }
 
   //---------------------------------------------------------------------------
-  void RPN::Reset()
+  void RPN::reset()
   {
     m_vRPN.clear();
     m_nStackPos = -1;
@@ -145,12 +145,12 @@ MUP_NAMESPACE_START
       case  cmELSE:
             stElse.push(i);
             idx = stIf.pop();
-            static_cast<TokenIfThenElse*>(m_vRPN[idx].Get())->SetOffset(i - idx);
+            static_cast<TokenIfThenElse*>(m_vRPN[idx].get())->SetOffset(i - idx);
             break;
       
       case  cmENDIF:
             idx = stElse.pop();
-            static_cast<TokenIfThenElse*>(m_vRPN[idx].Get())->SetOffset(i - idx);
+            static_cast<TokenIfThenElse*>(m_vRPN[idx].get())->SetOffset(i - idx);
             break;
 			
 	  default:

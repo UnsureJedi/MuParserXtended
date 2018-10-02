@@ -52,7 +52,7 @@ MUP_NAMESPACE_START
     void Add(ptr_tok_type tok);
     void AddNewline(ptr_tok_type tok, int n);
     void Pop(int num);
-    void Reset();
+    void reset();
     void Finalize();
     void AsciiDump() const;
 

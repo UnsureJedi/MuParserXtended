@@ -113,8 +113,8 @@ void OprtAddCmplx::Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int num)
 {
     assert(num == 2);
 
-    const IValue *arg1 = a_pArg[0].Get();
-    const IValue *arg2 = a_pArg[1].Get();
+    const IValue *arg1 = a_pArg[0].get();
+    const IValue *arg2 = a_pArg[1].get();
 
     if (arg1->IsNonComplexScalar() && arg2->IsNonComplexScalar())
     {
@@ -165,8 +165,8 @@ void OprtSubCmplx::Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int num)
 {
     assert(num == 2);
 
-    const IValue *arg1 = a_pArg[0].Get();
-    const IValue *arg2 = a_pArg[1].Get();
+    const IValue *arg1 = a_pArg[0].get();
+    const IValue *arg2 = a_pArg[1].get();
     if (a_pArg[0]->IsNonComplexScalar() && a_pArg[1]->IsNonComplexScalar())
     {
         *ret = arg1->GetFloat() - arg2->GetFloat();
@@ -215,8 +215,8 @@ OprtMulCmplx::OprtMulCmplx()
 void OprtMulCmplx::Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int num)
 {
     assert(num == 2);
-    IValue *arg1 = a_pArg[0].Get();
-    IValue *arg2 = a_pArg[1].Get();
+    IValue *arg1 = a_pArg[0].get();
+    IValue *arg2 = a_pArg[1].get();
     *ret = (*arg1) * (*arg2);
 }
 

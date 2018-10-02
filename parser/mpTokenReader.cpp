@@ -1208,7 +1208,7 @@ bool TokenReader::IsUndefVarTok(ptr_tok_type &a_Tok)
 	{
 		ptr_val_type val(new Value);                   // Create new value token
 		m_pDynVarShadowValues->push_back(val);         // push to the vector of shadow values 
-		a_Tok = ptr_tok_type(new Variable(val.Get())); // bind variable to the new value item
+		a_Tok = ptr_tok_type(new Variable(val.get())); // bind variable to the new value item
 		(*m_pVarDef)[sTok] = a_Tok;                    // add new variable to the variable list
 	}
 	else

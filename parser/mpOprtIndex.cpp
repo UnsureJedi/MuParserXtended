@@ -62,7 +62,7 @@ MUP_NAMESPACE_START
 		}	// Ok, now this array can be indexed, because ret is pointing to the actual array start, not its element from past indexing
 		*/
 		// Check if it is pure array first
-		if (ret.Get()->GetType() == 'A')
+		if (ret.get()->GetType() == 'A')
 		{
 			int &dimension = a_iArgc;
 			int* index = new int[dimension];
@@ -88,14 +88,14 @@ MUP_NAMESPACE_START
                 if (cols == 1)
                 {
                     if (bArgIsVariable) 
-                        ret.Reset(new Variable(&(ret->At(*a_pArg[0], Value(0.0)))));
+                        ret.reset(new Variable(&(ret->At(*a_pArg[0], Value(0.0)))));
                     else
                         *ret = ret->At(*a_pArg[0], Value(0.0));
                 }
                 else if (rows == 1)
                 {
                     if (bArgIsVariable) 
-                        ret.Reset(new Variable(&(ret->At(Value(0.0), *a_pArg[0]))));
+                        ret.reset(new Variable(&(ret->At(Value(0.0), *a_pArg[0]))));
                     else
                         *ret = ret->At(Value(0.0), *a_pArg[0]);
                 }
@@ -107,7 +107,7 @@ MUP_NAMESPACE_START
 
             case 2:
                 if (bArgIsVariable)
-                    ret.Reset(new Variable(&(ret->At(*a_pArg[0], *a_pArg[1]))));
+                    ret.reset(new Variable(&(ret->At(*a_pArg[0], *a_pArg[1]))));
                 else
 	                *ret = ret->At(*a_pArg[0], *a_pArg[1]);
                 break;

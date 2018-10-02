@@ -85,7 +85,7 @@ MUP_NAMESPACE_START
   //------------------------------------------------------------------------------
   void ParserX::ResetErrorMessageProvider(ParserMessageProviderBase *pProvider)
   {
-    ParserErrorMsg::Reset(pProvider);
+    ParserErrorMsg::reset(pProvider);
   }
 
 } // namespace mu

@@ -146,7 +146,7 @@ MUP_NAMESPACE_START
     void CheckType(char_type a_cType) const;
     void Assign(const Value &a_Val);
 	virtual IValue & Initialize_Array(ptr_val_type Array_Start_Ptr, int Size);
-    void Reset();
+    void reset();
 
     virtual void Release();
   }; // class Value

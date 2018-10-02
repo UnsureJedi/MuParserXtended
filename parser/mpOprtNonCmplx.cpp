@@ -151,8 +151,8 @@ MUP_NAMESPACE_START
   { 
     assert(num==2);
 
-    const IValue *arg1 = a_pArg[0].Get();
-    const IValue *arg2 = a_pArg[1].Get();
+    const IValue *arg1 = a_pArg[0].get();
+    const IValue *arg2 = a_pArg[1].get();
     if (arg1->GetType()=='m' && arg2->GetType()=='m')
     {
       // Vector + Vector
@@ -274,8 +274,8 @@ MUP_NAMESPACE_START
   void OprtMul::Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int num)
   { 
     assert(num==2);
-    IValue *arg1 = a_pArg[0].Get();
-    IValue *arg2 = a_pArg[1].Get();
+    IValue *arg1 = a_pArg[0].get();
+    IValue *arg2 = a_pArg[1].get();
     if (arg1->GetType()=='m' && arg2->GetType()=='m')
     {
       // Scalar multiplication
