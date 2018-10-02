@@ -95,7 +95,7 @@ MUP_NAMESPACE_START
 	else // This last case takes much more time to assign because entire IValue object gets copied
 		*pVar = *a_pArg[1]; //pVar->SetFloat(a_pArg[1]->GetFloat());
     *ret = *pVar;
-	//pVar->Set_Array_TokenPtr(nullptr);
+	//pVar->Set_Array_std::shared_ptr(nullptr);
   }
 
   //---------------------------------------------------------------------

@@ -58,33 +58,33 @@ void PackageCmplx::AddToParser(ParserXBase *pParser)
   pParser->DefineConst( _T("i"), cmplx_type(0.0, 1.0) );
 
   // Complex valued functions
-  pParser->DefineFun(new FunCmplxReal());
-  pParser->DefineFun(new FunCmplxImag());
-  pParser->DefineFun(new FunCmplxConj());
-  pParser->DefineFun(new FunCmplxArg());
-  pParser->DefineFun(new FunCmplxNorm());
-  pParser->DefineFun(new FunCmplxSin());
-  pParser->DefineFun(new FunCmplxCos());
-  pParser->DefineFun(new FunCmplxTan());
-  pParser->DefineFun(new FunCmplxSinH());
-  pParser->DefineFun(new FunCmplxCosH());
-  pParser->DefineFun(new FunCmplxTanH());
-  pParser->DefineFun(new FunCmplxSqrt());
-  pParser->DefineFun(new FunCmplxExp());
-  pParser->DefineFun(new FunCmplxLn());
-  pParser->DefineFun(new FunCmplxLog());
-  pParser->DefineFun(new FunCmplxLog2());
-  pParser->DefineFun(new FunCmplxLog10());
-  pParser->DefineFun(new FunCmplxAbs());
-  pParser->DefineFun(new FunCmplxPow());
+  pParser->DefineFun(ptr_cal_type(new FunCmplxReal()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxImag()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxConj()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxArg()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxNorm()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxSin()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxCos()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxTan()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxSinH()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxCosH()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxTanH()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxSqrt()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxExp()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxLn()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxLog()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxLog2()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxLog10()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxAbs()));
+  pParser->DefineFun(ptr_cal_type(new FunCmplxPow()));
 
   // Complex valued operators
-  pParser->DefineOprt(new OprtAddCmplx());
-  pParser->DefineOprt(new OprtSubCmplx());
-  pParser->DefineOprt(new OprtMulCmplx());
-  pParser->DefineOprt(new OprtDivCmplx());
-  pParser->DefineOprt(new OprtPowCmplx());
-  pParser->DefineInfixOprt(new OprtSignCmplx());
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtAddCmplx()));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtSubCmplx()));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtMulCmplx()));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtDivCmplx()));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtPowCmplx()));
+  pParser->DefineInfixOprt(std::shared_ptr<IOprtInfix>(new OprtSignCmplx()));
 }
 
 //------------------------------------------------------------------------------

@@ -506,7 +506,7 @@ void ParserXBase::DefineFun(const ptr_cal_type &fun)
 /** \brief Define a binary operator.
 		\param a_pCallback Pointer to the callback object
 		*/
-void ParserXBase::DefineOprt(const TokenPtr<IOprtBin> &oprt)
+void ParserXBase::DefineOprt(const std::shared_ptr<IOprtBin> &oprt)
 {
 	if (IsOprtDefined(oprt->GetIdent()))
 		throw ParserError(ErrorContext(ecFUNOPRT_DEFINED, 0, oprt->GetIdent()));
@@ -521,7 +521,7 @@ void ParserXBase::DefineOprt(const TokenPtr<IOprtBin> &oprt)
 	  \param a_pOprt Pointer to a unary postfix operator object. The parser will
 	  become the new owner of this object hence will destroy it.
 	  */
-void ParserXBase::DefinePostfixOprt(const TokenPtr<IOprtPostfix> &oprt)
+void ParserXBase::DefinePostfixOprt(const std::shared_ptr<IOprtPostfix> &oprt)
 {
 	if (IsPostfixOprtDefined(oprt->GetIdent()))
 		throw ParserError(ErrorContext(ecFUNOPRT_DEFINED, 0, oprt->GetIdent()));
@@ -536,7 +536,7 @@ void ParserXBase::DefinePostfixOprt(const TokenPtr<IOprtPostfix> &oprt)
 	\param a_pOprt Pointer to a unary postfix operator object. The parser will
 		   become the new owner of this object hence will destroy it.
 */
-void ParserXBase::DefineInfixOprt(const TokenPtr<IOprtInfix> &oprt)
+void ParserXBase::DefineInfixOprt(const std::shared_ptr<IOprtInfix> &oprt)
 {
 	if (IsInfixOprtDefined(oprt->GetIdent()))
 		throw ParserError(ErrorContext(ecFUNOPRT_DEFINED, 0, oprt->GetIdent()));
@@ -894,7 +894,7 @@ void ParserXBase::CreateRPN() const
 				MUP_VERIFY(pOprtIndex != nullptr);
 
 				pOprtIndex->SetNumArgsPresent(iArgc);
-				m_rpn.Add(pOprtIndex);
+				m_rpn.Add(ptr_tok_type(pOprtIndex));
 
 				// If this is an index operator there must be something else in the register (the variable to index)
 				MUP_VERIFY(eCmd != cmIC || m_nPos >= (int)iArgc + 1);
@@ -1462,7 +1462,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 					}
 					else if (val.get()->Get_Array_Start_m_pVal())
 					{
-						val.Copy_m_pTok(buf);
+						val = buf;
 					}
 					else
 						val = buf;

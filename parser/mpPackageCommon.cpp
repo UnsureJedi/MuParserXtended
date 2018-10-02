@@ -79,51 +79,51 @@ void PackageCommon::AddToParser(ParserXBase *pParser)
   pParser->DefineConst( _T("e"),  (float_type)MUP_CONST_E );
 
   // Vector
-  pParser->DefineFun(new FunSizeOf());
+  pParser->DefineFun(ptr_cal_type(new FunSizeOf()));
 
   // Array
-  pParser->DefineFun(new FunArray());
+  pParser->DefineFun(ptr_cal_type(new FunArray()));
 
   // Generic functions
-  pParser->DefineFun(new FunMax());
-  pParser->DefineFun(new FunMin());
-  pParser->DefineFun(new FunSum());
+  pParser->DefineFun(ptr_cal_type(new FunMax()));
+  pParser->DefineFun(ptr_cal_type(new FunMin()));
+  pParser->DefineFun(ptr_cal_type(new FunSum()));
 
   // misc
-  pParser->DefineFun(new FunParserID);
+  pParser->DefineFun(ptr_cal_type(new FunParserID));
 
   // integer package
-  pParser->DefineOprt(new OprtLAnd);
-  pParser->DefineOprt(new OprtLOr);
-  pParser->DefineOprt(new OprtAnd);
-  pParser->DefineOprt(new OprtOr);
-  pParser->DefineOprt(new OprtShr);
-  pParser->DefineOprt(new OprtShl);
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtLAnd));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtLOr));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtAnd));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtOr));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtShr));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtShl));
 
   // booloean package
-  pParser->DefineOprt(new OprtLE);
-  pParser->DefineOprt(new OprtGE);
-  pParser->DefineOprt(new OprtLT);
-  pParser->DefineOprt(new OprtGT);
-  pParser->DefineOprt(new OprtEQ);
-  pParser->DefineOprt(new OprtNEQ);
-  pParser->DefineOprt(new OprtLAnd(_T("and")));  // add logic and with a different identifier
-  pParser->DefineOprt(new OprtLOr(_T("or")));    // add logic and with a different identifier
-//  pParser->DefineOprt(new OprtBXor);
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtLE));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtGE));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtLT));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtGT));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtEQ));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtNEQ));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtLAnd(_T("and"))));  // add logic and with a different identifier
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtLOr(_T("or"))));    // add logic and with a different identifier
+//  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtBXor));
 
   // assignement operators
-  pParser->DefineOprt(new OprtAssign);
-  pParser->DefineOprt(new OprtAssignAdd);
-  pParser->DefineOprt(new OprtAssignSub);
-  pParser->DefineOprt(new OprtAssignMul);
-  pParser->DefineOprt(new OprtAssignDiv);
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtAssign));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtAssignAdd));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtAssignSub));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtAssignMul));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtAssignDiv));
 
   // infix operators
-  pParser->DefineInfixOprt(new OprtCastToFloat);
-  pParser->DefineInfixOprt(new OprtCastToInt);
+  pParser->DefineInfixOprt(std::shared_ptr<IOprtInfix>(new OprtCastToFloat));
+  pParser->DefineInfixOprt(std::shared_ptr<IOprtInfix>(new OprtCastToInt));
 
   // postfix operators
-  pParser->DefinePostfixOprt(new OprtFact);
+  pParser->DefinePostfixOprt(std::shared_ptr<IOprtPostfix>(new OprtFact));
 // <ibg 20130708> commented: "%" is a reserved sign for either the 
 //                modulo operator or comment lines. 
 //  pParser->DefinePostfixOprt(new OprtPercentage);

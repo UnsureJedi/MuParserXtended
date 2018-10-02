@@ -47,8 +47,6 @@ MUP_NAMESPACE_START
   class IOprtIndex;
   class Value;
   class ValueCache;
-  template<typename T>
-  class TokenPtr;
 
 MUP_NAMESPACE_END
 

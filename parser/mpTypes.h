@@ -68,20 +68,18 @@ class Variable;
 class TokenReader;
 
 // smart pointer types
-template<typename T>
-class TokenPtr;
 
 /** \brief Type of a managed pointer storing parser tokens. */
-typedef TokenPtr<IToken>   ptr_tok_type;
+typedef std::shared_ptr<IToken>   ptr_tok_type;
 
 /** \brief Type of a managed pointer storing callback tokens. */
-typedef TokenPtr<ICallback> ptr_cal_type;
+typedef std::shared_ptr<ICallback> ptr_cal_type;
 
 /** \brief Type of a managed pointer storing value tokens. */
-typedef TokenPtr<IValue>   ptr_val_type;
+typedef std::shared_ptr<IValue>   ptr_val_type;
 
 /** \brief Type of a managed pointer storing binary operator tokens. */
-typedef TokenPtr<IOprtBin> ptr_binop_type;
+typedef std::shared_ptr<IOprtBin> ptr_binop_type;
 
 /** \brief Type for a vector of tokens. */
 typedef std::vector<ptr_tok_type> token_vec_type;

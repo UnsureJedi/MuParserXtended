@@ -99,9 +99,9 @@ MUP_NAMESPACE_START
 	void SetVar(const string_type &ident, const Variable &var);
 	Value GetVar(const string_type & ident);
     void DefineFun(const ptr_cal_type &fun);
-    void DefineOprt(const TokenPtr<IOprtBin> &oprt);
-    void DefinePostfixOprt(const TokenPtr<IOprtPostfix> &oprt);
-    void DefineInfixOprt(const TokenPtr<IOprtInfix> &oprt);
+    void DefineOprt(const std::shared_ptr<IOprtBin> &oprt);
+    void DefinePostfixOprt(const std::shared_ptr<IOprtPostfix> &oprt);
+    void DefineInfixOprt(const std::shared_ptr<IOprtInfix> &oprt);
 
     bool IsVarDefined(const string_type &ident) const;
     bool IsConstDefined(const string_type &ident) const;

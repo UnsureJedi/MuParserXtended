@@ -49,22 +49,22 @@ MUP_NAMESPACE_START
 
       Tokens can either be Functions, operators, values, variables or necessary 
       base tokens like brackets. ´The IToken baseclass implements reference 
-      counting. Only TokenPtr<...> templates may be used as pointers to tokens.
+      counting. Only std::shared_ptr<...> templates may be used as pointers to tokens.
   */
   class IToken
   {
   friend std::ostream& operator<<(std::ostream &a_Stream, const IToken &a_Val);
   friend std::wostream& operator<<(std::wostream &a_Stream, const IToken &a_Val);
 
-  friend class TokenPtr<IToken>;
-  friend class TokenPtr<IValue>;
-  friend class TokenPtr<IOprtBin>;
-  friend class TokenPtr<IOprtInfix>;
-  friend class TokenPtr<IOprtPostfix>;
-  friend class TokenPtr<IFunction>;
-  friend class TokenPtr<Value>;
-  friend class TokenPtr<Variable>;
-  friend class TokenPtr<ICallback>;
+  friend class std::shared_ptr<IToken>;
+  friend class std::shared_ptr<IValue>;
+  friend class std::shared_ptr<IOprtBin>;
+  friend class std::shared_ptr<IOprtInfix>;
+  friend class std::shared_ptr<IOprtPostfix>;
+  friend class std::shared_ptr<IFunction>;
+  friend class std::shared_ptr<Value>;
+  friend class std::shared_ptr<Variable>;
+  friend class std::shared_ptr<ICallback>;
 
   public:
 
@@ -146,100 +146,6 @@ MUP_NAMESPACE_START
   };
 
   //------------------------------------------------------------------------------
-  template<typename T>
-  class TokenPtr
-  {
-  public:
-     
-      typedef T* token_type;
-
-      //---------------------------------------------------------------------------
-      TokenPtr(token_type p = 0)
-        :m_pTok(p)
-      {
-        if (m_pTok)
-          m_pTok->IncRef();
-      }
-
-      //---------------------------------------------------------------------------
-      TokenPtr(const TokenPtr &p)
-        :m_pTok(p.m_pTok)
-      {
-        if (m_pTok)
-          m_pTok->IncRef();
-      }
-
-      //---------------------------------------------------------------------------
-     ~TokenPtr()
-      {
-        if (m_pTok && m_pTok->DecRef()==0)
-          m_pTok->Release();
-      }
-
-      //---------------------------------------------------------------------------
-      token_type operator->() const
-      {
-        return static_cast<token_type>(m_pTok);
-      }
-  
-      //---------------------------------------------------------------------------
-      T& operator*() const
-      {
-        assert(m_pTok);
-        return *(static_cast<token_type>(m_pTok));
-      }
-
-      //---------------------------------------------------------------------------
-      token_type get() const
-      {
-        return static_cast<token_type>(m_pTok);
-      }
-
-      //---------------------------------------------------------------------------
-      /** \brief Release the managed pointer and assign a new pointer. */
-      void reset(token_type tok)
-      {
-        if (m_pTok && m_pTok->DecRef()==0) 
-        {
-          m_pTok->Release();
-          //delete m_pTok;
-        }
-
-        tok->IncRef();
-        m_pTok = tok;
-      }
-
-      //---------------------------------------------------------------------------
-      TokenPtr& operator=(const TokenPtr &p)
-      {
-        if (p.m_pTok) 
-          p.m_pTok->IncRef();
-
-        if (m_pTok && m_pTok->DecRef()==0) 
-        {
-          m_pTok->Release();
-          //delete m_pTok;
-        }
-
-        m_pTok = p.m_pTok;
-
-        return *this;
-      }
-
-	  // Simply copy the m_pTok, without changing reference numbers
-	  TokenPtr& Copy_m_pTok(const TokenPtr &p)
-	  {
-		  if (p.m_pTok)
-			  p.m_pTok->IncRef();
-
-		  m_pTok = p.m_pTok;
-
-		  return *this;
-	  }
-
-  private:
-      IToken *m_pTok;
-  };
 
 MUP_NAMESPACE_END
 
