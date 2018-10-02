@@ -260,7 +260,6 @@ Value::Value(const IValue &a_Val)
 	case 'A': 
 		Array_Size = a_Val.Get_Array_Size();
 		Array_Value = a_Val.Get_Array();
-		Array_Value_Deleted = a_Val.Get_Array_Value_Deleted_Status();
 
 		break;
 
@@ -352,7 +351,6 @@ void Value::Assign(const Value &ref)
 	{
 		Array_Size = ref.Get_Array_Size();
 		Array_Value = ref.Get_Array();
-		Array_Value_Deleted = ref.Get_Array_Value_Deleted_Status();
 
 		return;
 	}
@@ -398,16 +396,14 @@ IValue& Value::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
 {
 	Array_Size = Size;
 	Array_Value = std::shared_ptr<Variable[]>(new Variable[Size]);	// Allocating array of values
-	Array_Value_Deleted = std::shared_ptr<bool[]>(new bool[Size]);
 	//ptr_val_type * val_ptr_buf;	// this pointer will be deleted at every loop iteration, unlike the data it points to, so that data will persist after loop
 	for (int i = 0; i < Size; i++)
 	{
 		//val_ptr_buf = new ptr_val_type(new Value((char_type)'A'));  // Create new value token for variable in array, use 'A' type as default
 		Array_Value[i].~Variable();
-		Array_Value[i].Variable::Variable(((*(new ptr_val_type(new Value((char_type)'A')))).Get()));	// Manually calling the constructor because "new" does not support them	
+		Array_Value[i].Variable::Variable((*(new ptr_val_type(new Value((char_type)'A')))).Get());	// Manually calling the constructor because "new" does not support them	
 		Array_Value[i].Set_Array_Start_m_pVal(this);	// Connect element of the Array to Start Variable
 		Array_Value[i].Set_Index_In_Array(i);
-		Array_Value_Deleted[i] = 0;
 	}
 	m_cType = 'A';
 	m_iFlags = flNONE;
@@ -437,7 +433,6 @@ IValue& Value::operator=(Value* val)
 	{
 		Array_Size = val->Get_Array_Size();
 		Array_Value = val->Get_Array();
-		Array_Value_Deleted = val->Get_Array_Value_Deleted_Status();
 
 		m_cType = 'A';
 		m_iFlags = flNONE;
@@ -870,11 +865,6 @@ std::shared_ptr<Variable[]> Value::Get_Array() const
 	return Array_Value;
 }
 
-std::shared_ptr<bool[]> Value::Get_Array_Value_Deleted_Status() const
-{
-	return Array_Value_Deleted;
-}
-
 //---------------------------------------------------------------------------
 void Value::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
 {
@@ -910,11 +900,6 @@ void Value::Set_Array_Start_m_pVal(IValue* ptr)
 IValue* Value::Get_Array_Start_m_pVal()
 {
 	return Array_Start_Ptr;
-}
-
-void Value::Mark_Array_Element_As_Deleted(int index)
-{
-	Array_Value_Deleted[index] = 1;
 }
 
 void Value::Set_Index_In_Array(int index)
@@ -1022,21 +1007,12 @@ string_type Value::AsciiDump() const
 void Value::Release()
 {
 	// Redem note: "&&" here is for safety, either of these should mean this Value is an Array
-	// The reason for deletion is that Array members can no longer consider this Value as array start, once it is in the cache
-	// For now, just delete the array. For some reason, the ans in the Calc() requires those array members even though they are not used and crashes if they are deleted. 
-	// Maybe later I'll do a cache release for arrays.
 	if (Array_Value && Array_Size)
 	{
-		
+		// Delete array members
 		for (int i = 0; i < Array_Size; i++)
-		{
-			// Delete array members if they haven't been
-			if (!Array_Value_Deleted[i])
-			{
-				Array_Value[i].Delete_Value();
-				//Array_Value[i].~Variable();
-				Array_Value_Deleted[i] = 1;
-			}
+		{	
+			Array_Value[i].Delete_Value();
 		}
 		Array_Value.~shared_ptr();
 		Array_Size = 0;

@@ -41,7 +41,6 @@
 
 #include "mpIToken.h"
 #include "mpFwdDecl.h"
-#include <memory>	// Required for shared_ptr pointers
 
 MUP_NAMESPACE_START
 
@@ -95,13 +94,11 @@ MUP_NAMESPACE_START
     virtual const string_type&  GetString() const = 0;
     virtual const matrix_type& GetArray() const = 0;
 	virtual std::shared_ptr<Variable[]> Get_Array() const = 0;
-	virtual std::shared_ptr<bool[]> Get_Array_Value_Deleted_Status() const = 0;
 	virtual void Delete_Array() = 0;
 	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const = 0;
 	virtual Variable& Get_Variable_At_Array_Index(int index) const = 0;
 	virtual IValue* Get_Array_Start_m_pVal() = 0;
 	virtual void Set_Array_Start_m_pVal(IValue* p) = 0;
-	virtual void Mark_Array_Element_As_Deleted(int index) = 0;
 	virtual void Set_Index_In_Array(int index) = 0;
 
 	virtual void Set_m_pVal(IValue* p) = 0;

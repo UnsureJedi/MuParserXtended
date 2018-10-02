@@ -70,11 +70,7 @@ MUP_NAMESPACE_START
 			for (i=0;i<dimension;i++)
 				index[i] = a_pArg[i]->GetInteger();
 
-			//ret->Set_Array_TokenPtr();
-
-			//IValue& buf = ret->Index_Array(index, dimension, ret);
-			//buf.Set_Array_TokenPtr(ret);
-			ret->Index_Array(index, dimension, ret);	// Continue here. ret gets its Array_Value deleted somewhere prior. Find where and fix it.
+			ret->Index_Array(index, dimension, ret);
 		}
 		else // It is a matrix
         try

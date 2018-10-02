@@ -182,14 +182,7 @@ Variable::Variable()
   //-----------------------------------------------------------------------------------------------
   Variable::~Variable()
   {}
-  /*
-  void Variable::Release()
-  {
-	  if (m_pVal)
-		m_pVal->Delete_Value();
-	  delete this;
-  }
-  */
+
   //-----------------------------------------------------------------------------------------------
   void Variable::Assign(const Variable &ref)
   {
@@ -321,11 +314,6 @@ Variable::Variable()
 		return m_pVal->Get_Array();
 	}
 
-	std::shared_ptr<bool[]> Variable::Get_Array_Value_Deleted_Status() const
-	{
-		return m_pVal->Get_Array_Value_Deleted_Status();
-	}
-
 	void Variable::Delete_Array()
 	{
 		m_pVal->Delete_Array();
@@ -368,11 +356,6 @@ Variable::Variable()
 	void Variable::Set_Array_Start_m_pVal(IValue* p)
 	{
 		m_pVal->Set_Array_Start_m_pVal(p);
-	}
-
-	void Variable::Mark_Array_Element_As_Deleted(int index)
-	{
-		m_pVal->Mark_Array_Element_As_Deleted(index);
 	}
 
 	void Variable::Set_Index_In_Array(int index)

@@ -42,6 +42,7 @@
 #include <vector>
 #include <map>
 #include <complex>
+#include <memory>	// Required for shared_ptr pointers
 
 //--- muParserX framework ---------------------------------------------------
 #include "suSortPred.h"  // We need the string utils sorting predicates

@@ -75,12 +75,10 @@ MUP_NAMESPACE_START
 
 	virtual IValue* Get_Array_Start_m_pVal();
 	virtual void Set_Array_Start_m_pVal(IValue* p);
-	virtual void Mark_Array_Element_As_Deleted(int index);
 	virtual void Set_Index_In_Array(int index);
 	virtual void Variable::Set_m_pVal(IValue* p);
 	virtual IValue* Get_m_pVal();
     virtual ~Variable();
-	//virtual void Release();	// Redem: Added this because damn thing crashes it when running "val = buf;" and val is a variable.
 
     virtual char_type GetType() const;
     
@@ -92,7 +90,6 @@ MUP_NAMESPACE_START
     virtual const string_type& GetString() const;
     virtual const matrix_type& GetArray() const;
 	virtual std::shared_ptr<Variable[]> Get_Array() const;
-	virtual std::shared_ptr<bool[]> Get_Array_Value_Deleted_Status() const;
 	virtual void Delete_Array();
 	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const;
 	virtual Variable& Get_Variable_At_Array_Index(int index) const;
@@ -116,14 +113,9 @@ MUP_NAMESPACE_START
     IValue* GetPtr() const;
     string_type AsciiDump() const;
 
-	IValue *m_pVal; // Redem note: public for debug only!! If I forgot to put it in private, do it.   ///< Pointer to the value object bound to this variable
+	
   private:
-
-    
-	/*
-	void Increase_Reference_Number() { Reference_Number++; };
-	int Decrease_Reference_Number() { return --Reference_Number; };
-	*/
+	IValue * m_pVal;
     void Assign(const Variable &a_Var);
     void CheckType(char_type a_cType) const;
   }; // class Variable
