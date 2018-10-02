@@ -41,9 +41,9 @@ MUP_NAMESPACE_START
   {}
 
   //---------------------------------------------------------------------------
-  IToken* TokenNewline::Clone() const
+ptr_tok_type TokenNewline::Clone() const
   {
-    return new TokenNewline(*this);
+    return ptr_tok_type(new TokenNewline(*this));
   }
 
   //---------------------------------------------------------------------------

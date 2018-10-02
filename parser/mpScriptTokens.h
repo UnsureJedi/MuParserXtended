@@ -53,7 +53,7 @@ MUP_NAMESPACE_START
       // IToken interface
       //---------------------------------------------
 
-      virtual IToken* Clone() const;
+      virtual ptr_tok_type Clone() const;
       virtual string_type AsciiDump() const;
 
       int GetStackOffset() const;

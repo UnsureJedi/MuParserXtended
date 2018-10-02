@@ -81,9 +81,9 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* OprtSign::Clone() const 
+  ptr_tok_type OprtSign::Clone() const 
   { 
-    return new OprtSign(*this); 
+    return ptr_tok_type(new OprtSign(*this)); 
   }
 
   //------------------------------------------------------------------------------
@@ -131,9 +131,9 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* OprtSignPos::Clone() const 
+  ptr_tok_type OprtSignPos::Clone() const 
   { 
-    return new OprtSignPos(*this); 
+    return ptr_tok_type(new OprtSignPos(*this)); 
   }
 
 //-----------------------------------------------------------
@@ -194,9 +194,9 @@ MUP_NAMESPACE_START
   }
   
   //-----------------------------------------------------------
-  IToken* OprtAdd::Clone() const
+  ptr_tok_type OprtAdd::Clone() const
   { 
-    return new OprtAdd(*this); 
+    return ptr_tok_type(new OprtAdd(*this)); 
   }
 
 //-----------------------------------------------------------
@@ -255,9 +255,9 @@ MUP_NAMESPACE_START
   }
   
   //-----------------------------------------------------------
-  IToken* OprtSub::Clone() const
+  ptr_tok_type OprtSub::Clone() const
   { 
-    return new OprtSub(*this); 
+    return ptr_tok_type(new OprtSub(*this)); 
   }
 
 //-----------------------------------------------------------
@@ -328,9 +328,9 @@ MUP_NAMESPACE_START
   }
   
   //-----------------------------------------------------------
-  IToken* OprtMul::Clone() const
+  ptr_tok_type OprtMul::Clone() const
   { 
-    return new OprtMul(*this); 
+    return ptr_tok_type(new OprtMul(*this)); 
   }
 
 //-----------------------------------------------------------
@@ -370,9 +370,9 @@ MUP_NAMESPACE_START
   }
   
   //-----------------------------------------------------------
-  IToken* OprtDiv::Clone() const
+  ptr_tok_type OprtDiv::Clone() const
   { 
-    return new OprtDiv(*this); 
+    return ptr_tok_type(new OprtDiv(*this)); 
   }
 
 //-----------------------------------------------------------
@@ -416,8 +416,8 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------
-  IToken* OprtPow::Clone() const            
+  ptr_tok_type OprtPow::Clone() const            
   { 
-    return new OprtPow(*this); 
+    return ptr_tok_type(new OprtPow(*this)); 
   }
 }

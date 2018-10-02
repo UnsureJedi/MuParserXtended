@@ -57,13 +57,13 @@ void PackageStr::AddToParser(ParserXBase *pParser)
   pParser->AddValueReader(new StrValReader());
 
   // Functions
-  pParser->DefineFun(new FunStrLen());
-  pParser->DefineFun(new FunStrToDbl());
-  pParser->DefineFun(new FunStrToUpper());
-  pParser->DefineFun(new FunStrToLower());
+  pParser->DefineFun(ptr_cal_type(new FunStrLen()));
+  pParser->DefineFun(ptr_cal_type(new FunStrToDbl()));
+  pParser->DefineFun(ptr_cal_type(new FunStrToUpper()));
+  pParser->DefineFun(ptr_cal_type(new FunStrToLower()));
 
   // Operators
-  pParser->DefineOprt(new OprtStrAdd);
+  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtStrAdd));
 }
 
 //------------------------------------------------------------------------------

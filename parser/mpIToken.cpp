@@ -306,9 +306,9 @@ MUP_NAMESPACE_START
   {}
 
   //---------------------------------------------------------------------------
-  IToken* GenericToken::Clone() const
+  ptr_tok_type GenericToken::Clone() const
   {
-    return new GenericToken(*this);
+    return ptr_tok_type(new GenericToken(*this));
   }
   
   //------------------------------------------------------------------------------

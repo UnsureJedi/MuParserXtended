@@ -68,9 +68,9 @@ MUP_NAMESPACE_START
       return _T(DESC);                                               \
     }                                                                \
                                                                      \
-    IToken* CLASS::Clone() const                                     \
+    ptr_tok_type CLASS::Clone() const                                     \
     {                                                                \
-      return new CLASS(*this);                                       \
+      return ptr_tok_type(new CLASS(*this));                                       \
     }
 
     // trigonometric functions
@@ -116,9 +116,9 @@ MUP_NAMESPACE_START
       return _T(DESC);                                               \
     }                                                                \
                                                                      \
-    IToken* CLASS::Clone() const                                     \
+    ptr_tok_type CLASS::Clone() const                                     \
     {                                                                \
-      return new CLASS(*this);                                       \
+      return ptr_tok_type(new CLASS(*this));                                       \
     }
 
     MUP_BINARY_FUNC(FunPow,  "pow",  std::pow,  "pow(x, y) - raise x to the power of y")

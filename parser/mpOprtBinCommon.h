@@ -55,7 +55,7 @@ public:
     OprtStrAdd();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *arg, int argc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //-----------------------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ public:
     OprtEQ();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 
@@ -82,7 +82,7 @@ public:
     OprtNEQ();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ public:
     OprtLT();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //------------------------------------------------------------------------------
@@ -108,7 +108,7 @@ public:
     OprtGT();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //------------------------------------------------------------------------------
@@ -121,7 +121,7 @@ public:
     OprtLE();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ public:
     OprtGE();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //------------------------------------------------------------------------------
@@ -147,7 +147,7 @@ public:
     OprtAnd();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //------------------------------------------------------------------------------
@@ -160,7 +160,7 @@ public:
     OprtOr();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //------------------------------------------------------------------------------
@@ -173,7 +173,7 @@ public:
     OprtLOr(const char_type *szIdent = _T("||"));
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //------------------------------------------------------------------------------
@@ -186,7 +186,7 @@ public:
     OprtLAnd(const char_type *szIdent = _T("&&"));
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //------------------------------------------------------------------------------
@@ -199,7 +199,7 @@ public:
     OprtShl();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //------------------------------------------------------------------------------
@@ -212,7 +212,7 @@ public:
     OprtShr();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 };
 
 //---------------------------------------------------------------------------
@@ -226,7 +226,7 @@ public:
     OprtCastToFloat();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 }; // class OprtCastToFloat
 
 ////---------------------------------------------------------------------------
@@ -239,7 +239,7 @@ public:
     OprtCastToInt();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
 }; // class OprtCastToInt
 
 }  // namespace mu

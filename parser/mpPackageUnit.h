@@ -45,7 +45,7 @@ MUP_NAMESPACE_START
       CLASS(IPackage* pPackage=nullptr);                                      \
       virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc);  \
       virtual const char_type* GetDesc() const;                            \
-      virtual IToken* Clone() const;                                       \
+      virtual ptr_tok_type Clone() const;                                       \
     }; 
 
 MUP_POSTFIX_DEF(OprtNano)

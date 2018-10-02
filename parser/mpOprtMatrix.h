@@ -51,7 +51,7 @@ MUP_NAMESPACE_START
     OprtTranspose();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   }; 
 
   //-----------------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ MUP_NAMESPACE_START
       OprtCreateArray();
 	  virtual void Eval(ptr_val_type& ret, const ptr_val_type *arg, int argc) override;
 	  virtual const char_type* GetDesc() const;
-	  virtual IToken* Clone() const override;
+	  virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ MUP_NAMESPACE_START
     OprtColon();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   }; 
 MUP_NAMESPACE_END
 

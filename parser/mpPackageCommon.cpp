@@ -126,7 +126,7 @@ void PackageCommon::AddToParser(ParserXBase *pParser)
   pParser->DefinePostfixOprt(std::shared_ptr<IOprtPostfix>(new OprtFact));
 // <ibg 20130708> commented: "%" is a reserved sign for either the 
 //                modulo operator or comment lines. 
-//  pParser->DefinePostfixOprt(new OprtPercentage);
+//  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtPercentage);
 // </ibg>
 }
 

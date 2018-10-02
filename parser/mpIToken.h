@@ -74,7 +74,7 @@ MUP_NAMESPACE_START
       flVOLATILE = 1
     };
 
-    virtual IToken* Clone() const = 0;
+    virtual ptr_tok_type Clone() const = 0;
     virtual string_type ToString() const;
     virtual string_type AsciiDump() const;
     
@@ -141,7 +141,7 @@ MUP_NAMESPACE_START
       explicit GenericToken(ECmdCode a_iCode);
       GenericToken(const GenericToken &a_Tok);      
       virtual ~GenericToken();
-      virtual IToken* Clone() const;
+      virtual ptr_tok_type Clone() const;
       virtual string_type AsciiDump() const;
   };
 

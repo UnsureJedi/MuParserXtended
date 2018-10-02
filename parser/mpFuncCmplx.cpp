@@ -79,9 +79,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxReal::Clone() const
+  ptr_tok_type FunCmplxReal::Clone() const
   {
-    return new FunCmplxReal(*this);
+    return ptr_tok_type(new FunCmplxReal(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -108,9 +108,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxImag::Clone() const
+  ptr_tok_type FunCmplxImag::Clone() const
   {
-    return new FunCmplxImag(*this);
+    return ptr_tok_type(new FunCmplxImag(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -136,9 +136,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxConj::Clone() const
+  ptr_tok_type FunCmplxConj::Clone() const
   {
-    return new FunCmplxConj(*this);
+    return ptr_tok_type(new FunCmplxConj(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -165,9 +165,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxArg::Clone() const
+  ptr_tok_type FunCmplxArg::Clone() const
   {
-    return new FunCmplxArg(*this);
+    return ptr_tok_type(new FunCmplxArg(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -198,9 +198,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxNorm::Clone() const
+  ptr_tok_type FunCmplxNorm::Clone() const
   {
-    return new FunCmplxNorm(*this);
+    return ptr_tok_type(new FunCmplxNorm(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -234,9 +234,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxCos::Clone() const
+  ptr_tok_type FunCmplxCos::Clone() const
   {
-    return new FunCmplxCos(*this);
+    return ptr_tok_type(new FunCmplxCos(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -270,9 +270,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxSin::Clone() const
+  ptr_tok_type FunCmplxSin::Clone() const
   {
-    return new FunCmplxSin(*this);
+    return ptr_tok_type(new FunCmplxSin(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -299,9 +299,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxCosH::Clone() const
+  ptr_tok_type FunCmplxCosH::Clone() const
   {
-    return new FunCmplxCosH(*this);
+    return ptr_tok_type(new FunCmplxCosH(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -328,9 +328,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxSinH::Clone() const
+  ptr_tok_type FunCmplxSinH::Clone() const
   {
-    return new FunCmplxSinH(*this);
+    return ptr_tok_type(new FunCmplxSinH(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -364,9 +364,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxTan::Clone() const
+  ptr_tok_type FunCmplxTan::Clone() const
   {
-    return new FunCmplxTan(*this);
+    return ptr_tok_type(new FunCmplxTan(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -393,9 +393,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxTanH::Clone() const
+  ptr_tok_type FunCmplxTanH::Clone() const
   {
-    return new FunCmplxTanH(*this);
+    return ptr_tok_type(new FunCmplxTanH(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -421,9 +421,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxSqrt::Clone() const
+  ptr_tok_type FunCmplxSqrt::Clone() const
   {
-    return new FunCmplxSqrt(*this);
+    return ptr_tok_type(new FunCmplxSqrt(*this));
   }
 
 
@@ -451,9 +451,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxExp::Clone() const
+  ptr_tok_type FunCmplxExp::Clone() const
   {
-    return new FunCmplxExp(*this);
+    return ptr_tok_type(new FunCmplxExp(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -480,9 +480,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxLn::Clone() const
+  ptr_tok_type FunCmplxLn::Clone() const
   {
-    return new FunCmplxLn(*this);
+    return ptr_tok_type(new FunCmplxLn(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -510,9 +510,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxLog::Clone() const
+  ptr_tok_type FunCmplxLog::Clone() const
   {
-    return new FunCmplxLog(*this);
+    return ptr_tok_type(new FunCmplxLog(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -539,9 +539,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxLog10::Clone() const
+  ptr_tok_type FunCmplxLog10::Clone() const
   {
-    return new FunCmplxLog10(*this);
+    return ptr_tok_type(new FunCmplxLog10(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -568,9 +568,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxLog2::Clone() const
+  ptr_tok_type FunCmplxLog2::Clone() const
   {
-    return new FunCmplxLog2(*this);
+    return ptr_tok_type(new FunCmplxLog2(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -598,9 +598,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxAbs::Clone() const
+  ptr_tok_type FunCmplxAbs::Clone() const
   {
-    return new FunCmplxAbs(*this);
+    return ptr_tok_type(new FunCmplxAbs(*this));
   }
 
   //-----------------------------------------------------------------------
@@ -626,9 +626,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------
-  IToken* FunCmplxPow::Clone() const
+  ptr_tok_type FunCmplxPow::Clone() const
   {
-    return new FunCmplxPow(*this);
+    return ptr_tok_type(new FunCmplxPow(*this));
   }
 
 

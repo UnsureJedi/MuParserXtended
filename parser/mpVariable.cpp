@@ -482,9 +482,9 @@ Variable::Variable()
   }
 
   //-----------------------------------------------------------------------------------------------
-  IToken* Variable::Clone() const
+  ptr_tok_type Variable::Clone() const
   {
-    return new Variable(*this);
+    return ptr_tok_type(new Variable(*this));
   }
 
   //-----------------------------------------------------------------------------------------------

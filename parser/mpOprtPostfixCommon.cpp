@@ -61,9 +61,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------
-  IToken* OprtFact::Clone() const
+  ptr_tok_type OprtFact::Clone() const
   {
-    return new OprtFact(*this);
+    return ptr_tok_type(new OprtFact(*this));
   }
 
   //-----------------------------------------------------------
@@ -100,9 +100,9 @@ MUP_NAMESPACE_START
     }
 
     //-----------------------------------------------------------
-    IToken* OprtPercentage::Clone() const
+    ptr_tok_type OprtPercentage::Clone() const
     {
-      return new OprtPercentage(*this);
+      return ptr_tok_type(new OprtPercentage(*this));
     }
 
 }

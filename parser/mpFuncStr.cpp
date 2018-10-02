@@ -66,9 +66,9 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* FunStrLen::Clone() const
+  ptr_tok_type FunStrLen::Clone() const
   {
-    return new FunStrLen(*this);
+    return ptr_tok_type(new FunStrLen(*this));
   }
 
   //------------------------------------------------------------------------------
@@ -99,9 +99,9 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* FunStrToUpper::Clone() const
+  ptr_tok_type FunStrToUpper::Clone() const
   {
-    return new FunStrToUpper(*this);
+    return ptr_tok_type(new FunStrToUpper(*this));
   }
 
   //------------------------------------------------------------------------------
@@ -132,9 +132,9 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* FunStrToLower::Clone() const
+  ptr_tok_type FunStrToLower::Clone() const
   {
-    return new FunStrToLower(*this);
+    return ptr_tok_type(new FunStrToLower(*this));
   }
 
   //------------------------------------------------------------------------------
@@ -173,8 +173,8 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* FunStrToDbl::Clone() const
+  ptr_tok_type FunStrToDbl::Clone() const
   {
-    return new FunStrToDbl(*this);
+    return ptr_tok_type(new FunStrToDbl(*this));
   }
 }  // namespace mu

@@ -93,9 +93,9 @@ const char_type* OprtSignCmplx::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtSignCmplx::Clone() const
+ptr_tok_type OprtSignCmplx::Clone() const
 {
-    return new OprtSignCmplx(*this);
+    return ptr_tok_type(new OprtSignCmplx(*this));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -145,9 +145,9 @@ const char_type* OprtAddCmplx::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtAddCmplx::Clone() const
+ptr_tok_type OprtAddCmplx::Clone() const
 {
-    return new OprtAddCmplx(*this);
+    return ptr_tok_type(new OprtAddCmplx(*this));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -196,9 +196,9 @@ const char_type* OprtSubCmplx::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtSubCmplx::Clone() const
+ptr_tok_type OprtSubCmplx::Clone() const
 {
-    return new OprtSubCmplx(*this);
+    return ptr_tok_type(new OprtSubCmplx(*this));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -227,9 +227,9 @@ const char_type* OprtMulCmplx::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtMulCmplx::Clone() const
+ptr_tok_type OprtMulCmplx::Clone() const
 {
-    return new OprtMulCmplx(*this);
+    return ptr_tok_type(new OprtMulCmplx(*this));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -276,9 +276,9 @@ const char_type* OprtDivCmplx::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtDivCmplx::Clone() const
+ptr_tok_type OprtDivCmplx::Clone() const
 {
-    return new OprtDivCmplx(*this);
+    return ptr_tok_type(new OprtDivCmplx(*this));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -313,9 +313,9 @@ const char_type* OprtPowCmplx::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtPowCmplx::Clone() const
+ptr_tok_type OprtPowCmplx::Clone() const
 {
-    return new OprtPowCmplx(*this);
+    return ptr_tok_type(new OprtPowCmplx(*this));
 }
 
 } // namespace

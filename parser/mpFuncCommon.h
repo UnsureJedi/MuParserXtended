@@ -50,7 +50,7 @@ MUP_NAMESPACE_START
     FunParserID ();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   }; // class FunParserID
 
   //------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ MUP_NAMESPACE_START
     FunMax();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   }; // class FunMax
 
   //------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ MUP_NAMESPACE_START
     FunMin();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   }; // class FunMin
 
   //------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ MUP_NAMESPACE_START
     FunSum();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   }; // class FunSum
 
   //------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ MUP_NAMESPACE_START
     virtual ~FunSizeOf();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   }; // class FunSizeOf
 
 MUP_NAMESPACE_END

@@ -123,9 +123,9 @@ public:
     return _T("");
   }
   
-  virtual IToken* Clone() const
+  virtual ptr_tok_type Clone() const
   {
-    return new FunPrint(*this);
+    return ptr_tok_type(new FunPrint(*this));
   }
 }; // class FunPrint
 
@@ -146,9 +146,9 @@ public:
     return _T("");
   }
   
-  virtual IToken* Clone() const
+  virtual ptr_tok_type Clone() const
   {
-    return new FunTest0(*this);
+    return ptr_tok_type(new FunTest0(*this));
   }
 }; // class FunTest0
 
@@ -195,9 +195,9 @@ public:
     return _T("list_var() - List all variables of the parser bound to this function and returns the number of defined variables.");
   }
 
-  virtual IToken* Clone() const
+  virtual ptr_tok_type Clone() const
   {
-    return new FunListVar(*this);
+    return ptr_tok_type(new FunListVar(*this));
   }
 }; // class FunListVar
 
@@ -237,9 +237,9 @@ public:
     return _T("list_const() - List all constants of the parser bound to this function and returns the number of defined constants.");
   }
 
-  virtual IToken* Clone() const
+  virtual ptr_tok_type Clone() const
   {
-    return new FunListConst(*this);
+    return ptr_tok_type(new FunListConst(*this));
   }
 }; // class FunListConst
 
@@ -374,9 +374,9 @@ public:
     return _T("bench() - Perform a benchmark with a set of standard functions.");
   }
   
-  virtual IToken* Clone() const
+  virtual ptr_tok_type Clone() const
   {
-    return new FunBenchmark(*this);
+    return ptr_tok_type(new FunBenchmark(*this));
   }
 }; // class FunBenchmark
 
@@ -418,9 +418,9 @@ public:
     return _T("list_fun() - List all parser functions and returns the total number of defined functions.");
   }
   
-  virtual IToken* Clone() const
+  virtual ptr_tok_type Clone() const
   {
-    return new FunListFunctions(*this);
+    return ptr_tok_type(new FunListFunctions(*this));
   }
 }; // class FunListFunctions
 
@@ -443,9 +443,9 @@ public:
     return _T("enable_optimizer(bool) - Enables the parsers built in expression optimizer.");
   }
   
-  virtual IToken* Clone() const
+  virtual ptr_tok_type Clone() const
   {
-    return new FunEnableOptimizer(*this);
+    return ptr_tok_type(new FunEnableOptimizer(*this));
   }
 }; // class FunListFunctions
 
@@ -470,9 +470,9 @@ public:
     return _T("test() - Runs the unit test of muparserx.");
   }
   
-  virtual IToken* Clone() const
+  virtual ptr_tok_type Clone() const
   {
-    return new FunSelfTest(*this);
+    return ptr_tok_type(new FunSelfTest(*this));
   }
 }; // class FunSelfTest
 
@@ -504,9 +504,9 @@ public:
     return _T("debug(bDumpRPN, bDumpStack) - Enable dumping of RPN and stack content.");
   }
   
-  virtual IToken* Clone() const
+  virtual ptr_tok_type Clone() const
   {
-    return new FunEnableDebugDump(*this);
+    return ptr_tok_type(new FunEnableDebugDump(*this));
   }
 }; // class FunEnableDebugDump
 
@@ -542,9 +542,9 @@ public:
     return _T("lang(sLang) - Set the language of error messages (i.e. \"de\" or \"en\").");
   }
   
-  virtual IToken* Clone() const
+  virtual ptr_tok_type Clone() const
   {
-    return new FunLang(*this);
+    return ptr_tok_type(new FunLang(*this));
   }
 }; // class FunLang
 #endif // #if defined(_UNICODE)
@@ -622,7 +622,7 @@ public:
     string_type sDef = a_pArg[1]->GetString();
 
     ParserXBase &parser = *GetParent();
-    parser.DefineFun(new FunGeneric(sFun, sDef));
+    parser.DefineFun(ptr_cal_type(new FunGeneric(sFun, sDef));
 
     *ret = 0;
   }
@@ -841,18 +841,18 @@ void Calc()
   parser.DefineVar(_T("sb"), Variable(&sVal[1]));
 
   // Add functions for inspecting the parser properties
-  parser.DefineFun(new FunListVar);
-  parser.DefineFun(new FunListFunctions);
-  parser.DefineFun(new FunListConst);
-  parser.DefineFun(new FunBenchmark);
-  parser.DefineFun(new FunEnableOptimizer);
-  parser.DefineFun(new FunSelfTest);
-  parser.DefineFun(new FunEnableDebugDump);
-  parser.DefineFun(new FunTest0);
-  parser.DefineFun(new FunPrint);
+  parser.DefineFun(ptr_cal_type(new FunListVar));
+  parser.DefineFun(ptr_cal_type(new FunListFunctions));
+  parser.DefineFun(ptr_cal_type(new FunListConst));
+  parser.DefineFun(ptr_cal_type(new FunBenchmark));
+  parser.DefineFun(ptr_cal_type(new FunEnableOptimizer));
+  parser.DefineFun(ptr_cal_type(new FunSelfTest));
+  parser.DefineFun(ptr_cal_type(new FunEnableDebugDump));
+  parser.DefineFun(ptr_cal_type(new FunTest0));
+  parser.DefineFun(ptr_cal_type(new FunPrint));
 
 #if defined(_UNICODE)
-  parser.DefineFun(new FunLang);
+  parser.DefineFun(ptr_cal_type(new FunLang));
 #endif
  
   parser.EnableAutoCreateVar(true);

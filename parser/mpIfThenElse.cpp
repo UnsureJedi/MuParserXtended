@@ -49,9 +49,9 @@ MUP_NAMESPACE_START
   {}
 
   //---------------------------------------------------------------------------
-  IToken* TokenIfThenElse::Clone() const
+  ptr_tok_type TokenIfThenElse::Clone() const
   {
-    return new TokenIfThenElse(*this);
+    return ptr_tok_type(new TokenIfThenElse(*this));
   }
 
   //---------------------------------------------------------------------------

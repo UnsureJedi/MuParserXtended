@@ -20,7 +20,7 @@ public:
 	virtual ~FunArray();
 	virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
 	virtual const char_type* GetDesc() const override;
-	virtual IToken* Clone() const override;
+	virtual ptr_tok_type Clone() const override;
 };
 
 FunArray::FunArray()
@@ -54,9 +54,9 @@ const char_type* FunArray::GetDesc() const
 }
 
 //-----------------------------------------------------------------------
-IToken* FunArray::Clone() const
+ptr_tok_type FunArray::Clone() const
 {
-	return new FunArray(*this);
+	return ptr_tok_type(new FunArray(*this));
 }
 
 MUP_NAMESPACE_END

@@ -55,9 +55,9 @@ MUP_NAMESPACE_START
   }
 
   //---------------------------------------------------------------------
-  IToken* OprtAssign::Clone() const
+  ptr_tok_type OprtAssign::Clone() const
   { 
-    return new OprtAssign(*this); 
+    return ptr_tok_type(new OprtAssign(*this)); 
   }
   
   //---------------------------------------------------------------------
@@ -135,9 +135,9 @@ MUP_NAMESPACE_START
   }
 
   //---------------------------------------------------------------------
-  IToken* OprtAssignAdd::Clone() const            
+  ptr_tok_type OprtAssignAdd::Clone() const            
   { 
-    return new OprtAssignAdd(*this); 
+    return ptr_tok_type(new OprtAssignAdd(*this)); 
   }
 
   //---------------------------------------------------------------------
@@ -175,9 +175,9 @@ MUP_NAMESPACE_START
   }
 
   //---------------------------------------------------------------------
-  IToken* OprtAssignSub::Clone() const            
+  ptr_tok_type OprtAssignSub::Clone() const            
   { 
-     return new OprtAssignSub(*this); 
+     return ptr_tok_type(new OprtAssignSub(*this)); 
   }
 
   //---------------------------------------------------------------------
@@ -218,9 +218,9 @@ MUP_NAMESPACE_START
   }
 
   //---------------------------------------------------------------------
-  IToken* OprtAssignMul::Clone() const
+  ptr_tok_type OprtAssignMul::Clone() const
   {  
-    return new OprtAssignMul(*this); 
+    return ptr_tok_type(new OprtAssignMul(*this)); 
   }
 
   //---------------------------------------------------------------------
@@ -261,8 +261,8 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* OprtAssignDiv::Clone() const
+  ptr_tok_type OprtAssignDiv::Clone() const
   {  
-    return new OprtAssignDiv(*this); 
+    return ptr_tok_type(new OprtAssignDiv(*this)); 
   }
 MUP_NAMESPACE_END

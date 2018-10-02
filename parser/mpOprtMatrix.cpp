@@ -63,9 +63,9 @@ MUP_NAMESPACE_START
   }
 
   //-------------------------------------------------------------------------------------------------
-  IToken* OprtTranspose::Clone() const
+  ptr_tok_type OprtTranspose::Clone() const
   {
-    return new OprtTranspose(*this); 
+    return ptr_tok_type(new OprtTranspose(*this));
   }
 
   //-----------------------------------------------------------------------------------------------
@@ -128,9 +128,9 @@ MUP_NAMESPACE_START
   }
 
   //-----------------------------------------------------------------------------------------------
-  IToken* OprtCreateArray::Clone() const
+  ptr_tok_type OprtCreateArray::Clone() const
   {
-	  return new OprtCreateArray(*this);
+	  return ptr_tok_type(new OprtCreateArray(*this));
   }
 
 //-----------------------------------------------------------
@@ -175,8 +175,8 @@ MUP_NAMESPACE_START
   }
   
   //-----------------------------------------------------------
-  IToken* OprtColon::Clone() const
+  ptr_tok_type OprtColon::Clone() const
   { 
-    return new OprtColon(*this); 
+    return ptr_tok_type(new OprtColon(*this));
   }
 MUP_NAMESPACE_END

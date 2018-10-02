@@ -116,7 +116,7 @@ MUP_NAMESPACE_START
 
     virtual bool IsVariable() const;
 
-    virtual IToken* Clone() const;
+    virtual ptr_tok_type Clone() const;
     virtual Value* AsValue() override;
 
     virtual string_type AsciiDump() const;

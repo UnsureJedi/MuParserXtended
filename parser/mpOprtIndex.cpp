@@ -130,9 +130,9 @@ MUP_NAMESPACE_START
     }
 
     //-----------------------------------------------------------------------------------------------
-    IToken* OprtIndex::Clone() const
+	ptr_tok_type OprtIndex::Clone() const
     {
-        return new OprtIndex(*this); 
+        return ptr_tok_type(new OprtIndex(*this));
     }
 
 MUP_NAMESPACE_END

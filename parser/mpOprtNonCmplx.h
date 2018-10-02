@@ -58,7 +58,7 @@ MUP_NAMESPACE_START
     OprtSign();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   }; // class OprtSign
 
   //---------------------------------------------------------------------------
@@ -71,7 +71,7 @@ MUP_NAMESPACE_START
     OprtSignPos();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   }; // class OprtSignPos
 
   //------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ MUP_NAMESPACE_START
     OprtAdd();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ MUP_NAMESPACE_START
     OprtSub();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //------------------------------------------------------------------------------
@@ -110,7 +110,7 @@ MUP_NAMESPACE_START
     OprtMul();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //------------------------------------------------------------------------------
@@ -123,7 +123,7 @@ MUP_NAMESPACE_START
     OprtDiv();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //------------------------------------------------------------------------------
@@ -138,7 +138,7 @@ MUP_NAMESPACE_START
                                                                         
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *arg, int argc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 }  // namespace mu
 

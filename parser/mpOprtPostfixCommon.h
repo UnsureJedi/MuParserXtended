@@ -29,7 +29,7 @@ MUP_NAMESPACE_START
 
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *arg, int);
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ MUP_NAMESPACE_START
 
       virtual void Eval(ptr_val_type& ret, const ptr_val_type *arg, int) override;
       virtual const char_type* GetDesc() const override;
-      virtual IToken* Clone() const override;
+      virtual ptr_tok_type Clone() const override;
   };
 }  // namespace mu
 

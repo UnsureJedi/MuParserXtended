@@ -57,7 +57,7 @@ MUP_NAMESPACE_START
     OprtIndex();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *arg, int argc) override;
     virtual const char_type* GetDesc() const;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   }; 
 
 MUP_NAMESPACE_END

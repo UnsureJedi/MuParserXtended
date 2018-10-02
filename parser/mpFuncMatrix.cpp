@@ -95,9 +95,9 @@ const char_type* FunMatrixOnes::GetDesc() const
 }
 
 //-----------------------------------------------------------------------
-IToken* FunMatrixOnes::Clone() const
+ptr_tok_type FunMatrixOnes::Clone() const
 {
-    return new FunMatrixOnes(*this);
+    return ptr_tok_type(new FunMatrixOnes(*this));
 }
 
 //-----------------------------------------------------------------------
@@ -146,9 +146,9 @@ const char_type* FunMatrixZeros::GetDesc() const
 }
 
 //-----------------------------------------------------------------------
-IToken* FunMatrixZeros::Clone() const
+ptr_tok_type FunMatrixZeros::Clone() const
 {
-    return new FunMatrixZeros(*this);
+    return ptr_tok_type(new FunMatrixZeros(*this));
 }
 
 //-----------------------------------------------------------------------
@@ -197,9 +197,9 @@ const char_type* FunMatrixEye::GetDesc() const
 }
 
 //-----------------------------------------------------------------------
-IToken* FunMatrixEye::Clone() const
+ptr_tok_type FunMatrixEye::Clone() const
 {
-    return new FunMatrixEye(*this);
+    return ptr_tok_type(new FunMatrixEye(*this));
 }
 
 //-----------------------------------------------------------------------
@@ -241,9 +241,9 @@ const char_type* FunMatrixSize::GetDesc() const
 }
 
 //-----------------------------------------------------------------------
-IToken* FunMatrixSize::Clone() const
+ptr_tok_type FunMatrixSize::Clone() const
 {
-    return new FunMatrixSize(*this);
+    return ptr_tok_type(new FunMatrixSize(*this));
 }
 
 MUP_NAMESPACE_END

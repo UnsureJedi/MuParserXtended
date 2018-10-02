@@ -52,7 +52,7 @@ MUP_NAMESPACE_START
       CLASS();                                                             \
       virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;  \
       virtual const char_type* GetDesc() const override;                   \
-      virtual IToken* Clone() const override;                              \
+      virtual ptr_tok_type Clone() const override;                              \
     }; 
 
     MUP_UNARY_FUNC_DEF(FunTan)
@@ -89,7 +89,7 @@ MUP_NAMESPACE_START
       CLASS();                                                             \
       virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;  \
       virtual const char_type* GetDesc() const override;                   \
-      virtual IToken* Clone() const override;                              \
+      virtual ptr_tok_type Clone() const override;                              \
     };
 
     MUP_BINARY_FUNC_DEF(FunPow)

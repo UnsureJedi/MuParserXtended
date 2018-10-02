@@ -65,9 +65,9 @@ const char_type* OprtStrAdd::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtStrAdd::Clone() const
+ptr_tok_type OprtStrAdd::Clone() const
 {
-    return new OprtStrAdd(*this);
+    return ptr_tok_type(new OprtStrAdd(*this));
 }
 
 
@@ -94,9 +94,9 @@ const char_type* OprtEQ::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtEQ::Clone() const
+ptr_tok_type OprtEQ::Clone() const
 {
-    return new OprtEQ(*this);
+    return ptr_tok_type(new OprtEQ(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -122,9 +122,9 @@ const char_type* OprtNEQ::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtNEQ::Clone() const
+ptr_tok_type OprtNEQ::Clone() const
 {
-    return new OprtNEQ(*this);
+    return ptr_tok_type(new OprtNEQ(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -150,9 +150,9 @@ const char_type* OprtLT::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtLT::Clone() const
+ptr_tok_type OprtLT::Clone() const
 {
-    return new OprtLT(*this);
+    return ptr_tok_type(new OprtLT(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -177,9 +177,9 @@ const char_type* OprtGT::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtGT::Clone() const
+ptr_tok_type OprtGT::Clone() const
 {
-    return new OprtGT(*this);
+    return ptr_tok_type(new OprtGT(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -205,9 +205,9 @@ const char_type* OprtLE::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtLE::Clone() const
+ptr_tok_type OprtLE::Clone() const
 {
-    return new OprtLE(*this);
+    return ptr_tok_type(new OprtLE(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -233,9 +233,9 @@ const char_type* OprtGE::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtGE::Clone() const
+ptr_tok_type OprtGE::Clone() const
 {
-    return new OprtGE(*this);
+    return ptr_tok_type(new OprtGE(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -278,9 +278,9 @@ const char_type* OprtAnd::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtAnd::Clone() const
+ptr_tok_type OprtAnd::Clone() const
 {
-    return new OprtAnd(*this);
+    return ptr_tok_type(new OprtAnd(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -323,9 +323,9 @@ const char_type* OprtOr::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtOr::Clone() const
+ptr_tok_type OprtOr::Clone() const
 {
-    return new OprtOr(*this);
+    return ptr_tok_type(new OprtOr(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -352,9 +352,9 @@ const char_type* OprtLOr::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtLOr::Clone() const
+ptr_tok_type OprtLOr::Clone() const
 {
-    return new OprtLOr(*this);
+    return ptr_tok_type(new OprtLOr(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -381,9 +381,9 @@ const char_type* OprtLAnd::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtLAnd::Clone() const
+ptr_tok_type OprtLAnd::Clone() const
 {
-    return new OprtLAnd(*this);
+    return ptr_tok_type(new OprtLAnd(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -439,9 +439,9 @@ const char_type* OprtShl::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtShl::Clone() const
+ptr_tok_type OprtShl::Clone() const
 {
-    return new OprtShl(*this);
+    return ptr_tok_type(new OprtShl(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -493,9 +493,9 @@ const char_type* OprtShr::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtShr::Clone() const
+ptr_tok_type OprtShr::Clone() const
 {
-    return new OprtShr(*this);
+    return ptr_tok_type(new OprtShr(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -537,9 +537,9 @@ const char_type* OprtCastToFloat::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtCastToFloat::Clone() const
+ptr_tok_type OprtCastToFloat::Clone() const
 {
-    return new OprtCastToFloat(*this);
+    return ptr_tok_type(new OprtCastToFloat(*this));
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -581,9 +581,9 @@ const char_type* OprtCastToInt::GetDesc() const
 }
 
 //-----------------------------------------------------------------------------------------------
-IToken* OprtCastToInt::Clone() const
+ptr_tok_type OprtCastToInt::Clone() const
 {
-    return new OprtCastToInt(*this);
+    return ptr_tok_type(new OprtCastToInt(*this));
 }
 
 }

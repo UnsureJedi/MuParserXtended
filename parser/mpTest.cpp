@@ -84,9 +84,9 @@ public:
     }
 
     //-----------------------------------------------------------------------------------------------
-    IToken* Clone() const
+	ptr_tok_type Clone() const
     {
-        return new DbgSillyAdd(*this);
+        return ptr_tok_type(new DbgSillyAdd(*this));
     }
 };
 
@@ -107,9 +107,9 @@ public:
         return _T("");
     }
 
-    virtual IToken* Clone() const
+    virtual ptr_tok_type Clone() const
     {
-        return new FunTest0(*this);
+        return ptr_tok_type(new FunTest0(*this));
     }
 }; // class FunTest0
 
@@ -1575,8 +1575,8 @@ int ParserTester::EqnTest(const string_type &a_str, Value a_val, bool a_fPass, i
         m2.At(1, 0) = 4.;  m2.At(1, 1) = 5.;  m2.At(1, 2) = 6.;
         m2.At(2, 0) = 7.;  m2.At(2, 1) = 8.;  m2.At(2, 2) = 9.;
 
-        p1->DefineOprt(new DbgSillyAdd);
-        p1->DefineFun(new FunTest0);
+        p1->DefineFun(std::shared_ptr<IOprtBin>(new DbgSillyAdd));
+        p1->DefineFun(ptr_cal_type(new FunTest0));
 
         p1->DefineVar(_T("a"), Variable(&vVarVal[0]));
         p1->DefineVar(_T("b"), Variable(&vVarVal[1]));

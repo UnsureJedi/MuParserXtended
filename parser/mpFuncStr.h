@@ -46,7 +46,7 @@ MUP_NAMESPACE_START
     FunStrLen();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //------------------------------------------------------------------------------
@@ -59,7 +59,7 @@ MUP_NAMESPACE_START
     FunStrToUpper();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ MUP_NAMESPACE_START
     FunStrToLower();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ MUP_NAMESPACE_START
     FunStrToDbl ();
     virtual void Eval(ptr_val_type& ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   }; // class FunStrToDbl
 }  // namespace mu
 

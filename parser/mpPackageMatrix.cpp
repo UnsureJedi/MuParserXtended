@@ -54,16 +54,16 @@ IPackage* PackageMatrix::Instance()
 void PackageMatrix::AddToParser(ParserXBase *pParser)
 {
   // Matrix functions
-  pParser->DefineFun(new FunMatrixOnes());
-  pParser->DefineFun(new FunMatrixZeros());
-  pParser->DefineFun(new FunMatrixEye());
-  pParser->DefineFun(new FunMatrixSize());
+  pParser->DefineFun(ptr_cal_type(new FunMatrixOnes()));
+  pParser->DefineFun(ptr_cal_type(new FunMatrixZeros()));
+  pParser->DefineFun(ptr_cal_type(new FunMatrixEye()));
+  pParser->DefineFun(ptr_cal_type(new FunMatrixSize()));
   
   // Matrix Operators
-  pParser->DefinePostfixOprt(new OprtTranspose());
+  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtTranspose()));
 
   // Colon operator
-//pParser->DefineOprt(new OprtColon());
+//pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtColon()));
 //pParser->DefineAggregator(new AggColon());
 }
 

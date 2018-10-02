@@ -55,42 +55,42 @@ IPackage* PackageNonCmplx::Instance()
 //------------------------------------------------------------------------------
 void PackageNonCmplx::AddToParser(ParserXBase *pParser)
 {
-  pParser->DefineFun(new FunSin());
-  pParser->DefineFun(new FunCos());
-  pParser->DefineFun(new FunTan());
-  pParser->DefineFun(new FunSinH());
-  pParser->DefineFun(new FunCosH());
-  pParser->DefineFun(new FunTanH());
-  pParser->DefineFun(new FunASin());
-  pParser->DefineFun(new FunACos());
-  pParser->DefineFun(new FunATan());
-  pParser->DefineFun(new FunASinH());
-  pParser->DefineFun(new FunACosH());
-  pParser->DefineFun(new FunATanH());
-  pParser->DefineFun(new FunLog());
-  pParser->DefineFun(new FunLog10());
-  pParser->DefineFun(new FunLog2());
-  pParser->DefineFun(new FunLn());
-  pParser->DefineFun(new FunExp());
-  pParser->DefineFun(new FunSqrt());
-  pParser->DefineFun(new FunCbrt());
-  pParser->DefineFun(new FunAbs());
+  pParser->DefineFun(ptr_cal_type(new FunSin()));
+  pParser->DefineFun(ptr_cal_type(new FunCos()));
+  pParser->DefineFun(ptr_cal_type(new FunTan()));
+  pParser->DefineFun(ptr_cal_type(new FunSinH()));
+  pParser->DefineFun(ptr_cal_type(new FunCosH()));
+  pParser->DefineFun(ptr_cal_type(new FunTanH()));
+  pParser->DefineFun(ptr_cal_type(new FunASin()));
+  pParser->DefineFun(ptr_cal_type(new FunACos()));
+  pParser->DefineFun(ptr_cal_type(new FunATan()));
+  pParser->DefineFun(ptr_cal_type(new FunASinH()));
+  pParser->DefineFun(ptr_cal_type(new FunACosH()));
+  pParser->DefineFun(ptr_cal_type(new FunATanH()));
+  pParser->DefineFun(ptr_cal_type(new FunLog()));
+  pParser->DefineFun(ptr_cal_type(new FunLog10()));
+  pParser->DefineFun(ptr_cal_type(new FunLog2()));
+  pParser->DefineFun(ptr_cal_type(new FunLn()));
+  pParser->DefineFun(ptr_cal_type(new FunExp()));
+  pParser->DefineFun(ptr_cal_type(new FunSqrt()));
+  pParser->DefineFun(ptr_cal_type(new FunCbrt()));
+  pParser->DefineFun(ptr_cal_type(new FunAbs()));
 
   // binary functions
-  pParser->DefineFun(new FunPow());
-  pParser->DefineFun(new FunHypot());
-  pParser->DefineFun(new FunAtan2());
-  pParser->DefineFun(new FunFmod());
-  pParser->DefineFun(new FunRemainder());
+  pParser->DefineFun(ptr_cal_type(new FunPow()));
+  pParser->DefineFun(ptr_cal_type(new FunHypot()));
+  pParser->DefineFun(ptr_cal_type(new FunAtan2()));
+  pParser->DefineFun(ptr_cal_type(new FunFmod()));
+  pParser->DefineFun(ptr_cal_type(new FunRemainder()));
 
   // Operator callbacks
-  pParser->DefineInfixOprt(new OprtSign());
-  pParser->DefineInfixOprt(new OprtSignPos());
-  pParser->DefineOprt(new OprtAdd());
-  pParser->DefineOprt(new OprtSub());
-  pParser->DefineOprt(new OprtMul());
-  pParser->DefineOprt(new OprtDiv());
-  pParser->DefineOprt(new OprtPow);
+  pParser->DefineFun(std::shared_ptr<IOprtInfix>(new OprtSign()));
+  pParser->DefineFun(std::shared_ptr<IOprtInfix>(new OprtSignPos()));
+  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtAdd()));
+  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtSub()));
+  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtMul()));
+  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtDiv()));
+  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtPow()));	// UnsureJedi note: OprtPow() was without ()
 }
 
 //------------------------------------------------------------------------------

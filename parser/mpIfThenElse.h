@@ -60,7 +60,7 @@ MUP_NAMESPACE_START
       // IToken interface
       //---------------------------------------------
 
-      virtual IToken* Clone() const override;
+      virtual ptr_tok_type Clone() const override;
       virtual string_type AsciiDump() const override;
       virtual IPrecedence* AsIPrecedence() override;
 

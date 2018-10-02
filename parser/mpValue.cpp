@@ -325,9 +325,9 @@ Value::~Value()
 }
 
 //---------------------------------------------------------------------------
-IToken* Value::Clone() const
+ptr_tok_type Value::Clone() const
 {
-    return new Value(*this);
+    return ptr_tok_type(new Value(*this));
 }
 
 //---------------------------------------------------------------------------
@@ -881,7 +881,7 @@ void Value::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
 	// Setting the Array_Start_Ptr to address of Variable being indexed (that is, its m_pVal pointer)
 	temp->Set_Array_Start_m_pVal(ptr.get()->Get_m_pVal());
 	//Array_Start_Ptr.operator=(ptr);
-	ptr = temp;
+	ptr = ptr_val_type(temp);
 }
 
 //---------------------------------------------------------------------------

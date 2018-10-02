@@ -68,9 +68,9 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* FunParserID::Clone() const
+  ptr_tok_type FunParserID::Clone() const
   {
-    return new FunParserID(*this);
+    return ptr_tok_type(new FunParserID(*this));
   }
 
   //------------------------------------------------------------------------------
@@ -120,9 +120,9 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* FunMax::Clone() const
+  ptr_tok_type FunMax::Clone() const
   {
-    return new FunMax(*this);
+    return ptr_tok_type(new FunMax(*this));
   }
 
   //------------------------------------------------------------------------------
@@ -175,9 +175,9 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* FunMin::Clone() const
+  ptr_tok_type FunMin::Clone() const
   {
-    return new FunMin(*this);
+    return ptr_tok_type(new FunMin(*this));
   }
 
   //------------------------------------------------------------------------------
@@ -230,9 +230,9 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* FunSum::Clone() const
+  ptr_tok_type FunSum::Clone() const
   {
-    return new FunSum(*this);
+    return ptr_tok_type(new FunSum(*this));
   }
 
   //------------------------------------------------------------------------------
@@ -264,9 +264,9 @@ MUP_NAMESPACE_START
   }
 
   //------------------------------------------------------------------------------
-  IToken* FunSizeOf::Clone() const
+  ptr_tok_type FunSizeOf::Clone() const
   {
-    return new FunSizeOf(*this);
+    return ptr_tok_type(new FunSizeOf(*this));
   }
 
 MUP_NAMESPACE_END

@@ -55,7 +55,7 @@ MUP_NAMESPACE_START
     virtual ~FunCmplxReal();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -68,7 +68,7 @@ MUP_NAMESPACE_START
     FunCmplxImag();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -82,7 +82,7 @@ MUP_NAMESPACE_START
     FunCmplxConj();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
 
@@ -97,7 +97,7 @@ MUP_NAMESPACE_START
     FunCmplxArg();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -111,7 +111,7 @@ MUP_NAMESPACE_START
     FunCmplxNorm();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -121,7 +121,7 @@ MUP_NAMESPACE_START
     FunCmplxCos();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -131,7 +131,7 @@ MUP_NAMESPACE_START
     FunCmplxSin();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -141,7 +141,7 @@ MUP_NAMESPACE_START
     FunCmplxCosH();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -151,7 +151,7 @@ MUP_NAMESPACE_START
     FunCmplxSinH();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -161,7 +161,7 @@ MUP_NAMESPACE_START
     FunCmplxTan();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -171,7 +171,7 @@ MUP_NAMESPACE_START
     FunCmplxTanH();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -181,7 +181,7 @@ MUP_NAMESPACE_START
     FunCmplxSqrt();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
 
@@ -192,7 +192,7 @@ MUP_NAMESPACE_START
     FunCmplxExp();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -202,7 +202,7 @@ MUP_NAMESPACE_START
     FunCmplxLn();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -212,7 +212,7 @@ MUP_NAMESPACE_START
     FunCmplxLog();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -222,7 +222,7 @@ MUP_NAMESPACE_START
     FunCmplxLog10();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -232,7 +232,7 @@ MUP_NAMESPACE_START
     FunCmplxLog2();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -243,7 +243,7 @@ MUP_NAMESPACE_START
     FunCmplxAbs();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 
   //-----------------------------------------------------------------------
@@ -254,7 +254,7 @@ MUP_NAMESPACE_START
     FunCmplxPow();
     virtual void Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc) override;
     virtual const char_type* GetDesc() const override;
-    virtual IToken* Clone() const override;
+    virtual ptr_tok_type Clone() const override;
   };
 }  // namespace mu
 

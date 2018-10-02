@@ -65,9 +65,9 @@ MUP_NAMESPACE_START
     return _T(DESC);                                               \
   }                                                                \
                                                                    \
-  IToken* CLASS::Clone() const                                     \
+  ptr_tok_type CLASS::Clone() const                                     \
   {                                                                \
-    return new CLASS(*this);                                       \
+    return ptr_tok_type(new CLASS(*this));                                       \
   }
 
   MUP_POSTFIX_IMLP(OprtNano,   "n",   (float_type)1e-9,   "n - unit multiplicator 1e-9")
@@ -96,12 +96,12 @@ IPackage* PackageUnit::Instance()
 //------------------------------------------------------------------------------
 void PackageUnit::AddToParser(ParserXBase *pParser)
 {
-  pParser->DefinePostfixOprt(new OprtNano(this));
-  pParser->DefinePostfixOprt(new OprtMicro(this));
-  pParser->DefinePostfixOprt(new OprtMilli(this));
-  pParser->DefinePostfixOprt(new OprtKilo(this));
-  pParser->DefinePostfixOprt(new OprtMega(this));
-  pParser->DefinePostfixOprt(new OprtGiga(this));
+  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtNano(this)));
+  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtMicro(this)));
+  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtMilli(this)));
+  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtKilo(this)));
+  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtMega(this)));
+  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtGiga(this)));
 }
 
 //------------------------------------------------------------------------------

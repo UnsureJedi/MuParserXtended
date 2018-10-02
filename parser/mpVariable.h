@@ -101,7 +101,7 @@ MUP_NAMESPACE_START
     virtual int GetCols() const;
 
     virtual bool IsVariable() const;
-    virtual IToken* Clone() const;
+    virtual ptr_tok_type Clone() const;
     virtual Value* AsValue();
 
     void SetFloat(float_type a_fVal);
