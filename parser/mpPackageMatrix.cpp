@@ -60,7 +60,7 @@ void PackageMatrix::AddToParser(ParserXBase *pParser)
   pParser->DefineFun(ptr_cal_type(new FunMatrixSize()));
   
   // Matrix Operators
-  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtTranspose()));
+  pParser->DefinePostfixOprt(std::shared_ptr<IOprtPostfix>(new OprtTranspose()));
 
   // Colon operator
 //pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtColon()));

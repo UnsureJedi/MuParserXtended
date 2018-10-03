@@ -703,10 +703,10 @@ int ParserTester::TestErrorCodes()
     iNumErr += ThrowTest(_T("(1+3i)/(8*9i)-\"hallo\""), ecEVAL);
     iNumErr += ThrowTest(_T("(1+3i)/(8*9i)*\"hallo\""), ecEVAL);
     iNumErr += ThrowTest(_T("(1+3i)/(8*9i)/\"hallo\""), ecEVAL);
-    iNumErr += ThrowTest(_T("10+va"), ecEVAL, 2);
+    iNumErr += ThrowTest(_T("10+va"), ecEVAL, 2);	//Continue here; Crashes, while deleting some Variable shared_ptr as m_pval is 0xDDDD (deleted). It's probably time to transit m_pval to shared_ptr as well.
 
     // Type conflicts in binary operators
-    iNumErr += ThrowTest(_T("\"test\" // 8"), ecEVAL, 7);
+    iNumErr += ThrowTest(_T("\"test\" // 8"), ecEVAL, 7);	
     iNumErr += ThrowTest(_T("8//\"test\""), ecEVAL, 1);
     iNumErr += ThrowTest(_T("5//8"), ecEVAL, 1);
     iNumErr += ThrowTest(_T("\"t\"//sin(8)"), ecEVAL, 3);

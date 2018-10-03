@@ -56,16 +56,6 @@ MUP_NAMESPACE_START
   friend std::ostream& operator<<(std::ostream &a_Stream, const IToken &a_Val);
   friend std::wostream& operator<<(std::wostream &a_Stream, const IToken &a_Val);
 
-  friend class std::shared_ptr<IToken>;
-  friend class std::shared_ptr<IValue>;
-  friend class std::shared_ptr<IOprtBin>;
-  friend class std::shared_ptr<IOprtInfix>;
-  friend class std::shared_ptr<IOprtPostfix>;
-  friend class std::shared_ptr<IFunction>;
-  friend class std::shared_ptr<Value>;
-  friend class std::shared_ptr<Variable>;
-  friend class std::shared_ptr<ICallback>;
-
   public:
 
     enum EFlags

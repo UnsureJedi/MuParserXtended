@@ -433,12 +433,12 @@ void ParserXBase::DefineVar(const string_type &ident, const Variable &var)
 
 	CheckForEntityExistence(ident, ecVARIABLE_DEFINED);
 
-	m_varDef[ident] = ptr_tok_type(var.Clone());
+	m_varDef[ident] = var.Clone();
 }
 
 void ParserXBase::SetVar(const string_type &ident, const Variable &var)
 {
-	m_varDef[ident] = ptr_tok_type(var.Clone());
+	m_varDef[ident] = var.Clone();
 }
 Value ParserXBase::GetVar(const string_type &ident)
 {
@@ -1340,7 +1340,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 			MUP_VERIFY(sidx < (int)m_vStackBuffer.size());
 			if (pVal->IsVariable())
 			{
-				pStack[sidx].reset(pVal);
+				pStack[sidx].reset((Variable*)pVal);	// Continue here;
 			}
 			else
 			{

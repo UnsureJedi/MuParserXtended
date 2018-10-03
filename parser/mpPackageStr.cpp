@@ -63,7 +63,7 @@ void PackageStr::AddToParser(ParserXBase *pParser)
   pParser->DefineFun(ptr_cal_type(new FunStrToLower()));
 
   // Operators
-  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtStrAdd));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtStrAdd));
 }
 
 //------------------------------------------------------------------------------

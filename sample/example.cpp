@@ -1004,7 +1004,7 @@ int main(int /*argc*/, char** /*argv*/)
 #ifdef MUP_LEAKAGE_REPORT  
   IToken::LeakageReport();  
 #endif
-
+  system("PAUSE");
   return 0;
 }
 

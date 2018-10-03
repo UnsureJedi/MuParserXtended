@@ -96,12 +96,12 @@ IPackage* PackageUnit::Instance()
 //------------------------------------------------------------------------------
 void PackageUnit::AddToParser(ParserXBase *pParser)
 {
-  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtNano(this)));
-  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtMicro(this)));
-  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtMilli(this)));
-  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtKilo(this)));
-  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtMega(this)));
-  pParser->DefineFun(std::shared_ptr<IOprtPostfix>(new OprtGiga(this)));
+  pParser->DefinePostfixOprt(std::shared_ptr<IOprtPostfix>(new OprtNano(this)));
+  pParser->DefinePostfixOprt(std::shared_ptr<IOprtPostfix>(new OprtMicro(this)));
+  pParser->DefinePostfixOprt(std::shared_ptr<IOprtPostfix>(new OprtMilli(this)));
+  pParser->DefinePostfixOprt(std::shared_ptr<IOprtPostfix>(new OprtKilo(this)));
+  pParser->DefinePostfixOprt(std::shared_ptr<IOprtPostfix>(new OprtMega(this)));
+  pParser->DefinePostfixOprt(std::shared_ptr<IOprtPostfix>(new OprtGiga(this)));
 }
 
 //------------------------------------------------------------------------------

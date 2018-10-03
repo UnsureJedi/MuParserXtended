@@ -84,13 +84,13 @@ void PackageNonCmplx::AddToParser(ParserXBase *pParser)
   pParser->DefineFun(ptr_cal_type(new FunRemainder()));
 
   // Operator callbacks
-  pParser->DefineFun(std::shared_ptr<IOprtInfix>(new OprtSign()));
-  pParser->DefineFun(std::shared_ptr<IOprtInfix>(new OprtSignPos()));
-  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtAdd()));
-  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtSub()));
-  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtMul()));
-  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtDiv()));
-  pParser->DefineFun(std::shared_ptr<IOprtBin>(new OprtPow()));	// UnsureJedi note: OprtPow() was without ()
+  pParser->DefineInfixOprt(std::shared_ptr<IOprtInfix>(new OprtSign()));
+  pParser->DefineInfixOprt(std::shared_ptr<IOprtInfix>(new OprtSignPos()));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtAdd()));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtSub()));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtMul()));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtDiv()));
+  pParser->DefineOprt(std::shared_ptr<IOprtBin>(new OprtPow()));	// UnsureJedi note: OprtPow() was without ()
 }
 
 //------------------------------------------------------------------------------
