@@ -1340,7 +1340,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 			MUP_VERIFY(sidx < (int)m_vStackBuffer.size());
 			if (pVal->IsVariable())
 			{
-				pStack[sidx].reset((Variable*)pVal);	// Continue here;
+				pStack[sidx] = static_pointer_cast<IValue>(m_rpn.GetData()[i]);
 			}
 			else
 			{
@@ -1460,12 +1460,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 						buf->Delete_Array();	// Redem note: watch for bugs from here
 												//val = buf;				// and here
 					}
-					else if (val.get()->Get_Array_Start_m_pVal())
-					{
-						val = buf;
-					}
-					else
-						val = buf;
+					val = buf;
 				}
 				else
 				{

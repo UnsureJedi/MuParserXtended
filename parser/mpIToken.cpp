@@ -86,7 +86,7 @@ MUP_NAMESPACE_START
 
     console() << "\n";     
     console() << "Memory leakage report:\n\n";     
-    if (IToken::s_Tokens.size())	// Continue here. Now that tokens are no longer leaking I need to remove leaks beside tokens, as memory usage shows. Delete temporary variables, Array_Value_Deleted, etc. Use memory profiler.
+    if (IToken::s_Tokens.size())
     {
       list<IToken*>::const_iterator item = IToken::s_Tokens.begin();
       std::vector<int> stat(cmCOUNT, 0);
@@ -116,7 +116,6 @@ MUP_NAMESPACE_START
     :m_eCode(a_iCode)
     ,m_sIdent()
     ,m_nPosExpr(-1)
-    ,m_nRefCount(0)
     ,m_flags(0)
   {
 #ifdef MUP_LEAKAGE_REPORT
@@ -129,7 +128,6 @@ MUP_NAMESPACE_START
     :m_eCode(a_iCode)
     ,m_sIdent(a_sIdent)
     ,m_nPosExpr(-1)
-    ,m_nRefCount(0)
     ,m_flags(0)
   {
 #ifdef MUP_LEAKAGE_REPORT
@@ -164,13 +162,6 @@ MUP_NAMESPACE_START
 
     // The following items must be initialised 
     // (rather than just beeing copied)
-    m_nRefCount = 0;
-  }
-
-  //------------------------------------------------------------------------------
-  void IToken::ResetRef()
-  {
-    m_nRefCount = 0;
   }
 
   //------------------------------------------------------------------------------
@@ -226,24 +217,6 @@ MUP_NAMESPACE_START
     stringstream_type ss;
     ss << g_sCmdCode[m_eCode];
     return ss.str().c_str();
-  }
-
-  //------------------------------------------------------------------------------
-  void IToken::IncRef() const
-  {
-    ++m_nRefCount;
-  }
-
-  //------------------------------------------------------------------------------
-  long IToken::DecRef() const
-  {
-    return --m_nRefCount;
-  }
-
-  //------------------------------------------------------------------------------
-  long IToken::GetRef() const
-  {
-    return m_nRefCount;
   }
 
   //---------------------------------------------------------------------------

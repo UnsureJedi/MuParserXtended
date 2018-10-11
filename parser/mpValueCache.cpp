@@ -56,8 +56,6 @@ MUP_NAMESPACE_START
   {
     for (std::size_t i=0; i<m_vCache.size(); ++i)
     {
-		
-
       delete m_vCache[i];
       m_vCache[i] = nullptr;
     }
@@ -76,8 +74,6 @@ MUP_NAMESPACE_START
 //    std::cout << "dbg: " << ct << " ptr: " << this << " void ValueCache::ReleaseToCache(Value *pValue) \n";
     if (pValue==nullptr)
       return;
-
-    assert(pValue->GetRef()==0);
 
     // Add the value to the cache if the cache has room for it 
     // otherwise release the value item instantly

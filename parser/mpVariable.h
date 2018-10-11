@@ -53,7 +53,8 @@ MUP_NAMESPACE_START
   public:
 
 	Variable();
-    Variable(IValue *pVal);
+	Variable(IValue* pVal);
+    Variable(ptr_val_type pVal);
 
     Variable(const Variable &a_Var);
     Variable& operator=(const Variable &a_Var);
@@ -73,11 +74,11 @@ MUP_NAMESPACE_START
     virtual IValue& operator-=(const IValue &ref);
     virtual IValue& operator*=(const IValue &val);
 
-	virtual IValue* Get_Array_Start_m_pVal();
-	virtual void Set_Array_Start_m_pVal(IValue* p);
+	virtual ptr_val_type Get_Array_Start_m_pVal();
+	virtual void Set_Array_Start_m_pVal(ptr_val_type p);
 	virtual void Set_Index_In_Array(int index);
-	virtual void Variable::Set_m_pVal(IValue* p);
-	virtual IValue* Get_m_pVal();
+	virtual void Variable::Set_m_pVal(ptr_val_type p);
+	virtual ptr_val_type Get_m_pVal();
     virtual ~Variable();
 
     virtual char_type GetType() const;
@@ -108,14 +109,14 @@ MUP_NAMESPACE_START
     void SetString(const string_type &a_sVal);
     void SetBool(bool a_bVal);
 
-    void Bind(IValue *pValue);
+    void Bind(ptr_val_type pValue);
 
-    IValue* GetPtr() const;
+	ptr_val_type GetPtr() const;
     string_type AsciiDump() const;
 
 	
   private:
-	IValue * m_pVal;
+	ptr_val_type m_pVal;
     void Assign(const Variable &a_Var);
     void CheckType(char_type a_cType) const;
   }; // class Variable

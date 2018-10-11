@@ -78,7 +78,6 @@ MUP_NAMESPACE_START
     int GetExprPos() const;
     
     const string_type& GetIdent() const;
-    long GetRef() const;
     void SetIdent(const string_type &a_sIdent);
     void SetExprPos(int nPos);
 
@@ -92,8 +91,6 @@ MUP_NAMESPACE_START
     IToken(ECmdCode a_iCode, string_type a_sIdent);
     IToken(const IToken &ref);
 
-    void ResetRef();
-
   private:
 
     /** \brief Release the token. 
@@ -103,13 +100,9 @@ MUP_NAMESPACE_START
     */
     virtual void Release();
 
-    void IncRef() const;
-    long DecRef() const;
-
     ECmdCode m_eCode;
     string_type m_sIdent;
     int m_nPosExpr;           ///< Original position of the token in the expression
-    mutable long m_nRefCount; ///< Reference counter.
     int m_flags;
 
 #ifdef MUP_LEAKAGE_REPORT

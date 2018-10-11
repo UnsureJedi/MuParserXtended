@@ -103,11 +103,11 @@ MUP_NAMESPACE_START
 	virtual std::shared_ptr<Variable[]> Get_Array() const override;	// Redem note: function for getting the 1D array of Values (not vector- or map-based).
 	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const override;	// Get the array Variable at specified index or indices
 	virtual Variable& Get_Variable_At_Array_Index(int index) const override;
-	virtual void Set_Array_Start_m_pVal(IValue* p);
-	virtual IValue* Get_Array_Start_m_pVal() override;
+	virtual void Set_Array_Start_m_pVal(ptr_val_type ptr);
+	virtual ptr_val_type Get_Array_Start_m_pVal() override;
 	virtual void Set_Index_In_Array(int index);
-	virtual void Set_m_pVal(IValue* p);
-	virtual IValue* Get_m_pVal();
+	virtual void Set_m_pVal(ptr_val_type p);
+	virtual ptr_val_type Get_m_pVal();
 	virtual int Get_Array_Size() const;
 	virtual Value* Get_Value() const;
 	virtual void Delete_Value();
@@ -137,7 +137,7 @@ MUP_NAMESPACE_START
     matrix_type *m_pvVal;  ///< A Vector for storing array variable content
 	std::shared_ptr<Variable[]> Array_Value;	// A pointer for array of Values
 	int Array_Size = 0;
-	IValue* Array_Start_Ptr = 0;
+	ptr_val_type Array_Start_Ptr = 0;
 	int Index_In_Array;	// if this Value is an Array element, this variable is an index of this element in Array_Value, containing it. -1 means that this Value is not an Array member
     char_type    m_cType;  ///< A byte indicating the type of the represented value
     EFlags       m_iFlags; ///< Additional flags

@@ -55,10 +55,17 @@ Variable::Variable()
     Such variable objects must be bound later in order to be of any use. The parser
     does NOT assume ownership over the pointer!
   */
-  Variable::Variable(IValue *pVal)
+Variable::Variable(IValue* pVal)
+	:IValue(cmVAL)
+{
+	m_pVal = std::static_pointer_cast<IValue>(pVal->Clone());
+	AddFlags(IToken::flVOLATILE);
+}
+
+  Variable::Variable(ptr_val_type pVal)
     :IValue(cmVAL)
-    ,m_pVal(pVal)
   {
+	m_pVal = pVal;
     AddFlags(IToken::flVOLATILE);
   }
 
@@ -181,7 +188,9 @@ Variable::Variable()
 
   //-----------------------------------------------------------------------------------------------
   Variable::~Variable()
-  {}
+  {
+	  ptr_val_type lol = m_pVal;	//debug
+  }
 
   //-----------------------------------------------------------------------------------------------
   void Variable::Assign(const Variable &ref)
@@ -205,7 +214,7 @@ Variable::Variable()
     /** \brief Returns the Value pointer bound to this variable. 
         \throw nothrow
     */
-    IValue* Variable::GetPtr() const
+    ptr_val_type Variable::GetPtr() const
     {
         return m_pVal;
     }
@@ -347,13 +356,13 @@ Variable::Variable()
 	}
 
 	//-----------------------------------------------------------------------------------------------
-	IValue * Variable::Get_Array_Start_m_pVal()
+	ptr_val_type Variable::Get_Array_Start_m_pVal()
 	{
 		return m_pVal->Get_Array_Start_m_pVal();
 	}
 
 	//-----------------------------------------------------------------------------------------------
-	void Variable::Set_Array_Start_m_pVal(IValue* p)
+	void Variable::Set_Array_Start_m_pVal(ptr_val_type p)
 	{
 		m_pVal->Set_Array_Start_m_pVal(p);
 	}
@@ -364,12 +373,12 @@ Variable::Variable()
 	}
 
 	//-----------------------------------------------------------------------------------------------
-	void Variable::Set_m_pVal(IValue* p)
+	void Variable::Set_m_pVal(ptr_val_type p)
 	{
 		m_pVal = p;
 	}
 
-	IValue* Variable::Get_m_pVal()
+	ptr_val_type Variable::Get_m_pVal()
 	{
 		return m_pVal;
 	}
@@ -470,7 +479,7 @@ Variable::Variable()
   }
 
   //-----------------------------------------------------------------------------------------------
-  void Variable::Bind(IValue *pValue)
+  void Variable::Bind(ptr_val_type pValue)
   {
     m_pVal = pValue;
   }

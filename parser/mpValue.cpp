@@ -401,8 +401,8 @@ IValue& Value::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
 	{
 		//val_ptr_buf = new ptr_val_type(new Value((char_type)'A'));  // Create new value token for variable in array, use 'A' type as default
 		Array_Value[i].~Variable();
-		Array_Value[i].Variable::Variable((*(new ptr_val_type(new Value((char_type)'A')))).get());	// Manually calling the constructor because "new" does not support them	
-		Array_Value[i].Set_Array_Start_m_pVal(this);	// Connect element of the Array to Start Variable
+		Array_Value[i].Variable::Variable(ptr_val_type(new Value((char_type)'A')));	// Manually calling the constructor because "new" does not support them	
+		Array_Value[i].Set_Array_Start_m_pVal(ptr_val_type(this));	// Connect element of the Array to Start Variable
 		Array_Value[i].Set_Index_In_Array(i);
 	}
 	m_cType = 'A';
@@ -891,13 +891,13 @@ Variable& Value::Get_Variable_At_Array_Index(int index) const
 }
 
 //---------------------------------------------------------------------------
-void Value::Set_Array_Start_m_pVal(IValue* ptr)
+void Value::Set_Array_Start_m_pVal(ptr_val_type ptr)
 {
 	Array_Start_Ptr = ptr;
 }
 
 //---------------------------------------------------------------------------
-IValue* Value::Get_Array_Start_m_pVal()
+ptr_val_type Value::Get_Array_Start_m_pVal()
 {
 	return Array_Start_Ptr;
 }
@@ -908,10 +908,10 @@ void Value::Set_Index_In_Array(int index)
 }
 
 //---------------------------------------------------------------------------
-void Value::Set_m_pVal(IValue * p)
+void Value::Set_m_pVal(ptr_val_type p)
 {}
 
-IValue* Value::Get_m_pVal()
+ptr_val_type Value::Get_m_pVal()
 {
 	return nullptr;
 }
