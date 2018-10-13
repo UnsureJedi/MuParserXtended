@@ -890,11 +890,10 @@ void ParserXBase::CreateRPN() const
 				int iArgc = stArgCount.pop();
 				stOpt.pop(); // Take opening bracket from stack
 
-				ICallback *pOprtIndex = pTok->AsICallback();
-				MUP_VERIFY(pOprtIndex != nullptr);
+				MUP_VERIFY(pTok->AsICallback() != nullptr);
 
-				pOprtIndex->SetNumArgsPresent(iArgc);
-				m_rpn.Add(ptr_tok_type(pOprtIndex));
+				static_pointer_cast<ICallback>(pTok)->SetNumArgsPresent(iArgc);
+				m_rpn.Add(pTok);
 
 				// If this is an index operator there must be something else in the register (the variable to index)
 				MUP_VERIFY(eCmd != cmIC || m_nPos >= (int)iArgc + 1);
@@ -1130,8 +1129,7 @@ void ParserXBase::CreateRPN() const
 		case  cmOPRT_INFIX:
 		case  cmFUNC:
 		{
-			ICallback *pFunc = pTok->AsICallback();
-			MUP_VERIFY(pFunc != nullptr);
+			MUP_VERIFY(pTok->AsICallback());
 			stOpt.push(pTok);
 		}
 		break;

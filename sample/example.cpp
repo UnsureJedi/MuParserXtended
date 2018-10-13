@@ -970,7 +970,7 @@ void Calc()
 int main(int /*argc*/, char** /*argv*/)
 {
   Splash();
-  //SelfTest();
+  SelfTest();
 
 #if defined(_UNICODE)
 
