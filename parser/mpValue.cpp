@@ -261,7 +261,7 @@ Value::Value(const IValue &a_Val)
 		Array_Size = a_Val.Get_Array_Size();
 		Array_Value = a_Val.Get_Array();
 		/*
-		Array_Value = std::shared_ptr<Variable[]>(new Variable[Array_Size], [](Variable* p) {delete[] p; });	// Allocating array of values
+		Array_Value = std::shared_ptr<std::shared_ptr<Variable>[]>(new Variable[Array_Size], [](Variable* p) {delete[] p; });	// Allocating array of values
 		for (int i = 0; i < Array_Size; i++)
 			Array_Value[i] = a_Val.Get_Array()[i];
 			*/
@@ -326,6 +326,12 @@ Value::~Value()
 {
     delete m_psVal;
     delete m_pvVal;
+	/*
+	for (int i = 0; i < Array_Size; i++)
+	{
+		Array_Value[i].~shared_ptr();
+	}*/
+	//Array_Value.~shared_ptr();
 }
 
 //---------------------------------------------------------------------------
@@ -399,15 +405,15 @@ void Value::Assign(const Value &ref)
 IValue& Value::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
 {
 	Array_Size = Size;
-	Array_Value = std::shared_ptr<Variable[]>(new Variable[Size], [](Variable* p) {delete[] p; });	// Allocating array of values
+	Array_Value = std::shared_ptr<std::shared_ptr<Variable>[]>(new std::shared_ptr<Variable>[Size]);	// Allocating array of values
 	//ptr_val_type * val_ptr_buf;	// this pointer will be deleted at every loop iteration, unlike the data it points to, so that data will persist after loop
 	for (int i = 0; i < Size; i++)
 	{
 		//val_ptr_buf = new ptr_val_type(new Value((char_type)'A'));  // Create new value token for variable in array, use 'A' type as default
 		//Array_Value[i].~Variable();
-		Array_Value[i].Variable::Variable(ptr_val_type(new Value((char_type)'A')));	// Manually calling the constructor because "new" does not support them	
+		Array_Value[i] = std::shared_ptr<Variable>(new Variable(ptr_val_type(new Value((char_type)'A'))));	// Manually calling the constructor because "new" does not support them	
 		//Array_Value[i].Set_Array_Start_m_pVal(ptr_val_type(this));	// Connect element of the Array to Start Variable
-		Array_Value[i].Set_Index_In_Array(i);
+		Array_Value[i]->Set_Index_In_Array(i);
 	}
 	m_cType = 'A';
 	m_iFlags = flNONE;
@@ -864,7 +870,7 @@ void Value::Delete_Array()
 }
 
 //---------------------------------------------------------------------------
-std::shared_ptr<Variable[]> Value::Get_Array() const
+std::shared_ptr<std::shared_ptr<Variable>[]> Value::Get_Array() const
 {
 	return Array_Value;
 }
@@ -875,7 +881,7 @@ void Value::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
 	int i;
 	
 	Variable * temp;
-	temp = &Array_Value[index[0]];
+	temp = &(*Array_Value[index[0]]);
 	// Because every element in an array is a Variable, we can use temp pointer to
 	// descend to target dimension, one index at a time
 	for (i = 1; i < dimension; i++)
@@ -891,7 +897,7 @@ void Value::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
 //---------------------------------------------------------------------------
 Variable& Value::Get_Variable_At_Array_Index(int index) const
 {
-	return Array_Value[index];
+	return *Array_Value[index];
 }
 
 //---------------------------------------------------------------------------
@@ -1011,6 +1017,7 @@ string_type Value::AsciiDump() const
 void Value::Release()
 {
 	// Redem note: "&&" here is for safety, either of these should mean this Value is an Array
+	/*
 	if (Array_Value && Array_Size)
 	{
 		// Delete array members
@@ -1022,7 +1029,8 @@ void Value::Release()
 		Array_Size = 0;
 		delete this;
 	}
-	else if (m_pCache)
+
+	else */if (m_pCache)
         m_pCache->ReleaseToCache(this);
     else
         delete this;

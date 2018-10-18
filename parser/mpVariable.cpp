@@ -318,7 +318,7 @@ Variable::Variable(IValue* pVal)
     }
 
 	//-----------------------------------------------------------------------------------------------
-	std::shared_ptr<Variable[]> Variable::Get_Array() const
+	std::shared_ptr<std::shared_ptr<Variable>[]> Variable::Get_Array() const
 	{
 		return m_pVal->Get_Array();
 	}

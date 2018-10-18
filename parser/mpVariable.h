@@ -90,7 +90,7 @@ MUP_NAMESPACE_START
     virtual const cmplx_type& GetComplex() const;
     virtual const string_type& GetString() const;
     virtual const matrix_type& GetArray() const;
-	virtual std::shared_ptr<Variable[]> Get_Array() const;
+	virtual std::shared_ptr<std::shared_ptr<Variable>[]> Get_Array() const;
 	virtual void Delete_Array();
 	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const;
 	virtual Variable& Get_Variable_At_Array_Index(int index) const;
