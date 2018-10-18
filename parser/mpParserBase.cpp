@@ -1450,14 +1450,6 @@ const IValue& ParserXBase::ParseFromRPN() const
 					ptr_val_type buf(m_cache.CreateFromCache());
 					pFun->Eval(buf, &val, nArgs);
 
-					if (pTok->GetIdent() == _T("=") && m_rpn.GetData()[i - 1].get()->GetIdent() == _T("Array"))
-					{
-						// Erase the array element from the m_vStackBuffer so that it doesn't crash it after being deleted
-						//m_vStackBuffer.erase(m_vStackBuffer.begin() + sidx + 1);
-						//m_vStackBuffer.push_back(buf.Get()->Get_Array());
-						buf->Delete_Array();	// Redem note: watch for bugs from here
-												//val = buf;				// and here
-					}
 					val = buf;
 				}
 				else

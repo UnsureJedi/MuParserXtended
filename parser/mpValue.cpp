@@ -260,7 +260,11 @@ Value::Value(const IValue &a_Val)
 	case 'A': 
 		Array_Size = a_Val.Get_Array_Size();
 		Array_Value = a_Val.Get_Array();
-
+		/*
+		Array_Value = std::shared_ptr<Variable[]>(new Variable[Array_Size], [](Variable* p) {delete[] p; });	// Allocating array of values
+		for (int i = 0; i < Array_Size; i++)
+			Array_Value[i] = a_Val.Get_Array()[i];
+			*/
 		break;
 
     case 'v': break;
@@ -395,14 +399,14 @@ void Value::Assign(const Value &ref)
 IValue& Value::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
 {
 	Array_Size = Size;
-	Array_Value = std::shared_ptr<Variable[]>(new Variable[Size]);	// Allocating array of values
+	Array_Value = std::shared_ptr<Variable[]>(new Variable[Size], [](Variable* p) {delete[] p; });	// Allocating array of values
 	//ptr_val_type * val_ptr_buf;	// this pointer will be deleted at every loop iteration, unlike the data it points to, so that data will persist after loop
 	for (int i = 0; i < Size; i++)
 	{
 		//val_ptr_buf = new ptr_val_type(new Value((char_type)'A'));  // Create new value token for variable in array, use 'A' type as default
-		Array_Value[i].~Variable();
+		//Array_Value[i].~Variable();
 		Array_Value[i].Variable::Variable(ptr_val_type(new Value((char_type)'A')));	// Manually calling the constructor because "new" does not support them	
-		Array_Value[i].Set_Array_Start_m_pVal(ptr_val_type(this));	// Connect element of the Array to Start Variable
+		//Array_Value[i].Set_Array_Start_m_pVal(ptr_val_type(this));	// Connect element of the Array to Start Variable
 		Array_Value[i].Set_Index_In_Array(i);
 	}
 	m_cType = 'A';
@@ -879,9 +883,9 @@ void Value::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
 		temp = &temp->Get_Variable_At_Array_Index(index[i]);
 	}
 	// Setting the Array_Start_Ptr to address of Variable being indexed (that is, its m_pVal pointer)
-	temp->Set_Array_Start_m_pVal(ptr.get()->Get_m_pVal());
+	//temp->Set_Array_Start_m_pVal(ptr.get()->Get_m_pVal());
 	//Array_Start_Ptr.operator=(ptr);
-	ptr = ptr_val_type(temp);
+	ptr = ptr_val_type(new Variable(temp));	// Continue here. Find a way to pass a shared_ptr so no new Variable has to be created
 }
 
 //---------------------------------------------------------------------------
