@@ -891,10 +891,10 @@ void Calc()
 	  {
 		  sLine = _T(
 			  
-			  "Test_Array = Array(5000)\n"
-			  //"Test_Array[0] = 1\n"
-			  //"Test_Array[1] = 2\n"
-			  //"lol = Test_Array[1]"
+			  "Test_Array = Array(2)\n"
+			  "Test_Array[0] = 1\n"
+			  "Test_Array[1] = 2\n"
+			  "lol = Test_Array[1]"
 			  /*
 			  "limit = (2+2)*2+1\n"
 			  "test1 = 0\n"

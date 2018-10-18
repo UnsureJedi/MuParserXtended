@@ -189,7 +189,6 @@ Variable::Variable(IValue* pVal)
   //-----------------------------------------------------------------------------------------------
   Variable::~Variable()
   {
-	  ptr_val_type lol = m_pVal;	//debug
   }
 
   //-----------------------------------------------------------------------------------------------
@@ -356,16 +355,6 @@ Variable::Variable(IValue* pVal)
 	}
 
 	//-----------------------------------------------------------------------------------------------
-	ptr_val_type Variable::Get_Array_Start_m_pVal()
-	{
-		return m_pVal->Get_Array_Start_m_pVal();
-	}
-
-	//-----------------------------------------------------------------------------------------------
-	void Variable::Set_Array_Start_m_pVal(ptr_val_type p)
-	{
-		m_pVal->Set_Array_Start_m_pVal(p);
-	}
 
 	void Variable::Set_Index_In_Array(int index)
 	{

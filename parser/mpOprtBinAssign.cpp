@@ -75,8 +75,6 @@ MUP_NAMESPACE_START
       throw ParserError(err);
     }
 
-	ret->Set_Array_Start_m_pVal(pVar->Get_Array_Start_m_pVal());
-
 	if (a_pArg[1]->GetType() == 'f')
 		*pVar = a_pArg[1]->GetFloat();
 	else if (a_pArg[1]->GetType() == 'i')

@@ -74,8 +74,6 @@ MUP_NAMESPACE_START
     virtual IValue& operator-=(const IValue &ref);
     virtual IValue& operator*=(const IValue &val);
 
-	virtual ptr_val_type Get_Array_Start_m_pVal();
-	virtual void Set_Array_Start_m_pVal(ptr_val_type p);
 	virtual void Set_Index_In_Array(int index);
 	virtual void Variable::Set_m_pVal(ptr_val_type p);
 	virtual ptr_val_type Get_m_pVal();

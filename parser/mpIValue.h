@@ -97,8 +97,6 @@ MUP_NAMESPACE_START
 	virtual void Delete_Array() = 0;
 	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const = 0;
 	virtual Variable& Get_Variable_At_Array_Index(int index) const = 0;
-	virtual ptr_val_type Get_Array_Start_m_pVal() = 0;
-	virtual void Set_Array_Start_m_pVal(ptr_val_type p) = 0;
 	virtual void Set_Index_In_Array(int index) = 0;
 
 	virtual void Set_m_pVal(ptr_val_type p) = 0;
