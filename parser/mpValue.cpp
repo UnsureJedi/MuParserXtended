@@ -843,22 +843,6 @@ const matrix_type& Value::GetArray() const
     return *m_pvVal;
 }
 
-void Value::Delete_Array()
-{
-	bool Delete_Array = 0;
-	for (int i = 0; i < Array_Size; i++)
-	{
-		/*if (!Array_Value_Deleted[i])
-			Array_Value[i].Delete_Value();*/
-		Delete_Array = 1;
-	}
-	if (Delete_Array)
-	{
-		Array_Size = 0;
-		//delete[] Array_Value;
-	}
-}
-
 //---------------------------------------------------------------------------
 std::shared_ptr<std::shared_ptr<Variable>[]> Value::Get_Array() const
 {
@@ -868,23 +852,20 @@ std::shared_ptr<std::shared_ptr<Variable>[]> Value::Get_Array() const
 //---------------------------------------------------------------------------
 void Value::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
 {
-	int i;
-	
-	Variable * temp;
-	temp = &(*Array_Value[index[0]]);
+	std::shared_ptr<Variable> temp(Array_Value[index[0]]);
 	// Because every element in an array is a Variable, we can use temp pointer to
 	// descend to target dimension, one index at a time
-	for (i = 1; i < dimension; i++)
+	for (int i = 1; i < dimension; i++)
 	{
-		temp = &temp->Get_Variable_At_Array_Index(index[i]);
+		temp = temp->Get_Variable_At_Array_Index(index[i]);
 	}
-	ptr = ptr_val_type(new Variable(temp));	// Continue here. Find a way to pass a shared_ptr so no new Variable has to be created
+	ptr = temp;
 }
 
 //---------------------------------------------------------------------------
-Variable& Value::Get_Variable_At_Array_Index(int index) const
+std::shared_ptr<Variable> Value::Get_Variable_At_Array_Index(int index) const
 {
-	return *Array_Value[index];
+	return Array_Value[index];
 }
 
 //---------------------------------------------------------------------------
@@ -892,15 +873,6 @@ Variable& Value::Get_Variable_At_Array_Index(int index) const
 void Value::Set_Index_In_Array(int index)
 {
 	Index_In_Array = index;
-}
-
-//---------------------------------------------------------------------------
-void Value::Set_m_pVal(ptr_val_type p)
-{}
-
-ptr_val_type Value::Get_m_pVal()
-{
-	return nullptr;
 }
 
 //---------------------------------------------------------------------------

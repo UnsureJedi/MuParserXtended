@@ -75,8 +75,6 @@ MUP_NAMESPACE_START
     virtual IValue& operator*=(const IValue &val);
 
 	virtual void Set_Index_In_Array(int index);
-	virtual void Variable::Set_m_pVal(ptr_val_type p);
-	virtual ptr_val_type Get_m_pVal();
     virtual ~Variable();
 
     virtual char_type GetType() const;
@@ -89,9 +87,8 @@ MUP_NAMESPACE_START
     virtual const string_type& GetString() const;
     virtual const matrix_type& GetArray() const;
 	virtual std::shared_ptr<std::shared_ptr<Variable>[]> Get_Array() const;
-	virtual void Delete_Array();
 	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const;
-	virtual Variable& Get_Variable_At_Array_Index(int index) const;
+	virtual std::shared_ptr<Variable> Get_Variable_At_Array_Index(int index) const;
 	virtual Value* Get_Value() const;
 	virtual void Delete_Value();
 	virtual int Get_Array_Size() const;

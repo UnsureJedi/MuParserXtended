@@ -322,11 +322,6 @@ Variable::Variable(IValue* pVal)
 		return m_pVal->Get_Array();
 	}
 
-	void Variable::Delete_Array()
-	{
-		m_pVal->Delete_Array();
-	}
-
 	//-----------------------------------------------------------------------------------------------
 	void Variable::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
 	{
@@ -341,7 +336,7 @@ Variable::Variable(IValue* pVal)
 		}
 	}
 
-	Variable& Variable::Get_Variable_At_Array_Index(int index) const
+	std::shared_ptr<Variable> Variable::Get_Variable_At_Array_Index(int index) const
 	{
 		try
 		{
@@ -355,21 +350,9 @@ Variable::Variable(IValue* pVal)
 	}
 
 	//-----------------------------------------------------------------------------------------------
-
 	void Variable::Set_Index_In_Array(int index)
 	{
 		m_pVal->Set_Index_In_Array(index);
-	}
-
-	//-----------------------------------------------------------------------------------------------
-	void Variable::Set_m_pVal(ptr_val_type p)
-	{
-		m_pVal = p;
-	}
-
-	ptr_val_type Variable::Get_m_pVal()
-	{
-		return m_pVal;
 	}
 
 	//-----------------------------------------------------------------------------------------------

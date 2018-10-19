@@ -99,13 +99,10 @@ MUP_NAMESPACE_START
     virtual const cmplx_type& GetComplex() const override;
     virtual const string_type& GetString() const override;
     virtual const matrix_type& GetArray() const override;
-	virtual void Delete_Array() override;
 	virtual std::shared_ptr<std::shared_ptr<Variable>[]> Get_Array() const override;	// Redem note: function for getting the 1D array of Values (not vector- or map-based).
 	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const override;	// Get the array Variable at specified index or indices
-	virtual Variable& Get_Variable_At_Array_Index(int index) const override;
+	virtual std::shared_ptr<Variable> Get_Variable_At_Array_Index(int index) const override;
 	virtual void Set_Index_In_Array(int index);
-	virtual void Set_m_pVal(ptr_val_type p);
-	virtual ptr_val_type Get_m_pVal();
 	virtual int Get_Array_Size() const;
 	virtual Value* Get_Value() const;
 	virtual void Delete_Value();

@@ -94,13 +94,10 @@ MUP_NAMESPACE_START
     virtual const string_type&  GetString() const = 0;
     virtual const matrix_type& GetArray() const = 0;
 	virtual std::shared_ptr<std::shared_ptr<Variable>[]> Get_Array() const = 0;
-	virtual void Delete_Array() = 0;
 	virtual void Index_Array(int* index, int dimension, ptr_val_type& ptr) const = 0;
-	virtual Variable& Get_Variable_At_Array_Index(int index) const = 0;
+	virtual std::shared_ptr<Variable> Get_Variable_At_Array_Index(int index) const = 0;
 	virtual void Set_Index_In_Array(int index) = 0;
 
-	virtual void Set_m_pVal(ptr_val_type p) = 0;
-	virtual ptr_val_type Get_m_pVal() = 0;
 	virtual int Get_Array_Size() const = 0;	// Redem: honk
 	virtual Value* Get_Value() const = 0;	// Get the pointer to Value object
 	virtual void Delete_Value() = 0;
