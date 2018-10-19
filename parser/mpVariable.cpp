@@ -323,7 +323,7 @@ Variable::Variable(IValue* pVal)
 	}
 
 	//-----------------------------------------------------------------------------------------------
-	void Variable::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
+	void Variable::Index_Array(const ptr_val_type * index, int dimension, ptr_val_type& ptr) const
 	{
 		try
 		{

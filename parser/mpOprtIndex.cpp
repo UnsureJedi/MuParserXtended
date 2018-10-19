@@ -47,30 +47,14 @@ MUP_NAMESPACE_START
     /** \brief Index operator implementation
     \param ret A reference to the return value
     \param a_pArg Pointer to an array with the indices as ptr_val_type
-    \param a_iArgc Number of indices (=dimension) actully used in the expression found. This must 
-            be 1 or 2 since three dimensional data structures are not supported by muParserX.
+    \param a_iArgc Number of indices (=dimension) actully used in the expression found.
     */
     void OprtIndex::Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int a_iArgc)
     {
-		// If this array was indexed previously, then ret does not point to it's top Variable,
-		// the one that holds the whole Array, therefore, check if ret is an Array member
-		/*
-		IValue* Array_Start_Ptr = ret.Get()->Get_Array_Start_m_pVal();
-		if (Array_Start_Ptr)
-		{
-			ret = Array_Start_Ptr;
-		}	// Ok, now this array can be indexed, because ret is pointing to the actual array start, not its element from past indexing
-		*/
 		// Check if it is pure array first
 		if (ret.get()->GetType() == 'A')
 		{
-			int &dimension = a_iArgc;
-			int* index = new int[dimension];
-			int i;
-			for (i=0;i<dimension;i++)
-				index[i] = a_pArg[i]->GetInteger();
-
-			ret->Index_Array(index, dimension, ret);
+			ret->Index_Array(a_pArg, a_iArgc, ret);
 		}
 		else // It is a matrix
         try

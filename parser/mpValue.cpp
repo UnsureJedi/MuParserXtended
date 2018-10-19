@@ -402,7 +402,7 @@ IValue& Value::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
 	Array_Value = std::shared_ptr<std::shared_ptr<Variable>[]>(new std::shared_ptr<Variable>[Size]);	// Allocating array of values
 	for (int i = 0; i < Size; i++)
 	{
-		Array_Value[i] = std::shared_ptr<Variable>(new Variable(ptr_val_type(new Value((char_type)'A'))));	// Manually calling the constructor because "new" does not support them	
+		Array_Value[i] = std::shared_ptr<Variable>(new Variable(ptr_val_type(new Value((char_type)'v'))));	// Construct a variable for each of the array's shared_ptr
 		Array_Value[i]->Set_Index_In_Array(i);
 	}
 	m_cType = 'A';
@@ -850,16 +850,15 @@ std::shared_ptr<std::shared_ptr<Variable>[]> Value::Get_Array() const
 }
 
 //---------------------------------------------------------------------------
-void Value::Index_Array(int* index, int dimension, ptr_val_type& ptr) const
+void Value::Index_Array(const ptr_val_type * index, int dimension, ptr_val_type& ptr) const
 {
-	std::shared_ptr<Variable> temp(Array_Value[index[0]]);
-	// Because every element in an array is a Variable, we can use temp pointer to
+	ptr = Array_Value[index[0]->GetInteger()];
+	// Because every element in an array is a Variable, we can use pointer to
 	// descend to target dimension, one index at a time
 	for (int i = 1; i < dimension; i++)
 	{
-		temp = temp->Get_Variable_At_Array_Index(index[i]);
+		ptr = ptr->Get_Variable_At_Array_Index(index[i]->GetInteger());
 	}
-	ptr = temp;
 }
 
 //---------------------------------------------------------------------------
