@@ -889,38 +889,41 @@ void Calc()
       }
 	  if (sLine == _T("test"))
 	  {
-		  sLine = _T(
-			  
-			  "Test_Array = Array(2)\n"
-			  "Test_Array[0] = 1\n"
-			  "Test_Array[1] = 2\n"
-			  "lol = Test_Array[1]"
-			  /*
-			  "limit = (2+2)*2+1\n"
+		  sLine = _T(		  	  
+			  "limit = (2+2)*2+1\n"	// Max index for outer loop in the following code
+			  "limit2 = 5\n"			// Max index for nested loop in the following code
 			  "test1 = 0\n"
 			  "test2 = 0\n"
 			  "test3 = 0\n"
+			  "Test_Array = Array(limit+1)\n"
+			  
 			  "j = 0\n"		  
 			  "Loop{"					// Loop, where the piece of code, enclosed by following curly brackets repeats until "Break" statement is executed
 				  "If (j > limit){"		// Conditional statement. Currently, there must be no newlines between ")" and "{" operators. Also, for now, you cannot use compound expression in the condition but you can assign an expression to variable and use that variable.
 					"Break"				// Must be present in every Loop, otherwise block will run infinitely. Break statement works like regular C break, jumping to the statement after the closing curly bracket of Loop it is in.
 				  "}\n"
-			      
-			      "If(j < 5) {"
+			      		      
+			      "Test_Array[j] = Array(limit2+1)\n"	// Allocating a new array for array element
+			  
 					"Nested_Loop_Counter = 0\n"
 					"Loop{"				// Nested loops are supported as well.
-						"If (Nested_Loop_Counter > 9) {Break}\n"	// Nested conditionals are supported too
+						"If (Nested_Loop_Counter > limit2) {Break}\n"	// Nested conditionals are supported too
 						"test3 += 1\n"
+						// Multidimensional array assignment. Works just like C++ version, including the absence of boundary checks, so overflowing will cause a crash!
+						"Test_Array[j,Nested_Loop_Counter] = Nested_Loop_Counter\n"	
+						
+						"lol = Test_Array[j,Nested_Loop_Counter]\n"
+
 						"Nested_Loop_Counter += 1\n"
 					"}\n"
-					"test1 += 1"
-				  "}" 
+					"test1 += 1\n"
+
 			      "Else {"				// Optional Else block. There must be no newlines between "}" and "Else" and between "Else" and "{" operators, otherwise Else block may be executed regardless of condition.
 					"test2 -=1"
 				  "}\n"
 				 "j+=1\n"
 	          "}\n"	
-			  */
+			  
 		  );
 	  }
       parser.SetExpr(sLine);
@@ -970,7 +973,7 @@ void Calc()
 int main(int /*argc*/, char** /*argv*/)
 {
   Splash();
-  //SelfTest();
+  SelfTest();
 
 #if defined(_UNICODE)
 
