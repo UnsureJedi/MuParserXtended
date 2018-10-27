@@ -7,7 +7,7 @@
 #  |__|_|  /____/|____|    (____  /__|  /____  >\___  >__| /___/\  \    #
 #        \/                     \/           \/     \/           \_/    #
 #                                                                       #
-#  Copyright (C) 2016, Ingo Berg                                        #
+#  Copyright (C) 2018, Ingo Berg                                        #
 #                                                                       #
 #  Web:     http://muparserx.beltoforion.de                             #
 #  SVN:     http://muparserx.googlecode.com/svn/trunk                   #
@@ -16,6 +16,7 @@
 #  The code contains contributions made by the following people:        #
 #           Martin Rotter (https://github.com/martinrotter)             #
 #           Josh Blum     (https://github.com/guruofquality)            #
+#           Oleg Lozitsky (https://github.com/UnsureJedi)               #
 #           and others                                                  #
 #                                                                       #
 #  This software is distributed under the terms of the                  #
@@ -29,6 +30,28 @@
 #  Version history                                                      #
 #                                                                       #
 #########################################################################
+
+V5.0.0 (20181027)
+-----------------
+New features:
+  - Support for loops ("Loop {Body}") 
+  - C-style if-then-else ("If (Condition) {Then} {Else}")
+  - Break statement ("Break") to terminate Loop body execution
+  - C++-style arrays:
+	Allocation: "Var1 = Array(Size)" - allocates an array of values with length "Size" and assigns it to "Var1". Var1 itself can be an array element.
+	Assignment of array to another array: "Var2 = Var1" - assignment is performed by pointer, any changes to Variable2 WILL affect Variable1. If you want to copy an array - do it by iterating over the elements.
+	Assignment to element "Var[0] = 3"
+	Assignment to element of multidimensional array "Var[1,3] = 3" - Indices are separated by comma.
+  - Multiline string "{;String}" - A string that can contain newlines without being detected as end of statement. Can be useful if you pass strings as function arguments to custom functions.
+
+Changes:
+  - TokenPtr has been replaced with std::shared_ptr
+  - Added functions to control parser constants and variables: 
+	SetConst()	- Set a value to an existing constant
+	GetConst()	- Get a value from an existing constant
+	SetVar()	- Set a value to an existing variable
+	GetVar()	- Get a value from an existing variable
+  - Removed binary_function to comply with c++17
 
 V4.0.7 (20160331)
 -----------------
