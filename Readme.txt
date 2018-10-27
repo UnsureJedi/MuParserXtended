@@ -52,6 +52,7 @@ Changes:
 	SetVar()	- Set a value to an existing variable
 	GetVar()	- Get a value from an existing variable
   - Removed binary_function to comply with c++17
+  - Added a demo code in Example.cpp calc() to demonstrate the above features. Type "test" in parser prompt to run it.
 
 V4.0.7 (20160331)
 -----------------
