@@ -165,6 +165,11 @@ Variable::Variable(IValue* pVal)
     return m_pVal->operator*=(val);
   }
 
+  IValue & Variable::operator[](int_type val)
+  {
+	  return m_pVal->operator[](val);
+  }
+
   //-----------------------------------------------------------------------------------------------
   IValue& Variable::At(int nRow, int nCol)
   {
@@ -395,9 +400,9 @@ Variable::Variable(IValue* pVal)
 
 
 	//-----------------------------------------------------------------------------------------------
-	IValue& Variable::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
+	IValue& Variable::Initialize_Array(int Size)
 	{
-		m_pVal -> Initialize_Array(Array_Start_Ptr, Size);
+		m_pVal -> Initialize_Array(Size);
 		return *this;
 	}
 

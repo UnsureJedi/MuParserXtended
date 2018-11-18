@@ -73,6 +73,7 @@ MUP_NAMESPACE_START
     virtual IValue& operator+=(const IValue &ref);
     virtual IValue& operator-=(const IValue &ref);
     virtual IValue& operator*=(const IValue &val);
+	virtual IValue& operator[](int_type val);
 
 	virtual void Set_Index_In_Array(int index);
     virtual ~Variable();
@@ -92,7 +93,7 @@ MUP_NAMESPACE_START
 	virtual Value* Get_Value() const;
 	virtual void Delete_Value();
 	virtual int Get_Array_Size() const;
-	virtual IValue & Initialize_Array(ptr_val_type Array_Start_Ptr, int Size = 0);	// Redem note: Normally, this function should be called from Value class. It's purpose here is to fill the overrider for Variable class
+	virtual IValue & Initialize_Array(int Size = 0);	// Redem note: Normally, this function should be called from Value class. It's purpose here is to fill the overrider for Variable class
     virtual int GetRows() const;
     virtual int GetCols() const;
 

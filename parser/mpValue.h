@@ -90,6 +90,7 @@ MUP_NAMESPACE_START
     virtual IValue& operator+=(const IValue &val);
     virtual IValue& operator-=(const IValue &val);
     virtual IValue& operator*=(const IValue &val);
+	virtual IValue& operator[](int_type val);
 
     virtual char_type GetType() const override;
     virtual int_type GetInteger() const override;
@@ -103,6 +104,7 @@ MUP_NAMESPACE_START
 	virtual void Index_Array(const ptr_val_type * index, int dimension, ptr_val_type& ptr) const override;	// Get the array Variable at specified index or indices
 	virtual std::shared_ptr<Variable> Get_Variable_At_Array_Index(int index) const override;
 	virtual void Set_Index_In_Array(int index);
+	virtual IValue & Initialize_Array(int Size);
 	virtual int Get_Array_Size() const;
 	virtual Value* Get_Value() const;
 	virtual void Delete_Value();
@@ -139,7 +141,6 @@ MUP_NAMESPACE_START
 
     void CheckType(char_type a_cType) const;
     void Assign(const Value &a_Val);
-	virtual IValue & Initialize_Array(ptr_val_type Array_Start_Ptr, int Size);
     void reset();
 
     virtual void Release();

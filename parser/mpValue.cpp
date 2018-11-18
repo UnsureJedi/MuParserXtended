@@ -396,7 +396,7 @@ void Value::Assign(const Value &ref)
     // moment you delete m_pvVal!
 }
 
-IValue& Value::Initialize_Array(ptr_val_type Array_Start_Ptr, int Size)
+IValue& Value::Initialize_Array(int Size)
 {
 	Array_Size = Size;
 	Array_Value = std::shared_ptr<std::shared_ptr<Variable>[]>(new std::shared_ptr<Variable>[Size]);	// Allocating array of values
@@ -723,6 +723,13 @@ IValue& Value::operator*=(const IValue &val)
     }
 
     return *this;
+}
+
+IValue & Value::operator[](int_type val)
+{
+	ptr_val_type ret;
+	Index_Array(&ptr_val_type(new Value(val)), 1, ret);
+	return *ret;
 }
 
 //---------------------------------------------------------------------------

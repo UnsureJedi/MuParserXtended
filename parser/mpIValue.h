@@ -82,6 +82,7 @@ MUP_NAMESPACE_START
     virtual IValue& operator+=(const IValue &ref) = 0;
     virtual IValue& operator-=(const IValue &ref) = 0;
     virtual IValue& operator*=(const IValue &ref) = 0;
+	virtual IValue& operator[](int_type val) = 0;
 
     virtual IValue& At(int nRow, int nCol = 0) = 0;
     virtual IValue& At(const IValue &nRows, const IValue &nCols) = 0;
@@ -101,7 +102,7 @@ MUP_NAMESPACE_START
 	virtual int Get_Array_Size() const = 0;	// Redem: honk
 	virtual Value* Get_Value() const = 0;	// Get the pointer to Value object
 	virtual void Delete_Value() = 0;
-	virtual IValue& Initialize_Array(ptr_val_type Array_Start_Ptr, int Size) = 0;	// Redem: honk
+	virtual IValue& Initialize_Array(int Size) = 0;	// Redem: honk
     virtual char_type GetType() const = 0;
     virtual int GetRows() const = 0;
     virtual int GetCols() const = 0;

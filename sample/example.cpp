@@ -840,6 +840,13 @@ void Calc()
   parser.DefineVar(_T("sa"), Variable(&sVal[0]));
   parser.DefineVar(_T("sb"), Variable(&sVal[1]));
   */
+  Value Test_Array2;
+  Test_Array2.Initialize_Array(4);
+  Test_Array2[1].Initialize_Array(4);
+  Test_Array2[0] = 3;
+  Test_Array2[1][0] = 2;
+  Test_Array2[1][1] = 1;
+  parser.DefineVar(_T("Test_Array2"), Variable(&Test_Array2));
   // Add functions for inspecting the parser properties
   parser.DefineFun(ptr_cal_type(new FunListVar));
   parser.DefineFun(ptr_cal_type(new FunListFunctions));

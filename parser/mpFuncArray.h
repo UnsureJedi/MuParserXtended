@@ -44,7 +44,7 @@ void FunArray::Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int argc)
 		throw ParserError(err);
 	}
 
-	ret->Initialize_Array(ret, a_pArg[0]->GetInteger());	// Assigning the array to IValue pointer
+	ret->Initialize_Array(a_pArg[0]->GetInteger());	// Assigning the array to IValue pointer
 }
 
 //-----------------------------------------------------------------------
