@@ -845,9 +845,10 @@ void ParserXBase::CreateRPN() const
 				m_nPos--;
 
 				m_pTokenReader->m_nSynFlags = sfALLOW_NONE;
-				//only "Else" or newline statement is allowed next
+				//only "Else", EOE, or newline statement is allowed next
 				m_pTokenReader->m_nSynFlags ^= noSCRIPT_ELSE;
 				m_pTokenReader->m_nSynFlags ^= noNEWLINE;
+				m_pTokenReader->m_nSynFlags ^= noEND;
 				// In case there is no Else body following, decrease the nesting level and reset the checker
 				Parse_If_Or_Else[If_Nest_Level] = 0;
 				If_Nest_Level--;		

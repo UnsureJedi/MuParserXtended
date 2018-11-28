@@ -908,6 +908,8 @@ void Calc()
 			  "Loop{"					// Loop, where the piece of code, enclosed by following curly brackets repeats until "Break" statement is executed
 				  "If (j > limit){"		// Conditional statement. Currently, there must be no newlines between ")" and "{" operators. Also, for now, you cannot use compound expression in the condition but you can assign an expression to variable and use that variable.
 					"Break"				// Must be present in every Loop, otherwise block will run infinitely. Break statement works like regular C break, jumping to the statement after the closing curly bracket of Loop it is in.
+				  "} Else {"				// Optional Else block. There must be no newlines between "}" and "Else" and between "Else" and "{" operators, otherwise Else block may be executed regardless of condition.
+					"test2 -=1"
 				  "}\n"
 			      		      
 			      "Test_Array[j] = Array(limit2+1)\n"	// Allocating a new array for array element
@@ -925,9 +927,7 @@ void Calc()
 					"}\n"
 					"test1 += 1\n"
 
-			      "Else {"				// Optional Else block. There must be no newlines between "}" and "Else" and between "Else" and "{" operators, otherwise Else block may be executed regardless of condition.
-					"test2 -=1"
-				  "}\n"
+			      
 				 "j+=1\n"
 	          "}\n"	
 			  
