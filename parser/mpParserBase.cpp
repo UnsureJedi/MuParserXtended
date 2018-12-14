@@ -442,7 +442,7 @@ void ParserXBase::SetVar(const string_type &ident, const Variable &var)
 }
 Value ParserXBase::GetVar(const string_type &ident)
 {
-	return m_valDef[ident].get();
+	return *(static_pointer_cast<IValue>(m_varDef[ident]));
 }
 
 void ParserXBase::CheckForEntityExistence(const string_type &ident, EErrorCodes error_code)
@@ -482,7 +482,7 @@ void ParserXBase::SetConst(const string_type &ident, const Value &val)
 
 Value ParserXBase::GetConst(const string_type &ident)
 {
-	return m_valDef[ident].get();
+	return *(static_pointer_cast<IValue>(m_valDef[ident]));
 }
 
 //---------------------------------------------------------------------------
