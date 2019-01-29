@@ -1450,7 +1450,6 @@ const IValue& ParserXBase::ParseFromRPN() const
 				{
 					ptr_val_type buf(m_cache.CreateFromCache());
 					pFun->Eval(buf, &val, nArgs);
-
 					val = buf;
 				}
 				else
@@ -1458,8 +1457,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 					pFun->Eval(val, &val, nArgs);
 				}
 				if (Parse_If_Condition)
-					If_Condition = val.get()->GetBool();
-
+					If_Condition = val->GetBool();
 			}
 			catch (ParserError &exc)
 			{

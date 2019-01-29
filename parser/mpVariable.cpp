@@ -341,6 +341,11 @@ Variable::Variable(IValue* pVal)
 		}
 	}
 
+	void Variable::Index_Array(const int * index, int dimension, ptr_val_type & ptr) const
+	{
+		return m_pVal->Index_Array(index, dimension, ptr);
+	}
+
 	std::shared_ptr<Variable> Variable::Get_Variable_At_Array_Index(int index) const
 	{
 		try

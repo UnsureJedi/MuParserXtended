@@ -102,6 +102,7 @@ MUP_NAMESPACE_START
     virtual const matrix_type& GetArray() const override;
 	virtual std::shared_ptr<std::shared_ptr<Variable>[]> Get_Array() const override;	// Redem note: function for getting the 1D array of Values (not vector- or map-based).
 	virtual void Index_Array(const ptr_val_type * index, int dimension, ptr_val_type& ptr) const override;	// Get the array Variable at specified index or indices
+	virtual void Index_Array(const int * index, int dimension, ptr_val_type& ptr) const override;
 	virtual std::shared_ptr<Variable> Get_Variable_At_Array_Index(int index) const override;
 	virtual void Set_Index_In_Array(int index);
 	virtual IValue & Initialize_Array(int Size);

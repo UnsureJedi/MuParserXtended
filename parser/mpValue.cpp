@@ -728,7 +728,7 @@ IValue& Value::operator*=(const IValue &val)
 IValue & Value::operator[](int_type val)
 {
 	ptr_val_type ret;
-	Index_Array(&ptr_val_type(new Value(val)), 1, ret);
+	Index_Array(&val, 1, ret);
 	return *ret;
 }
 
@@ -865,6 +865,17 @@ void Value::Index_Array(const ptr_val_type * index, int dimension, ptr_val_type&
 	for (int i = 1; i < dimension; i++)
 	{
 		ptr = ptr->Get_Variable_At_Array_Index(index[i]->GetInteger());
+	}
+}
+
+//---------------------------------------------------------------------------
+void Value::Index_Array(const int * index, int dimension, ptr_val_type & ptr) const
+{
+	ptr = Array_Value[index[0]];
+
+	for (int i = 1; i < dimension; i++)
+	{
+		ptr = ptr->Get_Variable_At_Array_Index(index[i]);
 	}
 }
 

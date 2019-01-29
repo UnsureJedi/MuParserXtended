@@ -63,10 +63,10 @@ MUP_NAMESPACE_START
   //---------------------------------------------------------------------
   void OprtAssign::Eval(ptr_val_type &ret, const ptr_val_type *a_pArg, int)
   {
-    std::shared_ptr<Variable> pVar = std::dynamic_pointer_cast<Variable>(a_pArg[0]);
-	//ptr_val_type lol = a_pArg[1];
+    ret = std::dynamic_pointer_cast<Variable>(a_pArg[0]);
+
     // assigment to non variable type
-    if (!pVar)
+    if (!ret)
     {
       ErrorContext err;
       err.Arg   = 1;
@@ -75,17 +75,20 @@ MUP_NAMESPACE_START
       throw ParserError(err);
     }
 
-	if (a_pArg[1]->GetType() == 'f')
-		*pVar = a_pArg[1]->GetFloat();
-	else if (a_pArg[1]->GetType() == 'i')
-		*pVar = a_pArg[1]->GetInteger();
-	else if (a_pArg[1]->GetType() == 's')
-		*pVar = a_pArg[1]->GetString();
-	else
+	switch (a_pArg[1]->GetType())
 	{
-		*pVar = *a_pArg[1];
+		case 'f':
+			*ret = a_pArg[1]->GetFloat();
+			break;
+		case 'i':
+			*ret = a_pArg[1]->GetInteger();
+			break;
+		case 's':
+			*ret = a_pArg[1]->GetString();
+			break;
+		default:
+			*ret = *a_pArg[1];
 	}
-    ret = pVar;
   }
 
   //---------------------------------------------------------------------

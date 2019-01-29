@@ -96,6 +96,7 @@ MUP_NAMESPACE_START
     virtual const matrix_type& GetArray() const = 0;
 	virtual std::shared_ptr<std::shared_ptr<Variable>[]> Get_Array() const = 0;
 	virtual void Index_Array(const ptr_val_type * index, int dimension, ptr_val_type& ptr) const = 0;
+	virtual void Index_Array(const int * index, int dimension, ptr_val_type& ptr) const = 0;
 	virtual std::shared_ptr<Variable> Get_Variable_At_Array_Index(int index) const = 0;
 	virtual void Set_Index_In_Array(int index) = 0;
 
