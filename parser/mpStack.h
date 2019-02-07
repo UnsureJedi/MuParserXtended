@@ -63,7 +63,12 @@ MUP_NAMESPACE_START
       //---------------------------------------------------------------------------
       Stack()
         :m_Cont()
-      {}
+      {
+		  // UnsureJedi note: had to reserve some number of elements because std::vector turned out bugged: at times crashes stArgCount when reallocating array, when push_back-ing beyond capacity,
+		  // and only in release mode, even without optimizations. If reserved for 1 element initially it still has to reallocate array for 2 elements and it happens without a crash unlike when
+		  // m_Cont was constructed without elements which occured previously. In that case push_back was calling for reallocation and that crashed.
+		  m_Cont.reserve(1);	
+	  }
 
       //---------------------------------------------------------------------------
       virtual ~Stack()
