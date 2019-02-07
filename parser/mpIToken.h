@@ -55,7 +55,7 @@ MUP_NAMESPACE_START
   {
   friend std::ostream& operator<<(std::ostream &a_Stream, const IToken &a_Val);
   friend std::wostream& operator<<(std::wostream &a_Stream, const IToken &a_Val);
-
+  friend void IToken_Deleter(IToken* val);
   public:
 
     enum EFlags

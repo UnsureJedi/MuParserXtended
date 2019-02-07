@@ -164,6 +164,12 @@ MUP_NAMESPACE_START
     // (rather than just beeing copied)
   }
 
+  //---------------------------------------------------------------------------
+  // For use with std::shared_ptr
+  void IToken_Deleter(IToken* val)
+  {
+	  val->Release();
+  };
   //------------------------------------------------------------------------------
   void IToken::Release()
   {

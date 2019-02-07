@@ -54,6 +54,7 @@ MUP_NAMESPACE_START
   */
   class Value : public IValue
   {
+	friend void Value_Deleter(Value* val);
   public:
 	Value();
     explicit Value(char_type cType);

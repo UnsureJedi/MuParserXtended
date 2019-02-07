@@ -1177,7 +1177,7 @@ const IValue& ParserXBase::ParseFromString() const
 	{
 		Value *pValue = new Value;
 		pValue->BindToCache(&m_cache);
-		m_vStackBuffer[i].reset(pValue);
+		m_vStackBuffer[i].reset(pValue, Value_Deleter);
 	}
 	Preconnect_Curlies_and_Keywords_RPN();
 	m_pParserEngine = &ParserXBase::ParseFromRPN;
@@ -1345,7 +1345,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 			{
 				ptr_val_type &val = pStack[sidx];
 				if (val->IsVariable())
-					val.reset(m_cache.CreateFromCache());
+					val.reset(m_cache.CreateFromCache(), Value_Deleter);
 
 				*val = *(static_cast<IValue*>(pTok));
 			}
@@ -1448,7 +1448,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 			{
 				if (val->IsVariable())
 				{
-					ptr_val_type buf(m_cache.CreateFromCache());
+					ptr_val_type buf(m_cache.CreateFromCache(), Value_Deleter);
 					pFun->Eval(buf, &val, nArgs);
 					val = buf;
 				}

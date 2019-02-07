@@ -322,6 +322,12 @@ IValue& Value::At(int nRow, int nCol)
 }
 
 //---------------------------------------------------------------------------
+// For use with std::shared_ptr
+void Value_Deleter(Value* val) 
+{
+	val->Release(); 
+};	
+//---------------------------------------------------------------------------
 Value::~Value()
 {
     delete m_psVal;
@@ -399,6 +405,12 @@ void Value::Assign(const Value &ref)
 IValue& Value::Initialize_Array(int Size)
 {
 	Array_Size = Size;
+	/*
+	std::shared_ptr<Value> lol(new Value(), Value_Deleter);	// Continue here
+	std::shared_ptr<IToken> lol2(std::static_pointer_cast<IToken>(lol));
+	lol.~shared_ptr();
+	lol2.~shared_ptr();
+	*/
 	Array_Value = std::shared_ptr<std::shared_ptr<Variable>[]>(new std::shared_ptr<Variable>[Size]);	// Allocating array of values
 	for (int i = 0; i < Size; i++)
 	{
