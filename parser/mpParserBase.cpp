@@ -1303,7 +1303,7 @@ void ParserXBase::Preconnect_Curlies_and_Keywords_RPN() const
 //---------------------------------------------------------------------------
 const IValue& ParserXBase::ParseFromRPN() const
 {
-	ptr_val_type *pStack = &(m_vStackBuffer[0]);	// Redem note for myself: pStack gets filled with IValues here, in ParseFromRPN() when values and variables are encountered
+	//ptr_val_type *pStack = &(m_vStackBuffer[0]);	// Redem note for myself: pStack gets filled with IValues here, in ParseFromRPN() when values and variables are encountered
 	if (m_rpn.GetSize() == 0)
 	{
 		// Passiert bei leeren strings oder solchen, die nur Leerzeichen enthalten
@@ -1339,11 +1339,11 @@ const IValue& ParserXBase::ParseFromRPN() const
 			MUP_VERIFY(sidx < (int)m_vStackBuffer.size());
 			if (pVal->IsVariable())
 			{
-				pStack[sidx] = static_pointer_cast<IValue>(m_rpn.GetData()[i]);
+				m_vStackBuffer[sidx] = static_pointer_cast<IValue>(m_rpn.GetData()[i]);
 			}
 			else
 			{
-				ptr_val_type &val = pStack[sidx];
+				ptr_val_type &val = m_vStackBuffer[sidx];
 				if (val->IsVariable())
 					val.reset(m_cache.CreateFromCache(), Value_Deleter);
 
@@ -1383,8 +1383,8 @@ const IValue& ParserXBase::ParseFromRPN() const
 			sidx -= nArgs - 1;
 			MUP_VERIFY(sidx >= 0);
 
-			ptr_val_type &idx = pStack[sidx];   // Pointer to the first index
-			ptr_val_type &val = pStack[--sidx];   // Pointer to the variable or value beeing indexed
+			ptr_val_type &idx = m_vStackBuffer[sidx];   // Pointer to the first index
+			ptr_val_type &val = m_vStackBuffer[--sidx];   // Pointer to the variable or value beeing indexed
 			pIdxOprt->Eval(val, &idx, nArgs);
 		}
 		continue;
@@ -1443,7 +1443,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 			sidx -= nArgs - 1;
 			MUP_VERIFY(sidx >= 0);
 
-			ptr_val_type &val = pStack[sidx];
+			ptr_val_type &val = m_vStackBuffer[sidx];
 			try
 			{
 				if (val->IsVariable())
@@ -1502,7 +1502,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 
 		case cmIF:
 			MUP_VERIFY(sidx >= 0);
-			if (pStack[sidx--]->GetBool() == false)
+			if (m_vStackBuffer[sidx--]->GetBool() == false)
 				i += static_cast<TokenIfThenElse*>(pTok)->GetOffset();
 			continue;
 
@@ -1519,7 +1519,7 @@ const IValue& ParserXBase::ParseFromRPN() const
 		} // switch token
 	} // for all RPN tokens
 
-	return *pStack[0];
+	return *m_vStackBuffer[0];
 }
 
 //---------------------------------------------------------------------------
