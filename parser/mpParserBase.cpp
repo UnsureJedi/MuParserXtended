@@ -438,7 +438,7 @@ void ParserXBase::DefineVar(const string_type &ident, const Variable &var)
 
 void ParserXBase::SetVar(const string_type &ident, const Variable &var)
 {
-	m_varDef[ident] = var.Clone();
+	*((Variable*)m_varDef[ident].get())->Get_Value() = *((Variable*)var.Clone().get())->Get_Value();
 }
 Value ParserXBase::GetVar(const string_type &ident)
 {
@@ -477,7 +477,7 @@ void ParserXBase::DefineConst(const string_type &ident, const Value &val)
 
 void ParserXBase::SetConst(const string_type &ident, const Value &val)
 {
-	m_valDef[ident] = ptr_tok_type(val.Clone());
+	*((Value*)m_valDef[ident].get())->Get_Value() = *((Value*)val.Clone().get())->Get_Value();
 }
 
 Value ParserXBase::GetConst(const string_type &ident)
