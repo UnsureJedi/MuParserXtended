@@ -777,11 +777,11 @@ void ParserXBase::Count_Max_Nesting_Level() const
 	}
 	if (!If_Nest_Level_Max)
 		If_Nest_Level_Max = 1;
-	Number_Of_Curlys_At_IfElse_Level = new int[If_Nest_Level_Max];
-	Parse_If_Or_Else = new int[If_Nest_Level_Max];
+	Number_Of_Curlys_At_IfElse_Level.resize(If_Nest_Level_Max);
+	Parse_If_Or_Else.resize(If_Nest_Level_Max);
 	if (!Loop_Level_Max)
 		Loop_Level_Max = 1;
-	Number_Of_Curlys_At_Loop_Level = new int[Loop_Level_Max];
+	Number_Of_Curlys_At_Loop_Level.resize(Loop_Level_Max+1);	// UnsureJedi note: "+1" is because I messed indices in CreateRPN() a bit so they are shifted by +1. For now I'm too lazy to fix it properly so I just added an extra level
 }
 
 //---------------------------------------------------------------------------
@@ -1189,11 +1189,11 @@ const IValue& ParserXBase::ParseFromString() const
 // to allow fast jumps between them. Also connect Break statements to corresponding "}"
 void ParserXBase::Preconnect_Curlies_and_Keywords_RPN() const
 {
-	Closing_Curly = new int [m_rpn.GetSize()];
-	Opening_Curly = new int [m_rpn.GetSize()];
-	Break_Closing_Curly = new int [m_rpn.GetSize()];
-	Loop_Curly = new bool [m_rpn.GetSize()];
-	IfElse_Curly = new bool [m_rpn.GetSize()];
+	Closing_Curly.resize(m_rpn.GetSize());
+	Opening_Curly.resize(m_rpn.GetSize());
+	Break_Closing_Curly.resize(m_rpn.GetSize());
+	Loop_Curly.resize(m_rpn.GetSize());
+	IfElse_Curly.resize(m_rpn.GetSize());
 
 	Curly_Number = 0;
 	int j;

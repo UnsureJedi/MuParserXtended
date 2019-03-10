@@ -204,20 +204,20 @@ MUP_NAMESPACE_START
 	mutable bool Parse_If_Condition; ///< to notify the CreateRPN() that parsing of If-condition is in process
 	mutable int Bracket_Number; ///< number of opened brackets inside If-condition to find which closing bracket closes the condtion
 	mutable int If_Nest_Level;	///< Level of nesting for If or Else bodies, used in CreateRPN() and ParseFromRPN to determine, which If or Else body Start/End position to address.
-	mutable int * Number_Of_Curlys_At_IfElse_Level;	///< Used in CreateRPN() to determine when to close If or Else body
-	mutable int * Parse_If_Or_Else;	///< Which body is being parsed at given level. 0 - Neither; 1 - If; 2 - Else
+	mutable std::vector<int> Number_Of_Curlys_At_IfElse_Level;	///< Used in CreateRPN() to determine when to close If or Else body
+	mutable std::vector<int> Parse_If_Or_Else;	///< Which body is being parsed at given level. 0 - Neither; 1 - If; 2 - Else
 
 	mutable int Curly_Number;
 	mutable int Loop_Level;
-	mutable int * Number_Of_Curlys_At_Loop_Level;	///< Used in CreateRPN() to determine when to close Loop body
+	mutable std::vector<int> Number_Of_Curlys_At_Loop_Level;	///< Used in CreateRPN() to determine when to close Loop body
 
 	// Array value at given index represents position of what variable name tells.
 	// Such index-value pair is defined for, for example, opening curly bracket, in which case index is the token position of "{" and value is position of corresponding "}".
-	mutable int * Closing_Curly;	///< To jump from opening curly to closing curly (for example, to skip Else body if If_Condition is true)
-	mutable int * Opening_Curly;	///< To jump from closing curly to opening curly (for example, in a Loop body)
-	mutable int * Break_Closing_Curly;	///< To jump from Break statement over closing curly
-	mutable bool * Loop_Curly;	///< To determine if this curly belongs to a Loop
-	mutable bool * IfElse_Curly;	///< To determine if this curly belongs to If or Else body
+	mutable std::vector<int> Closing_Curly;	///< To jump from opening curly to closing curly (for example, to skip Else body if If_Condition is true)
+	mutable std::vector<int> Opening_Curly;	///< To jump from closing curly to opening curly (for example, in a Loop body)
+	mutable std::vector<int> Break_Closing_Curly;	///< To jump from Break statement over closing curly
+	mutable std::vector<char> Loop_Curly;	///< To determine if this curly belongs to a Loop
+	mutable std::vector<char> IfElse_Curly;	///< To determine if this curly belongs to If or Else body
 	
     /** \brief Index of the final result in the stack array. 
     
