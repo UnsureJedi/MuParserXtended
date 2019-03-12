@@ -1,27 +1,27 @@
 #############################################################################################################
-#                                                                   									    #
-#               __________                                 ____  _________									#
-#    _____  __ _\______   \_____ _______  ______ __________\   \/  /|_	 _| ____  ___   __    ____  __  	#
-#   /     \|  |  \     ___/\__  \\_  __ \/  ___// __ \_  __ \     /   | |  / __ \|/ \\  | \\ / __ \ | \\	#
-#  |  Y Y  \  |  /    |     / __ \|  | \/\___ \\  ___/|  | \/     \   | |  \ ___/||  \| |  H \ ___/ |  H	#
-#  |__|_|  /____/|____|    (____  /__|  /____  >\___  >__| /___/\  \  |_|	\___ ||  || |_//  \___  |_//	#
-#        \/                     \/           \/     \/           \_/		    							#
-#                                                                   									    #
-#  Copyright (C) 2019, Ingo Berg, Oleg Lozitsky                     									    #
-#                                                                   									    #
-#  Web:     http://muparserx.beltoforion.de                         									    #
-#  SVN:     http://muparserx.googlecode.com/svn/trunk               									    #
-#  e-mail:  muparserx@beltoforion.de                                									    #
-#                                                                   									    #
-#  The code contains contributions made by the following people:    									    #
-#           Martin Rotter (https://github.com/martinrotter)         									    #
-#           Josh Blum     (https://github.com/guruofquality)        									    #
-#           Oleg Lozitsky (https://github.com/UnsureJedi)           									    #
-#           and others                                              									    #
-#                                                                   									    #
-#  This software is distributed under the terms of the              									    #
-#  BSD - Clause 2 "Simplified" or "FreeBSD" Licence (BSD-2-Clause)  									    #
-#                                                                   									    #
+#                                                                                                           #
+#               __________                                 ____  _________                                  #
+#    _____  __ _\______   \_____ _______  ______ __________\   \/  /|_	 _| ____  ___   __    ____  __      #
+#   /     \|  |  \     ___/\__  \\_  __ \/  ___// __ \_  __ \     /   | |  / __ \|/ \\  | \\ / __ \ | \\    #
+#  |  Y Y  \  |  /    |     / __ \|  | \/\___ \\  ___/|  | \/     \   | |  \ ___/||  \| |  H \ ___/ |  H    #
+#  |__|_|  /____/|____|    (____  /__|  /____  >\___  >__| /___/\  \  |_|   \___ ||  || |_//  \___  |_//    #
+#        \/                     \/           \/     \/           \_/                                        #
+#                                                                                                           #
+#  Copyright (C) 2019, Ingo Berg, Oleg Lozitsky                                                             #
+#                                                                                                           #
+#  Web:     http://muparserx.beltoforion.de                                                                 #
+#  SVN:     http://muparserx.googlecode.com/svn/trunk                                                       #
+#  e-mail:  muparserx@beltoforion.de                                                                        #
+#                                                                                                           #
+#  The code contains contributions made by the following people:                                            #
+#           Martin Rotter (https://github.com/martinrotter)                                                 #
+#           Josh Blum     (https://github.com/guruofquality)                                                #
+#           Oleg Lozitsky (https://github.com/UnsureJedi)                                                   #
+#           and others                                                                                      #
+#                                                                                                           #
+#  This software is distributed under the terms of the                                                      #
+#  BSD - Clause 2 "Simplified" or "FreeBSD" Licence (BSD-2-Clause)                                          #
+#                                                                                                           #
 #############################################################################################################
 
 
